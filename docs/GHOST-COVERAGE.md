@@ -13,7 +13,7 @@ AtlasAC performs static file inspection. A match identifies a known file or arch
 
 Published sample provenance and exact digests: [ghost-samples-035.json](ghost-samples-035.json). Raw samples are kept outside the repository, not redistributed, and never executed. Five new positive sample files represent **three additional client families**, not five distinct families. The two old DoomsDay files bring this ghost-specific sample set to seven positive files across four named groups. The larger historical general-client corpus is separate.
 
-Linux evidence: [linux-ghost-real-035.json](linux-ghost-real-035.json), 24 checks. Each positive is checked after renaming and nesting; Java positives are also repacked with all metadata removed. Two genuine normal mods (ImmediatelyFast, Sodium) produce no findings. Cold and cached whole-scope runs both publish all seven expected live/final findings. These are static tests of real published files, not tests of injected/self-destructed clients in a running game.
+Linux evidence: [linux-ghost-real-035.json](linux-ghost-real-035.json), 24 checks. Each positive is checked after renaming and nesting; Java positives are also repacked with all metadata removed. Two genuine normal mods (ImmediatelyFast, Sodium) produce no findings. Cold and cached whole-scope runs both publish all seven expected live/final findings. Windows CI evidence: [windows-ghost-real-035.json](windows-ghost-real-035.json), 18 checks covering the five new positives, two genuine normal mods, repacking and cold/cached live results. These are static tests of real published files, not tests of injected/self-destructed clients in a running game.
 
 Reproduce against the exact sample files named in the manifest:
 
