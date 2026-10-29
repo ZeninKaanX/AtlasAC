@@ -95,6 +95,7 @@ def inspect_archive(stream, label, rules, findings, issues, depth=0, budget=None
                 raise ValueError('Arşiv üye sayısı sınırı')
             ids = set()
             classes = sorted({x.filename for x in entries if x.filename.endswith('.class')})
+            signature_sizes = {s['size'] for rule in rules['rules'] for s in rule.get('file_signatures', [])}
             detect_chat=any(r['id']=='chat-console-backdoor' for r in rules['rules'])
             for info in entries:
                 checkpoint()
@@ -144,7 +145,7 @@ def inspect_archive(stream, label, rules, findings, issues, depth=0, budget=None
                     })
             for info in entries:
                 checkpoint()
-                if any(s['size'] == info.file_size for rule in rules['rules'] for s in rule.get('file_signatures', [])):
+                if info.file_size in signature_sizes:
                     content = read_member(z, info, MAX_FILE)
                     findings.extend(match_file_signatures(rules, hashlib.sha256(content).hexdigest(), len(content), label+'!/'+info.filename))
                 if info.filename.endswith('.class') and detect_chat:
