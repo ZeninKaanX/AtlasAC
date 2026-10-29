@@ -1,4 +1,4 @@
-# AtlasAC 0.3.4
+# AtlasAC 0.3.5
 
 [Windows EXE indir](https://github.com/ZeninKaanX/AtlasAC/releases/latest/download/AtlasAC.exe) · [Linux x64 indir](https://github.com/ZeninKaanX/AtlasAC/releases/latest/download/AtlasAC-Linux-x64) · [Tüm sürümler](https://github.com/ZeninKaanX/AtlasAC/releases)
 
@@ -88,7 +88,7 @@ python3 -m PyInstaller --noconfirm --clean --onedir --windowed --name AtlasAC --
 
 Tek dosyalık sürüm için aynı veri seçenekleriyle `--onedir` yerine `--onefile --noupx` kullan. Ayrı çıktı için `--distpath dist/Standalone --workpath build/Standalone` eklenebilir. `--specpath` değiştirilecekse varlık kaynak yolları da buna uygun verilmelidir.
 
-Windows paketini Windows’ta üret. Windows CMD’de testten önce `set QT_QPA_PLATFORM=offscreen` kullan; normal uygulama açılmadan önce bu değişkeni kaldır. GitHub Actions tanımı iki platformu kapsar, uzak CI bu çalışma sırasında tetiklenmedi.
+Windows paketini Windows’ta üret. Windows CMD’de testten önce `set QT_QPA_PLATFORM=offscreen` kullan; normal uygulama açılmadan önce bu değişkeni kaldır. GitHub Actions iki platformda test ve paket üretimini çalıştırır.
 
 [Ölçüm ve test ayrıntıları](docs/VALIDATION.md) · [Ocean araştırması](docs/RESEARCH.md) · [Varlık kaynakları ve hashleri](docs/BRAND-ASSETS.json)
 
@@ -105,3 +105,7 @@ Hız: sınıf namespace eşleşmeleri bütün sınıfları her kural için tekra
 Kaynaklar: [Microsoft PSReadLine](https://learn.microsoft.com/en-us/powershell/module/psreadline/about/about_psreadline), [PowerShell kayıtları](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_logging_windows), [4688](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4688), [1102](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-1102), [wevtutil](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/wevtutil), [Doskey](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/doskey).
 
 Ghost istemci kapsamı: DoomsDay için resmi sitenin normal ve rastgele boyutlu iki gerçek loader dosyasında doğrulanan iki arşiv içi sınıfın SHA-256 değeri birlikte aranır. Dosya adı, yalnız `dd` mod kimliği veya genel `net/java/` paketi tespit sayılmaz. Doğrulanan dosyalar farklı dış hash taşır; ikisi de Linux ve Windows'ta yakalandı (`docs/doomsday-real-034.json`). Yeni sürüm/başka obfuscation, silinmiş dosya veya yalnız bellekte kalan enjeksiyon için genel garanti yoktur. Bu dosya tabanlı kural, çalışan oyun belleği tarayıcısı değildir. DoomsDay ile tüm ghost istemcileri eşdeğer kapsandığı iddia edilmez. Gömülü resmi DoomsDay ikonu eklendi; toplam 18 ikon.
+
+0.3.5 ghost genişletmesi: **Argon**, **Marlow** ve **MBTH Ghost Client** eklendi. Argon'un iki gerçek yayını kendini ImmediatelyFast olarak tanıtır; bu normal mod kimliği asla hile kuralı yapılmaz. Argon/Marlow için her biri üç özgül sınıfın birlikte bulunması gerekir. Argon'un yanıltıcı performans modu ikonu gösterilmez; Atlas logosu kullanılır. MBTH v0.1.0 DLL için tam SHA-256 ve boyut eşleşmesi gerekir; adı değiştirilse veya ZIP/JAR içine konulsa da mevcut arşiv sınırları içinde kontrol edilir. Diğer boyuttaki ikililere yeni tam dosya hash yükü eklenmez. Hash kuralı değiştirilmiş MBTH sürümlerini kapsamaz.
+
+[Ghost istemci kapsamı ve gerçek testler](docs/GHOST-COVERAGE.md): yeni beş gerçek pozitif dosya, iki normal mod ve önceki iki DoomsDay örneği; yeniden adlandırma, metadata kaldırma, iç paket ve canlı/önbellek kontrolleri. **Vape, Whiteout, Entropy, Dream, Drip, Slinky, Raven ve bütün ghost client'lar için doğrulanmış kapsam iddia edilmez.** Yeni çalıştırılabilir örnekler kaynak/paket içine eklenmez, hiçbir hile çalıştırılmaz.

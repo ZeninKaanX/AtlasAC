@@ -8,7 +8,7 @@ import stat
 import time
 import zipfile
 from .findingicons import embedded_icon
-from .engine import inspect_archive, MAX_FILE, MAX_ARCHIVE_SECONDS
+from .engine import inspect_archive, match_file_signatures, MAX_FILE, MAX_ARCHIVE_SECONDS
 
 
 @lru_cache(maxsize=1)
@@ -59,13 +59,15 @@ def probe(path, rules, cancel, cached=None, content_cache=None):
                 return result
             record={'path':str(path),'size':before.st_size,'modified_ns':before.st_mtime_ns,'format':kind or 'binary','sha256':None}
             result['file']=record
-            if archive or rules['hashes']:
+            signature_size = any(s['size'] == before.st_size for rule in rules['rules'] for s in rule.get('file_signatures', []))
+            if archive or rules['hashes'] or signature_size:
                 if before.st_size>MAX_FILE:raise ValueError('İçerik inceleme boyutu sınırı (256 MiB)')
                 f.seek(0);digest=hashlib.sha256()
                 while block:=f.read(1024*1024):
                     if cancel.is_set():raise InterruptedError('Tarama durduruldu')
                     digest.update(block);result['bytes_read']+=len(block)
                 sha=digest.hexdigest();record['sha256']=sha
+                result['findings'].extend(match_file_signatures(rules, sha, before.st_size, str(path)))
                 if sha in rules['hashes']:
                     result['findings'].append({'rule':'sha256','name':rules['hashes'][sha],'category':'custom','method':'sha256','path':str(path),'evidence':[sha],'note':'Yerel hash kuralıyla eşleşme; aktif kullanım kanıtı değildir.'})
             if archive:
@@ -73,6 +75,8 @@ def probe(path, rules, cancel, cached=None, content_cache=None):
                     f.seek(0);content={'path':str(path),'findings':[],'issues':[]}
                     inspect_archive(f,str(path),rules,content['findings'],content['issues'],budget={'members':0,'bytes':0,'deadline':time.monotonic()+MAX_ARCHIVE_SECONDS,'cancel':cancel})
                     for finding in content['findings']:
+                        rule=next((r for r in rules['rules'] if r['id']==finding['rule']),{})
+                        if rule.get('embedded_icon') is False:continue
                         icon=embedded_icon(f,finding['path'])
                         if icon:finding['icon_png_base64']=icon
                     if stamp and stamp!=fingerprint(os.fstat(f.fileno()),f.fileno()):

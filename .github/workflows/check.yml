@@ -13,8 +13,21 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
+      - name: Install Qt system libraries
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libegl1 libopengl0 libxkbcommon0
       - run: python -m pip install -r requirements-build.txt
       - run: python -m unittest discover -s tests -v
+      - name: Validate real pinned ghost samples without execution
+        shell: python
+        run: |
+          import os, pathlib, subprocess, sys
+          base = pathlib.Path(os.environ['RUNNER_TEMP']) / 'atlasac-ghost-validation'
+          subprocess.run([sys.executable, 'tools/validate_ghost_samples.py', '--expansion-only', '--download', '--samples-dir', str(base), '--output', 'ghost-validation.json'], check=True)
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ghost-validation-${{ matrix.os }}
+          path: ghost-validation.json
       - run: python -m PyInstaller --noconfirm --clean --onedir --windowed --name AtlasAC --icon atlasac/web/assets/atlasac.ico --add-data "atlasac/web/assets:atlasac/web/assets" --add-data "rules:rules" --add-data "corpus/results:corpus/results" run.py
       - run: python -m PyInstaller --noconfirm --onefile --windowed --noupx --name AtlasAC --distpath dist/Standalone --workpath build/Standalone --icon atlasac/web/assets/atlasac.ico --add-data "atlasac/web/assets:atlasac/web/assets" --add-data "rules:rules" --add-data "corpus/results:corpus/results" run.py
       - uses: actions/upload-artifact@v4

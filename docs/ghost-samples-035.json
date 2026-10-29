@@ -1,0 +1,93 @@
+{
+  "note": "Static read-only samples. Raw executables are not distributed. Hashes pin the tested builds, not every version.",
+  "samples": [
+    {
+      "id": "argon-bugfix",
+      "url": "https://github.com/LvStrnggg/argon/releases/download/Bugfix/Argon.jar",
+      "size": 342722,
+      "sha256": "0ba5c89b4873e2a24a31d316a090cc98353ee1d04881695cafee18d0bb3390fd",
+      "file": "argon-bugfix.sample",
+      "expected": [
+        "argon"
+      ]
+    },
+    {
+      "id": "argon-jar",
+      "url": "https://github.com/LvStrnggg/argon/releases/download/JAR/Argon.jar",
+      "size": 341947,
+      "sha256": "c105ca836cd8e7b9c1097afc3a0fbcef7c2d0e300a499c6a84e67bab3bd1e239",
+      "file": "argon-jar.sample",
+      "expected": [
+        "argon"
+      ]
+    },
+    {
+      "id": "marlow-v5",
+      "url": "https://github.com/nxghtCry0/marlowwwclient/releases/download/v5/marlowwwclient-v5.jar",
+      "size": 8472282,
+      "sha256": "5572f87e53b9d666ae50a9903880c0e7099a9965ad3e1e90814e900881e290d7",
+      "file": "marlow-v5.sample",
+      "expected": [
+        "marlow"
+      ]
+    },
+    {
+      "id": "marlow-v4",
+      "url": "https://github.com/nxghtCry0/marlowwwclient/releases/download/v4/marlowwwclient-v4.jar",
+      "size": 2376620,
+      "sha256": "1ac78e51ad1e6c4c33749b55d792e819d36cf1573046bd2b77dbcf5e1d62ccba",
+      "file": "marlow-v4.sample",
+      "expected": [
+        "marlow"
+      ]
+    },
+    {
+      "id": "mbth-v010",
+      "url": "https://github.com/mbth-studios/MBTH-GHOST-CLIENT/releases/download/v0.1.0/mbth-client.dll",
+      "size": 1664000,
+      "sha256": "b9f1ba5afcada80d82180d3c89247dcacf60c6746b16087efcd71e13f92c9f30",
+      "file": "mbth-v010.sample",
+      "expected": [
+        "mbth"
+      ]
+    },
+    {
+      "id": "immediatelyfast",
+      "version": "1.6.15+1.21.1-fabric",
+      "url": "https://cdn.modrinth.com/data/5ZwdcRci/versions/aLnBqxFW/ImmediatelyFast-Fabric-1.6.15%2B1.21.1.jar",
+      "size": 342235,
+      "sha256": "9c391f0864caf9083cac98e44b1ab6235e45fbf340efda5ba75e0a21929d05d5",
+      "expected": [],
+      "file": "immediatelyfast.sample"
+    },
+    {
+      "id": "sodium",
+      "version": "mc1.21.1-0.6.13-fabric",
+      "url": "https://cdn.modrinth.com/data/AANobbMI/versions/u1OEbNKx/sodium-fabric-0.6.13%2Bmc1.21.1.jar",
+      "size": 1297761,
+      "sha256": "e04599514d88e41765f710eeba59e3814909833396bc11b977f48fc2e7e50353",
+      "expected": [],
+      "file": "sodium.sample"
+    },
+    {
+      "id": "doomsday-normal",
+      "file": "doomsday-normal.sample",
+      "url": "https://doomsdayclient.com/download/DoomsDay.jar",
+      "size": 3114249,
+      "sha256": "bdcb9bd162125d9831878e8494046dfc9411a7625e4ca1772ba91b0f87aaae09",
+      "expected": [
+        "doomsday"
+      ]
+    },
+    {
+      "id": "doomsday-random",
+      "file": "doomsday-random.sample",
+      "url": "https://doomsdayclient.com/loader_random/atlas-verification.jar",
+      "size": 2561038,
+      "sha256": "e33fe65b514b8a758d1f543269958380ebc700c72bab1f70ca66fc8efde81d31",
+      "expected": [
+        "doomsday"
+      ]
+    }
+  ]
+}

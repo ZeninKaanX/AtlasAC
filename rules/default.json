@@ -1,5 +1,5 @@
 {
-  "version": "2026.10.29.5-ghost1",
+  "version": "2026.10.30.1-ghost2",
   "rules": [
     {
       "id": "meteor",
@@ -272,6 +272,47 @@
         "net/java/f.class": "ebfed1fb855dd28b0425b6641cbf0b526c342f0e59bc77ae611f77b541ac9349",
         "net/java/n.class": "e5611d9ded8152ae4329e104f588178ac46105cfb182b31197f8acc4a95fd3e8"
       }
+    },
+    {
+      "id": "argon",
+      "name": "Argon Client",
+      "category": "ghost-client",
+      "source": "https://github.com/LvStrnggg/argon/releases",
+      "mod_ids": [],
+      "class_prefixes": [],
+      "required_classes": [
+        "dev/lvstrng/argon/Argon.class",
+        "dev/lvstrng/argon/module/modules/combat/AimAssist.class",
+        "dev/lvstrng/argon/module/modules/combat/TriggerBot.class"
+      ],
+      "embedded_icon": false
+    },
+    {
+      "id": "marlow",
+      "name": "Marlow Client",
+      "category": "ghost-client",
+      "source": "https://github.com/nxghtCry0/marlowwwclient/releases",
+      "mod_ids": [],
+      "class_prefixes": [],
+      "required_classes": [
+        "com/eclipseware/imnotcheatingyouare/client/ImnotcheatingyouareClient.class",
+        "com/eclipseware/imnotcheatingyouare/client/module/impl/AimAssist.class",
+        "com/eclipseware/imnotcheatingyouare/client/module/impl/Triggerbot.class"
+      ]
+    },
+    {
+      "id": "mbth",
+      "name": "MBTH Ghost Client — v0.1.0 DLL",
+      "category": "ghost-client",
+      "source": "https://github.com/mbth-studios/MBTH-GHOST-CLIENT/releases/tag/v0.1.0",
+      "mod_ids": [],
+      "class_prefixes": [],
+      "file_signatures": [
+        {
+          "size": 1664000,
+          "sha256": "b9f1ba5afcada80d82180d3c89247dcacf60c6746b16087efcd71e13f92c9f30"
+        }
+      ]
     }
   ],
   "hashes": {}

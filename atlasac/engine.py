@@ -45,6 +45,15 @@ def load_rules(path):
         if 'required_classes' in rule and (len(set(rule['required_classes'])) < 2 or any(not x.endswith('.class') for x in rule['required_classes'])):
             raise ValueError('Sınıf imzası en az iki farklı .class gerektirir.')
     for rule in data['rules']:
+        signatures = rule.get('file_signatures', [])
+        if not isinstance(signatures, list) or any(
+            not isinstance(s, dict) or type(s.get('size')) is not int or not 0 < s['size'] <= MAX_FILE
+            or not isinstance(s.get('sha256'), str) or len(s['sha256']) != 64
+            or any(c not in '0123456789abcdef' for c in s['sha256']) for s in signatures
+        ):
+            raise ValueError('Dosya boyutu / SHA-256 imzası geçersiz.')
+        if 'embedded_icon' in rule and type(rule['embedded_icon']) is not bool:
+            raise ValueError('Gömülü ikon seçimi geçersiz.')
         members=rule.get('required_member_sha256',{})
         if not isinstance(members,dict) or (members and len(members)<2):raise ValueError('En az iki arşiv üyesi SHA-256 imzası gerekli.')
         if any(not isinstance(name,str) or not name.endswith('.class') or not isinstance(sha,str) or len(sha)!=64 or any(c not in '0123456789abcdef' for c in sha) for name,sha in members.items()):raise ValueError('Arşiv üyesi SHA-256 imzası geçersiz.')
@@ -52,6 +61,18 @@ def load_rules(path):
         if len(digest) != 64 or any(c not in '0123456789abcdef' for c in digest) or not isinstance(label, str):
             raise ValueError('SHA-256 kuralı geçersiz.')
     return data
+
+
+def match_file_signatures(rules, digest, size, label):
+    """Exact published file identity; filenames and printable brand strings never trigger."""
+    return [{
+        'rule': rule['id'], 'name': rule['name'], 'category': rule['category'],
+        'severity': 'high', 'path': label, 'method': 'file-sha256',
+        'evidence': [digest, f'size:{size}'], 'source': rule['source'],
+        'note': 'Doğrulanan dosyanın tam SHA-256 ve boyut eşleşmesi. Çalıştırıldığını veya oyuna enjekte edildiğini kanıtlamaz.'
+    } for rule in rules['rules'] if any(
+        s['size'] == size and s['sha256'] == digest for s in rule.get('file_signatures', [])
+    )]
 
 
 def inspect_archive(stream, label, rules, findings, issues, depth=0, budget=None):
@@ -123,6 +144,9 @@ def inspect_archive(stream, label, rules, findings, issues, depth=0, budget=None
                     })
             for info in entries:
                 checkpoint()
+                if any(s['size'] == info.file_size for rule in rules['rules'] for s in rule.get('file_signatures', [])):
+                    content = read_member(z, info, MAX_FILE)
+                    findings.extend(match_file_signatures(rules, hashlib.sha256(content).hexdigest(), len(content), label+'!/'+info.filename))
                 if info.filename.endswith('.class') and detect_chat:
                     content = b''
                     try:
@@ -231,6 +255,7 @@ def scan(root: Path, rules: dict, cancel: threading.Event | None = None, progres
                     record = {'path': label, 'sha256': sha, 'size': size, 'format': kind,
                               'modified_at': datetime.fromtimestamp(after.st_mtime, timezone.utc).isoformat()}
                     result['files'].append(record)
+                    result['findings'].extend(match_file_signatures(rules, sha, size, label))
                     if sha in rules['hashes']:
                         result['findings'].append({'rule': 'sha256', 'name': rules['hashes'][sha], 'category': 'custom',
                             'severity': 'high', 'path': label, 'method': 'sha256', 'evidence': [sha], 'source': 'local-rule',

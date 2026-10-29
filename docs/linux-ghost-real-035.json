@@ -1,0 +1,369 @@
+{
+  "at": "2026-10-29T21:32:56.358603+00:00",
+  "platform": "linux",
+  "rule_version": "2026.10.30.1-ghost2",
+  "sample_execution": false,
+  "tests": [
+    {
+      "sample": "argon-bugfix",
+      "variant": "renamed",
+      "sha256": "0ba5c89b4873e2a24a31d316a090cc98353ee1d04881695cafee18d0bb3390fd",
+      "expected": [
+        "argon"
+      ],
+      "actual": [
+        "argon"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "argon-bugfix",
+      "variant": "metadata-removed",
+      "sha256": "0ba5c89b4873e2a24a31d316a090cc98353ee1d04881695cafee18d0bb3390fd",
+      "expected": [
+        "argon"
+      ],
+      "actual": [
+        "argon"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "argon-bugfix",
+      "variant": "nested",
+      "sha256": "0ba5c89b4873e2a24a31d316a090cc98353ee1d04881695cafee18d0bb3390fd",
+      "expected": [
+        "argon"
+      ],
+      "actual": [
+        "argon"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "argon-jar",
+      "variant": "renamed",
+      "sha256": "c105ca836cd8e7b9c1097afc3a0fbcef7c2d0e300a499c6a84e67bab3bd1e239",
+      "expected": [
+        "argon"
+      ],
+      "actual": [
+        "argon"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "argon-jar",
+      "variant": "metadata-removed",
+      "sha256": "c105ca836cd8e7b9c1097afc3a0fbcef7c2d0e300a499c6a84e67bab3bd1e239",
+      "expected": [
+        "argon"
+      ],
+      "actual": [
+        "argon"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "argon-jar",
+      "variant": "nested",
+      "sha256": "c105ca836cd8e7b9c1097afc3a0fbcef7c2d0e300a499c6a84e67bab3bd1e239",
+      "expected": [
+        "argon"
+      ],
+      "actual": [
+        "argon"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "marlow-v5",
+      "variant": "renamed",
+      "sha256": "5572f87e53b9d666ae50a9903880c0e7099a9965ad3e1e90814e900881e290d7",
+      "expected": [
+        "marlow"
+      ],
+      "actual": [
+        "marlow"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "marlow-v5",
+      "variant": "metadata-removed",
+      "sha256": "5572f87e53b9d666ae50a9903880c0e7099a9965ad3e1e90814e900881e290d7",
+      "expected": [
+        "marlow"
+      ],
+      "actual": [
+        "marlow"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "marlow-v5",
+      "variant": "nested",
+      "sha256": "5572f87e53b9d666ae50a9903880c0e7099a9965ad3e1e90814e900881e290d7",
+      "expected": [
+        "marlow"
+      ],
+      "actual": [
+        "marlow"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "marlow-v4",
+      "variant": "renamed",
+      "sha256": "1ac78e51ad1e6c4c33749b55d792e819d36cf1573046bd2b77dbcf5e1d62ccba",
+      "expected": [
+        "marlow"
+      ],
+      "actual": [
+        "marlow"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "marlow-v4",
+      "variant": "metadata-removed",
+      "sha256": "1ac78e51ad1e6c4c33749b55d792e819d36cf1573046bd2b77dbcf5e1d62ccba",
+      "expected": [
+        "marlow"
+      ],
+      "actual": [
+        "marlow"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "marlow-v4",
+      "variant": "nested",
+      "sha256": "1ac78e51ad1e6c4c33749b55d792e819d36cf1573046bd2b77dbcf5e1d62ccba",
+      "expected": [
+        "marlow"
+      ],
+      "actual": [
+        "marlow"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "mbth-v010",
+      "variant": "renamed",
+      "sha256": "b9f1ba5afcada80d82180d3c89247dcacf60c6746b16087efcd71e13f92c9f30",
+      "expected": [
+        "mbth"
+      ],
+      "actual": [
+        "mbth"
+      ],
+      "methods": [
+        "file-sha256"
+      ],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "mbth-v010",
+      "variant": "nested",
+      "sha256": "b9f1ba5afcada80d82180d3c89247dcacf60c6746b16087efcd71e13f92c9f30",
+      "expected": [
+        "mbth"
+      ],
+      "actual": [
+        "mbth"
+      ],
+      "methods": [
+        "file-sha256"
+      ],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "immediatelyfast",
+      "variant": "renamed",
+      "sha256": "9c391f0864caf9083cac98e44b1ab6235e45fbf340efda5ba75e0a21929d05d5",
+      "expected": [],
+      "actual": [],
+      "methods": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "sodium",
+      "variant": "renamed",
+      "sha256": "e04599514d88e41765f710eeba59e3814909833396bc11b977f48fc2e7e50353",
+      "expected": [],
+      "actual": [],
+      "methods": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "doomsday-normal",
+      "variant": "renamed",
+      "sha256": "bdcb9bd162125d9831878e8494046dfc9411a7625e4ca1772ba91b0f87aaae09",
+      "expected": [
+        "doomsday"
+      ],
+      "actual": [
+        "doomsday"
+      ],
+      "methods": [
+        "member-sha256"
+      ],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "doomsday-normal",
+      "variant": "metadata-removed",
+      "sha256": "bdcb9bd162125d9831878e8494046dfc9411a7625e4ca1772ba91b0f87aaae09",
+      "expected": [
+        "doomsday"
+      ],
+      "actual": [
+        "doomsday"
+      ],
+      "methods": [
+        "member-sha256"
+      ],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "doomsday-normal",
+      "variant": "nested",
+      "sha256": "bdcb9bd162125d9831878e8494046dfc9411a7625e4ca1772ba91b0f87aaae09",
+      "expected": [
+        "doomsday"
+      ],
+      "actual": [
+        "doomsday"
+      ],
+      "methods": [
+        "member-sha256"
+      ],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "doomsday-random",
+      "variant": "renamed",
+      "sha256": "e33fe65b514b8a758d1f543269958380ebc700c72bab1f70ca66fc8efde81d31",
+      "expected": [
+        "doomsday"
+      ],
+      "actual": [
+        "doomsday"
+      ],
+      "methods": [
+        "member-sha256"
+      ],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "doomsday-random",
+      "variant": "metadata-removed",
+      "sha256": "e33fe65b514b8a758d1f543269958380ebc700c72bab1f70ca66fc8efde81d31",
+      "expected": [
+        "doomsday"
+      ],
+      "actual": [
+        "doomsday"
+      ],
+      "methods": [
+        "member-sha256"
+      ],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "doomsday-random",
+      "variant": "nested",
+      "sha256": "e33fe65b514b8a758d1f543269958380ebc700c72bab1f70ca66fc8efde81d31",
+      "expected": [
+        "doomsday"
+      ],
+      "actual": [
+        "doomsday"
+      ],
+      "methods": [
+        "member-sha256"
+      ],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "variant": "cold-system",
+      "expected_matches": 7,
+      "matches": 7,
+      "live_matches": 7,
+      "cache_hits": 0,
+      "files": 9,
+      "status": "completed",
+      "passed": true
+    },
+    {
+      "variant": "cached-system",
+      "expected_matches": 7,
+      "matches": 7,
+      "live_matches": 7,
+      "cache_hits": 9,
+      "files": 9,
+      "status": "completed",
+      "passed": true
+    }
+  ],
+  "all_passed": true
+}
