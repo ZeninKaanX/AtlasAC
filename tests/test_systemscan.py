@@ -1,6 +1,8 @@
 """Coverage, cache integrity, live SQLite snapshots and binary record parsing."""
 import json,os,sqlite3,struct,tempfile,threading,unittest,zipfile
 from pathlib import Path
+from unittest.mock import patch
+from atlasac.cpubudget import ScanControl
 from atlasac.engine import load_rules
 from atlasac.paths import RULES
 from atlasac.systemscan import system_scan
@@ -9,6 +11,12 @@ from atlasac.collectors import snapshot_database
 from atlasac.winrecords import parse_usn,decode_prefetch
 
 class SystemTests(unittest.TestCase):
+    def setUp(self):
+        # These tests check scope/cache integrity over 600 files, not CPU pacing.
+        # Keep their runtime independent of the CI runner's reported core count.
+        # The actual low-CPU pacing and cancellation test is test_cpubudget.py.
+        pacing=patch('atlasac.systemscan.ScanControl',side_effect=lambda event:ScanControl(event,cores=1.0))
+        pacing.start();self.addCleanup(pacing.stop)
     def test_full_scope_cache_and_changed_content_with_restored_mtime(self):
         with tempfile.TemporaryDirectory() as tmp:
             base=Path(tmp);root=base/'disk';root.mkdir();cache=base/'state'
