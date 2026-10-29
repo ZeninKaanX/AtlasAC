@@ -1,0 +1,94 @@
+{
+  "bleachhack": {
+    "sample_sha256": "23818fcd661f3f5ab218cb30ba45a81d8dedc28f6bb18c723a83cac9ee233223",
+    "icon_sha256": "e7681741df50ccd1fa3c35e7e4d1db63d7122f3356f2d79f86c09180b3369ec0",
+    "source": "https://github.com/BleachDev/BleachHack/releases/download/0.15.3/BleachHack-21w15a.jar",
+    "operation": "Embedded PNG read statically from this release; software never executed"
+  },
+  "aoba": {
+    "sample_sha256": "4865675435b6435fc9a6b59becaee7ac4caf0a5daff4b3376e300b31fe078e54",
+    "icon_sha256": "02b04a6b5253321803311482ea949a07a2d069e82d0769a8f416aa854325d28c",
+    "source": "https://github.com/Cocolots/Aoba-Client/releases/download/build-26.3-10102026/Aoba-26.3-10102026.jar",
+    "operation": "Embedded PNG read statically from this release; software never executed"
+  },
+  "lambda": {
+    "sample_sha256": "57f61ebecbb34a88f9bed18f4436cb11a96c99aa36c18e5add04b4399cb7328a",
+    "icon_sha256": "84851ef2a4f31934754fc68ae03e8946ae6d73ee52368caa5c3b3a57f6962192",
+    "source": "https://github.com/lambda-client/lambda/releases/download/0.1.0%2B1.21.11/lambda-0.1.0%2B1.21.11.jar",
+    "operation": "Embedded PNG read statically from this release; software never executed"
+  },
+  "ares": {
+    "sample_sha256": "6980d588a50d8f1a0f6ebef6b766df59bb8dfdaf07febe756ea442948e1630c6",
+    "icon_sha256": "cfbab42ca22890b9c9f50ef67ca60fb527de9dfa4e9212f5f41f5b73637e78b3",
+    "source": "https://aresclient.org/downloads/stable/Ares-2.9-1.16.5.jar",
+    "operation": "Embedded PNG read statically from this release; software never executed"
+  },
+  "meteor-rejects": {
+    "sample_sha256": "f0b309289769e67933ad04b7f7197c0a266d3c8dfb641f344a4abb4dad96beeb",
+    "icon_sha256": "3670333f0d7a760f24aa91e6251031f2deec7e4e4af865757953aaea2df03f23",
+    "source": "https://github.com/AntiCope/meteor-rejects/releases/download/latest-1.20.6/meteor-rejects-addon-0.3.jar",
+    "operation": "Embedded PNG read statically from this release; software never executed"
+  },
+  "thunderhack": {
+    "sample_sha256": "524f875334eb62fbc0e52526bc98ebf9ea1fd4cc0e489b502163b5d964e30f79",
+    "icon_sha256": "c5e2916f2837dca409a162b7e04213f9e14057db1fad31df1d99881ae948d1e8",
+    "source": "https://github.com/Pan4ur/ThunderHack-Recode/releases/download/1.20.4/thunderhack-1.4.jar",
+    "operation": "Embedded PNG read statically from this release; software never executed"
+  },
+  "liveoverflowmod": {
+    "sample_sha256": "b298bf1c89a79bfd9baaf7ea19eb6ac9c5fea9c3789309543abd8a1d8439d3ce",
+    "icon_sha256": "070375f1021769f6d3d962e90ccb0beefd4ad23f228d0a244527c2a16a2fd054",
+    "source": "https://github.com/JorianWoltjer/LiveOverflowMod/releases/download/1.19.2-1.0.2/liveoverflowmod-1.0.jar",
+    "operation": "Embedded PNG read statically from this release; software never executed"
+  },
+  "kami": {
+    "sample_sha256": "3be09f85b8056388d91f0499e754755be47a652cba72f277a16f2c37c4654f6e",
+    "icon_sha256": "aee4ba8450d90d72dcd8928f3b19cb7c9bbab96068ac4804a85c445472448ef6",
+    "source": "https://github.com/zeroeightysix/KAMI/releases/download/1.16.2-aug/kami-1.16.2-aug.jar",
+    "operation": "Embedded PNG read statically from this release; software never executed"
+  },
+  "cigarette": {
+    "sample_sha256": "4f04a325ab8ec4a6fb23522bd04ad0eef8c8ae25a10cb16752abe57c243c958e",
+    "icon_sha256": "ec7028073d8d3d5e364df7ea45e442b6eedf76e6d1a85ea2ffe2a36f27f83802",
+    "source": "https://github.com/cigaretteclient/cigarette/releases/download/v0.0.3-alpha/cigarette-v0.0.3-alpha.jar",
+    "operation": "Embedded PNG read statically from this release; software never executed"
+  },
+  "meteor": {
+    "source": "https://raw.githubusercontent.com/MeteorDevelopment/meteor-client/master/src/main/resources/assets/meteor-client/icon.png",
+    "icon_sha256": "f3a000dcf4bd58e9b2f331f8440c2e01e3ce97932a550fc03d9b1d5032ca4a76"
+  },
+  "wurst": {
+    "source": "https://raw.githubusercontent.com/Wurst-Imperium/Wurst7/master/src/main/resources/assets/wurst/icon.png",
+    "icon_sha256": "8a0a22a066ee739c4d1f49feb6ae73fe894d7a48551bbe1d6a42b0c095d6c184"
+  },
+  "liquidbounce": {
+    "source": "https://raw.githubusercontent.com/CCBlueX/LiquidBounce/nextgen/src/main/resources/resources/liquidbounce/icon_64x64.png",
+    "icon_sha256": "1cb4280fde304272c1ea4c67c25c8fe786ba14866902936bfdc321bcff080661"
+  },
+  "fdpclient": {
+    "source": "https://raw.githubusercontent.com/SkidderMC/FDPClient/07d03078b3fe12ac7278c678f56d0e7f607fbec2/src/main/resources/assets/minecraft/fdpclient/texture/mainmenu/logo.png",
+    "icon_sha256": "fb225b5365849b6cadbe9c9df945a6f8146e011ba11d450c1bdb6132c7689f11"
+  },
+  "forgehax": {
+    "source": "https://raw.githubusercontent.com/fr1kin/ForgeHax/7c954394b1e9a341526e34d7884222ceaa508640/logo.png",
+    "icon_sha256": "48490a22e872a7089d431f94fdd2d6e3bbf4fffcee90f9902d5053081f936de6"
+  },
+  "seppuku": {
+    "source": "https://raw.githubusercontent.com/seppukudevelopment/seppuku/7956c5d6f74fac43e04e3f6466c4e7d236096e78/src/main/resources/assets/seppukumod/textures/seppuku-logo.png",
+    "icon_sha256": "514e1f34044ab26a44f850514df01dcf2af34f230751ed601b38600300b45013"
+  },
+  "crosssine": {
+    "source": "https://raw.githubusercontent.com/shxp3/CrossSine/fe498129e7221b39c812dda95ee98218da2c23ee/src/main/resources/assets/minecraft/crosssine/misc/logo.png",
+    "icon_sha256": "6c51d4ef0405f5b7ca5d7ee505ce6160783588926dcdff8099169f7e2b10165b"
+  },
+  "krs": {
+    "source": "https://raw.githubusercontent.com/Aspw-w/Krs/6429d6d6e11a86fa4465af0794ead778cfe8e928/src/client/resources/assets/krs/icon.png",
+    "icon_sha256": "4b68bb299242a716e4156c25bebab424cc09640fe55c1b8d6c82061a095f3a1e"
+  },
+  "doomsday": {
+    "sample_sha256": "bdcb9bd162125d9831878e8494046dfc9411a7625e4ca1772ba91b0f87aaae09",
+    "icon_sha256": "86588927143380ce0cadba4da72e38dc1d6ac2d1402eadf43ad0f8d9d2b2a0e7",
+    "source": "https://doomsdayclient.com/download/DoomsDay.jar",
+    "operation": "Embedded l.png read statically from official loader; software never executed"
+  }
+}

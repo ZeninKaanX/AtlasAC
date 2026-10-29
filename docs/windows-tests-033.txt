@@ -1,0 +1,64 @@
+test_changed_file_cannot_publish_a_digest_cache_entry (test_contentcache.ContentCacheTests.test_changed_file_cannot_publish_a_digest_cache_entry) ... ok
+test_hash_verified_copies_preserve_all_paths_and_read_archive_once (test_contentcache.ContentCacheTests.test_hash_verified_copies_preserve_all_paths_and_read_archive_once) ... ok
+test_readers_share_budget_and_cancel_interrupts_wait (test_cpubudget.CPUBudgetTests.test_readers_share_budget_and_cancel_interrupts_wait) ... ok
+test_animation_cache_and_minimize_preserve_result (test_desktop.DesktopTests.test_animation_cache_and_minimize_preserve_result) ... QFontDatabase: Cannot find font directory C:/Users/Oyuncu/Desktop/AtlasAC-Lab/runtime/Lib/site-packages/PySide6/lib/fonts.
+Note that Qt no longer ships fonts. Deploy some (from https://dejavu-fonts.github.io/ for example) or switch to fontconfig.
+qt.multimedia.ffmpeg: Using Qt multimedia with FFmpeg version 9.0.1 LGPL version 2.1 or later
+QSoundEffect: playback of this format is not supported on the selected audio device
+ok
+test_empty_scope (test_desktop.DesktopTests.test_empty_scope) ... QSoundEffect: playback of this format is not supported on the selected audio device
+ok
+test_matching_file_is_visible_before_scan_finishes (test_desktop.DesktopTests.test_matching_file_is_visible_before_scan_finishes) ... QSoundEffect: playback of this format is not supported on the selected audio device
+ok
+test_native_flow_and_minimal_branding (test_desktop.DesktopTests.test_native_flow_and_minimal_branding) ... QSoundEffect: playback of this format is not supported on the selected audio device
+ok
+test_swimming_fish_frames_change (test_desktop.DesktopTests.test_swimming_fish_frames_change) ... QSoundEffect: playback of this format is not supported on the selected audio device
+ok
+test_archive_disguised_as_text_is_inspected (test_engine.EngineTests.test_archive_disguised_as_text_is_inspected) ... ok
+test_cancelled_and_limits_not_clean (test_engine.EngineTests.test_cancelled_and_limits_not_clean) ... ok
+test_class_signature_requires_every_exact_class (test_engine.EngineTests.test_class_signature_requires_every_exact_class) ... ok
+test_corrupt_archive_is_partial (test_engine.EngineTests.test_corrupt_archive_is_partial) ... ok
+test_duplicate_archive_entry_is_not_two_distinct_classes (test_engine.EngineTests.test_duplicate_archive_entry_is_not_two_distinct_classes) ... ok
+test_every_bundled_mod_id_is_matched (test_engine.EngineTests.test_every_bundled_mod_id_is_matched) ... ok
+test_filename_and_generic_mixin_do_not_flag (test_engine.EngineTests.test_filename_and_generic_mixin_do_not_flag) ... ok
+test_forge_metadata (test_engine.EngineTests.test_forge_metadata) ... ok
+test_hash_rule (test_engine.EngineTests.test_hash_rule) ... ok
+test_invalid_class_with_marker_is_reported_incomplete (test_engine.EngineTests.test_invalid_class_with_marker_is_reported_incomplete) ... ok
+test_invalid_exact_class_signature_rejected (test_engine.EngineTests.test_invalid_exact_class_signature_rejected) ... ok
+test_legacy_forge_metadata (test_engine.EngineTests.test_legacy_forge_metadata) ... ok
+test_metadata_limit (test_engine.EngineTests.test_metadata_limit) ... ok
+test_named_liquidbounce_derivative_is_not_double_labelled (test_engine.EngineTests.test_named_liquidbounce_derivative_is_not_double_labelled) ... ok
+test_namespace_requires_two_class_members (test_engine.EngineTests.test_namespace_requires_two_class_members) ... ok
+test_nested_jar_and_no_extraction (test_engine.EngineTests.test_nested_jar_and_no_extraction) ... ok
+test_nested_jar_disguised_with_bin_extension (test_engine.EngineTests.test_nested_jar_disguised_with_bin_extension) ... ok
+test_quilt (test_engine.EngineTests.test_quilt) ... ok
+test_renamed_mod_detected_by_metadata (test_engine.EngineTests.test_renamed_mod_detected_by_metadata) ... ok
+test_symlink_skipped (test_engine.EngineTests.test_symlink_skipped) ... skipped 'No symlink permission'
+test_zip_overlay_with_image_header (test_engine.EngineTests.test_zip_overlay_with_image_header) ... ok
+test_detected_archive_carries_its_actual_metadata_icon (test_findingicons.IconTests.test_detected_archive_carries_its_actual_metadata_icon) ... ok
+test_missing_or_oversized_icon_falls_back (test_findingicons.IconTests.test_missing_or_oversized_icon_falls_back) ... ok
+test_history_rejects_outside_path (test_reports.ReportTests.test_history_rejects_outside_path) ... ok
+test_local_history_roundtrip_and_bounded_retention (test_reports.ReportTests.test_local_history_roundtrip_and_bounded_retention) ... ok
+test_roots_are_deduplicated_without_losing_siblings (test_reports.ReportTests.test_roots_are_deduplicated_without_losing_siblings) ... ok
+test_center_uses_embedded_icon_fallback_and_clean_school (test_reveal.RevealTests.test_center_uses_embedded_icon_fallback_and_clean_school) ... QSoundEffect: playback of this format is not supported on the selected audio device
+ok
+test_reference_sound_ends_but_result_waits_for_click (test_reveal.RevealTests.test_reference_sound_ends_but_result_waits_for_click) ... QSoundEffect: playback of this format is not supported on the selected audio device
+ok
+test_shark_jaw_moves_without_moving_body_and_fish_are_smaller (test_reveal.RevealTests.test_shark_jaw_moves_without_moving_body_and_fish_are_smaller) ... ok
+test_verdict_does_not_call_partial_or_timed_out_scan_clean (test_reveal.RevealTests.test_verdict_does_not_call_partial_or_timed_out_scan_clean) ... ok
+test_all_jars_survive_library_filter_and_images_are_skipped (test_scanprocess.ProcessTests.test_all_jars_survive_library_filter_and_images_are_skipped) ... ok
+test_excluded_library_does_not_hide_other_files (test_scanprocess.ProcessTests.test_excluded_library_does_not_hide_other_files) ... ok
+test_hard_budget_terminates_unresponsive_reader (test_scanprocess.ProcessTests.test_hard_budget_terminates_unresponsive_reader) ... ok
+test_only_running_frozen_resource_directory_is_excluded (test_scanprocess.ProcessTests.test_only_running_frozen_resource_directory_is_excluded) ... ok
+test_cancellation_and_empty_disks_are_never_completed (test_systemscan.SystemTests.test_cancellation_and_empty_disks_are_never_completed) ... ok
+test_exclusive_browser_lock_uses_consistent_private_copy (test_systemscan.SystemTests.test_exclusive_browser_lock_uses_consistent_private_copy) ... ok
+test_full_scope_cache_and_changed_content_with_restored_mtime (test_systemscan.SystemTests.test_full_scope_cache_and_changed_content_with_restored_mtime) ... ok
+test_live_events_preserve_all_matches_in_cold_and_cached_runs (test_systemscan.SystemTests.test_live_events_preserve_all_matches_in_cold_and_cached_runs) ... ok
+test_live_wal_snapshot_reads_committed_data (test_systemscan.SystemTests.test_live_wal_snapshot_reads_committed_data) ... ok
+test_prefetch_header (test_systemscan.SystemTests.test_prefetch_header) ... ok
+test_usn_versions_and_malformed_bounds (test_systemscan.SystemTests.test_usn_versions_and_malformed_bounds) ... ok
+
+----------------------------------------------------------------------
+Ran 49 tests in 32.353s
+
+OK (skipped=1)

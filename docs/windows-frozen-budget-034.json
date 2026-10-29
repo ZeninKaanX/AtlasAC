@@ -1,0 +1,1 @@
+{"version": "0.3.4", "status": "partial", "stop_reason": "time_budget", "duration_seconds": 25.024, "indexed_files": 187, "ignored_files": 133, "archive_reuses": 3, "time_budget_seconds": 25.0, "partial_snapshot": true, "cpu_target_cores": 0.2, "command_records": 262, "command_coverage": 7, "active_bundle_excluded": true}

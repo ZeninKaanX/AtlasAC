@@ -1,0 +1,8 @@
+{
+  "status": "interrupted_test",
+  "completed_full_disk_scan": false,
+  "indexed_files": 353500,
+  "elapsed_seconds": 1227.3,
+  "index_integrity": "ok",
+  "note": "Tam disk denemesi tamamlanmadan sonlandırıldı; tam sonuç veya tamamlanmış hız ölçümü değildir."
+}

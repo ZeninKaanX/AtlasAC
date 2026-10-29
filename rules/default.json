@@ -1,0 +1,278 @@
+{
+  "version": "2026.10.29.5-ghost1",
+  "rules": [
+    {
+      "id": "meteor",
+      "name": "Meteor Client",
+      "mod_ids": [
+        "meteor-client"
+      ],
+      "class_prefixes": [
+        "meteordevelopment/meteorclient/"
+      ],
+      "category": "utility-client",
+      "source": "https://github.com/MeteorDevelopment/meteor-client"
+    },
+    {
+      "id": "wurst",
+      "name": "Wurst Client",
+      "mod_ids": [
+        "wurst"
+      ],
+      "class_prefixes": [
+        "net/wurstclient/"
+      ],
+      "category": "utility-client",
+      "source": "https://github.com/Wurst-Imperium/Wurst7"
+    },
+    {
+      "id": "liquidbounce",
+      "name": "LiquidBounce",
+      "mod_ids": [
+        "liquidbounce"
+      ],
+      "class_prefixes": [
+        "net/ccbluex/liquidbounce/"
+      ],
+      "category": "utility-client",
+      "source": "https://github.com/CCBlueX/LiquidBounce"
+    },
+    {
+      "id": "baritone",
+      "name": "Baritone",
+      "mod_ids": [
+        "baritone"
+      ],
+      "class_prefixes": [
+        "baritone/api/"
+      ],
+      "category": "automation",
+      "source": "https://github.com/cabaletta/baritone"
+    },
+    {
+      "id": "bleachhack",
+      "name": "BleachHack",
+      "mod_ids": [
+        "bleachhack"
+      ],
+      "class_prefixes": [
+        "org/bleachhack/"
+      ],
+      "category": "utility-client",
+      "source": "https://github.com/BleachDev/BleachHack"
+    },
+    {
+      "id": "meteor-rejects",
+      "name": "Meteor Rejects",
+      "mod_ids": [
+        "meteor-rejects"
+      ],
+      "class_prefixes": [
+        "anticope/rejects/"
+      ],
+      "category": "utility-addon",
+      "source": "https://github.com/AntiCope/meteor-rejects"
+    },
+    {
+      "id": "thunderhack",
+      "name": "ThunderHack",
+      "mod_ids": [
+        "thunderhack"
+      ],
+      "class_prefixes": [
+        "thunder/hack/"
+      ],
+      "category": "utility-client",
+      "source": "https://github.com/Pan4ur/ThunderHack-Recode"
+    },
+    {
+      "id": "lambda",
+      "name": "Lambda Client",
+      "mod_ids": [
+        "lambda"
+      ],
+      "class_prefixes": [
+        "com/lambda/"
+      ],
+      "category": "utility-client",
+      "source": "https://github.com/Lambda-Client/lambda"
+    },
+    {
+      "id": "kami",
+      "name": "KAMI",
+      "mod_ids": [
+        "kami"
+      ],
+      "class_prefixes": [
+        "me/zeroeightsix/kami/"
+      ],
+      "category": "utility-client",
+      "source": "https://github.com/zeroeightysix/KAMI"
+    },
+    {
+      "id": "3arthh4ck",
+      "name": "3arthh4ck",
+      "mod_ids": [
+        "earthhack"
+      ],
+      "class_prefixes": [
+        "me/earth/earthhack/"
+      ],
+      "category": "utility-client",
+      "source": "https://github.com/3arthqu4ke/3arthh4ck"
+    },
+    {
+      "id": "fdpclient",
+      "name": "FDPClient",
+      "mod_ids": [
+        "fdpclient"
+      ],
+      "class_prefixes": [],
+      "category": "utility-client",
+      "source": "https://github.com/SkidderMC/FDPClient"
+    },
+    {
+      "id": "chat-console-backdoor",
+      "name": "Bukkit sohbet/konsol backdoor deseni",
+      "mod_ids": [],
+      "class_prefixes": [],
+      "category": "malware-pattern",
+      "source": "https://mchccbackup.github.io/downloadc.html",
+      "kind": "java-constant-pool",
+      "description": "Bir tetikleyici sabiti ve sohbet/konsol metot referanslarının birlikte eşleşmesi; gerçek örnek doğrulaması mevcut."
+    },
+    {
+      "id": "forgehax",
+      "name": "ForgeHax",
+      "category": "utility-client",
+      "mod_ids": [
+        "forgehax"
+      ],
+      "class_prefixes": [
+        "com/matt/forgehax/"
+      ],
+      "source": "https://github.com/fr1kin/ForgeHax"
+    },
+    {
+      "id": "seppuku",
+      "name": "Seppuku",
+      "category": "utility-client",
+      "mod_ids": [
+        "seppukumod"
+      ],
+      "class_prefixes": [
+        "me/rigamortis/seppuku/"
+      ],
+      "source": "https://github.com/seppukudevelopment/seppuku"
+    },
+    {
+      "id": "aoba",
+      "name": "Aoba",
+      "category": "utility-client",
+      "mod_ids": [
+        "aoba"
+      ],
+      "class_prefixes": [
+        "net/aoba/"
+      ],
+      "source": "https://github.com/Cocolots/Aoba-Client"
+    },
+    {
+      "id": "cigarette",
+      "name": "Cigarette",
+      "category": "utility-client",
+      "mod_ids": [
+        "cigarette"
+      ],
+      "class_prefixes": [],
+      "source": "https://github.com/cigaretteclient/cigarette",
+      "required_classes": [
+        "io/github/waqfs/Cigarette.class",
+        "io/github/waqfs/module/keybind/VClip.class"
+      ]
+    },
+    {
+      "id": "ares",
+      "name": "Ares",
+      "category": "utility-client",
+      "mod_ids": [
+        "ares"
+      ],
+      "class_prefixes": [
+        "dev/tigr/ares/"
+      ],
+      "source": "https://github.com/AresClient/ares"
+    },
+    {
+      "id": "nightx",
+      "name": "NightX",
+      "category": "utility-client",
+      "mod_ids": [
+        "nightx"
+      ],
+      "class_prefixes": [
+        "net/aspw/client/"
+      ],
+      "source": "https://github.com/Aspw-w/NightX-Client"
+    },
+    {
+      "id": "crosssine",
+      "name": "CrossSine",
+      "category": "utility-client",
+      "mod_ids": [
+        "crosssine"
+      ],
+      "class_prefixes": [],
+      "source": "https://github.com/shxp3/CrossSine"
+    },
+    {
+      "id": "krs",
+      "name": "Krs",
+      "category": "utility-client",
+      "mod_ids": [
+        "krs"
+      ],
+      "class_prefixes": [
+        "com/instrumentalist/krs/"
+      ],
+      "source": "https://github.com/Aspw-w/Krs"
+    },
+    {
+      "id": "liveoverflowmod",
+      "name": "LiveOverflowMod",
+      "category": "utility-client",
+      "mod_ids": [
+        "liveoverflowmod"
+      ],
+      "class_prefixes": [
+        "com/jorianwoltjer/liveoverflowmod/"
+      ],
+      "source": "https://github.com/JorianWoltjer/LiveOverflowMod"
+    },
+    {
+      "id": "combatant",
+      "name": "Combatant",
+      "category": "utility-client",
+      "mod_ids": [
+        "combatant"
+      ],
+      "class_prefixes": [
+        "combatant/client/"
+      ],
+      "source": "https://github.com/pivosos2007/combatant-client"
+    },
+    {
+      "id": "doomsday",
+      "name": "DoomsDay — doğrulanan loader",
+      "category": "ghost-client",
+      "source": "https://doomsdayclient.com/",
+      "mod_ids": [],
+      "class_prefixes": [],
+      "required_member_sha256": {
+        "net/java/f.class": "ebfed1fb855dd28b0425b6641cbf0b526c342f0e59bc77ae611f77b541ac9349",
+        "net/java/n.class": "e5611d9ded8152ae4329e104f588178ac46105cfb182b31197f8acc4a95fd3e8"
+      }
+    }
+  ],
+  "hashes": {}
+}

@@ -1,0 +1,27 @@
+{
+  "rule_version": "2026.10.29.2",
+  "summary": {
+    "requested": 200,
+    "acquired_unique_files": 200,
+    "unique_positive_files": 200,
+    "distinct_client_families": 6,
+    "distinct_families_including_addons_and_automation": 8,
+    "positive_passed": 144,
+    "positive_failed_or_partial": 56,
+    "negative_files": 0,
+    "false_positive_files": 0,
+    "acquisition_errors": 0,
+    "duplicate_files_excluded": 0,
+    "file_target_met": false,
+    "family_target_met": false,
+    "overall_target_met": false,
+    "test_type": "static-file-inspection-only",
+    "executed_samples": 0,
+    "limitations": [
+      "Bilinmeyen veya gelecekteki hileler i\u00e7in garanti de\u011fildir.",
+      "\u0130stemcilerin oyunda \u00e7al\u0131\u015ft\u0131r\u0131lmas\u0131, bellek veya DMA testi de\u011fildir.",
+      "Ayn\u0131 ailenin farkl\u0131 s\u00fcr\u00fcmleri ayr\u0131 aile say\u0131lmaz.",
+      "Negatif \u00f6rnek bulunmuyorsa yanl\u0131\u015f pozitif ba\u015far\u0131m\u0131 \u00f6l\u00e7\u00fclm\u00fc\u015f say\u0131lmaz."
+    ]
+  }
+}

@@ -1,0 +1,77 @@
+96 INFO: PyInstaller: 6.22.3, contrib hooks: 2026.9
+96 INFO: Python: 3.14.8
+97 INFO: Platform: Linux-7.2.11-arch1-1-x86_64-with-glibc2.44
+98 INFO: Python environment: /tmp/atlasac-qa-venv
+98 INFO: wrote /home/eververity/Desktop/Atlas-AC/AtlasAC.spec
+100 INFO: Module search paths (PYTHONPATH):
+['/home/eververity/Desktop/Atlas-AC',
+ '/usr/lib/python314.zip',
+ '/usr/lib/python3.14',
+ '/usr/lib/python3.14/lib-dynload',
+ '/tmp/atlasac-qa-venv/lib/python3.14/site-packages',
+ '/home/eververity/Desktop/Atlas-AC']
+389 INFO: Appending 'datas' from .spec
+390 INFO: checking Analysis
+404 INFO: Building because /home/eververity/Desktop/Atlas-AC/atlasac/reveal.py changed
+404 INFO: Looking for Python shared library...
+410 INFO: Using Python shared library: /usr/lib/libpython3.14.so.1.0
+411 INFO: Running Analysis Analysis-00.toc
+411 INFO: Target bytecode optimization level: 0
+411 INFO: Initializing module dependency graph...
+411 INFO: Initializing module graph hook caches...
+426 INFO: Analyzing modules for base_library.zip ...
+2735 INFO: Processing standard module hook 'hook-encodings.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/hooks'
+3401 INFO: Processing standard module hook 'hook-pickle.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/hooks'
+3849 INFO: Processing standard module hook 'hook-math.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/hooks'
+4107 INFO: Processing standard module hook 'hook-difflib.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/hooks'
+4134 INFO: Processing standard module hook 'hook-heapq.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/hooks'
+9393 INFO: Caching module dependency graph...
+9456 INFO: Analyzing /home/eververity/Desktop/Atlas-AC/run.py
+9767 INFO: Processing standard module hook 'hook-multiprocessing.util.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/hooks'
+9944 INFO: Processing standard module hook 'hook-xml.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/hooks'
+10463 INFO: Processing standard module hook 'hook-sysconfig.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/hooks'
+10472 INFO: Processing standard module hook 'hook-_ctypes.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/hooks'
+10682 INFO: Processing standard module hook 'hook-platform.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/hooks'
+10766 INFO: Processing standard module hook 'hook-psutil.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/_pyinstaller_hooks_contrib/stdhooks'
+10985 INFO: Processing standard module hook 'hook-sqlite3.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/hooks'
+11400 INFO: Processing standard module hook 'hook-PySide6.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/hooks'
+11584 INFO: Processing standard module hook 'hook-shiboken6.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/hooks'
+12184 INFO: Processing standard module hook 'hook-PySide6.QtNetwork.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/hooks'
+14859 INFO: Processing standard module hook 'hook-PySide6.QtCore.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/hooks'
+18697 INFO: Processing standard module hook 'hook-PySide6.QtGui.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/hooks'
+21703 INFO: Processing standard module hook 'hook-PySide6.QtWidgets.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/hooks'
+22415 INFO: Processing standard module hook 'hook-PySide6.QtMultimedia.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/hooks'
+22640 INFO: Processing module hooks (post-graph stage)...
+22993 INFO: Processing standard module hook 'hook-PySide6.QtDBus.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/hooks'
+23218 INFO: Processing standard module hook 'hook-PySide6.QtConcurrent.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/hooks'
+23433 INFO: Processing standard module hook 'hook-PySide6.QtMultimediaWidgets.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/hooks'
+23664 INFO: Performing binary vs. data reclassification (215 entries)
+24050 INFO: Looking for ctypes DLLs
+24109 INFO: Analyzing run-time hooks ...
+24111 INFO: Including run-time hook 'pyi_rth_inspect.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/hooks/rthooks'
+24115 INFO: Including run-time hook 'pyi_rth_multiprocessing.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/hooks/rthooks'
+24120 INFO: Including run-time hook 'pyi_rth_pkgutil.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/hooks/rthooks'
+24123 INFO: Including run-time hook 'pyi_rth_pyside6.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/hooks/rthooks'
+24126 INFO: Processing pre-find-module-path hook 'hook-_pyi_rth_utils.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/hooks/pre_find_module_path'
+24128 INFO: Processing standard module hook 'hook-_pyi_rth_utils.py' from '/tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/hooks'
+24151 INFO: Creating base_library.zip...
+24191 INFO: Looking for dynamic libraries
+26116 INFO: Warnings written to /home/eververity/Desktop/Atlas-AC/build/Standalone-Linux-031/AtlasAC/warn-AtlasAC.txt
+26133 INFO: Graph cross-reference written to /home/eververity/Desktop/Atlas-AC/build/Standalone-Linux-031/AtlasAC/xref-AtlasAC.html
+26153 INFO: checking PYZ
+26155 INFO: Building because /home/eververity/Desktop/Atlas-AC/atlasac/reveal.py changed
+26156 INFO: Building PYZ (ZlibArchive) /home/eververity/Desktop/Atlas-AC/build/Standalone-Linux-031/AtlasAC/PYZ-00.pyz
+26442 INFO: Building PYZ (ZlibArchive) /home/eververity/Desktop/Atlas-AC/build/Standalone-Linux-031/AtlasAC/PYZ-00.pyz completed successfully.
+26445 WARNING: Ignoring icon; supported only on Windows and macOS!
+26458 INFO: checking PKG
+26462 INFO: Building because toc changed
+26462 INFO: Building PKG (CArchive) AtlasAC.pkg
+71593 INFO: Building PKG (CArchive) AtlasAC.pkg completed successfully.
+71610 INFO: Bootloader /tmp/atlasac-qa-venv/lib/python3.14/site-packages/PyInstaller/bootloader/Linux-64bit-intel/run
+71610 INFO: checking EXE
+71618 INFO: Building because toc changed
+71618 INFO: Building EXE from EXE-00.toc
+71630 INFO: Copying bootloader EXE to /home/eververity/Desktop/Atlas-AC/dist/Standalone-Linux-031/AtlasAC
+71630 INFO: Appending PKG archive to custom ELF section in EXE
+71901 INFO: Building EXE from EXE-00.toc completed successfully.
+71925 INFO: Build complete! The results are available in: /home/eververity/Desktop/Atlas-AC/dist/Standalone-Linux-031

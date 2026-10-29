@@ -1,0 +1,139 @@
+[
+  {
+    "scope": ".minecraft",
+    "status": "completed",
+    "files": 3,
+    "findings": [
+      {
+        "rule": "wurst",
+        "name": "Wurst Client",
+        "category": "utility-client",
+        "severity": "high",
+        "path": "libraries\\net\\fabricmc\\cache\\resolver-cache.bin",
+        "method": "mod-id",
+        "evidence": [
+          "wurst"
+        ],
+        "source": "https://github.com/Wurst-Imperium/Wurst7",
+        "note": "Dosya içinde istemci/otomasyon izi. Çalıştırıldığını veya sunucuda kullanıldığını kanıtlamaz."
+      },
+      {
+        "rule": "thunderhack",
+        "name": "ThunderHack",
+        "category": "utility-client",
+        "severity": "high",
+        "path": "libraries\\org\\graphics\\cache\\render-support.jar",
+        "method": "mod-id",
+        "evidence": [
+          "thunderhack"
+        ],
+        "source": "https://github.com/Pan4ur/ThunderHack-Recode",
+        "note": "Dosya içinde istemci/otomasyon izi. Çalıştırıldığını veya sunucuda kullanıldığını kanıtlamaz."
+      },
+      {
+        "rule": "bleachhack",
+        "name": "BleachHack",
+        "category": "utility-client",
+        "severity": "high",
+        "path": "versions\\Archive-1.20.4\\mods\\map-helper.jar",
+        "method": "mod-id",
+        "evidence": [
+          "bleachhack"
+        ],
+        "source": "https://github.com/BleachDev/BleachHack",
+        "note": "Dosya içinde istemci/otomasyon izi. Çalıştırıldığını veya sunucuda kullanıldığını kanıtlamaz."
+      }
+    ],
+    "issues": [],
+    "duration_seconds": 0.081,
+    "rule_version": "2026.10.29.2"
+  },
+  {
+    "scope": "instances",
+    "status": "completed",
+    "files": 2,
+    "findings": [
+      {
+        "rule": "meteor",
+        "name": "Meteor Client",
+        "category": "utility-client",
+        "severity": "high",
+        "path": "Fabric-1.21.11\\.minecraft\\mods\\chunk-cache.jar",
+        "method": "mod-id",
+        "evidence": [
+          "meteor-client"
+        ],
+        "source": "https://github.com/MeteorDevelopment/meteor-client",
+        "note": "Dosya içinde istemci/otomasyon izi. Çalıştırıldığını veya sunucuda kullanıldığını kanıtlamaz."
+      }
+    ],
+    "issues": [],
+    "duration_seconds": 0.178,
+    "rule_version": "2026.10.29.2"
+  },
+  {
+    "scope": "Downloads",
+    "status": "completed",
+    "files": 6,
+    "findings": [
+      {
+        "rule": "bleachhack",
+        "name": "BleachHack",
+        "category": "utility-client",
+        "severity": "high",
+        "path": "BleachHack-download.zip!/BleachHack-1.20.4.jar",
+        "method": "mod-id",
+        "evidence": [
+          "bleachhack"
+        ],
+        "source": "https://github.com/BleachDev/BleachHack",
+        "note": "Dosya içinde istemci/otomasyon izi. Çalıştırıldığını veya sunucuda kullanıldığını kanıtlamaz."
+      },
+      {
+        "rule": "thunderhack",
+        "name": "ThunderHack",
+        "category": "utility-client",
+        "severity": "high",
+        "path": "ThunderHack-download.zip!/thunderhack-1.7.jar",
+        "method": "mod-id",
+        "evidence": [
+          "thunderhack"
+        ],
+        "source": "https://github.com/Pan4ur/ThunderHack-Recode",
+        "note": "Dosya içinde istemci/otomasyon izi. Çalıştırıldığını veya sunucuda kullanıldığını kanıtlamaz."
+      },
+      {
+        "rule": "baritone",
+        "name": "Baritone",
+        "category": "automation",
+        "severity": "review",
+        "path": "baritone-backup.zip!/baritone-1.21.11.jar",
+        "method": "class-namespace",
+        "evidence": [
+          "baritone/api/BaritoneAPI.class",
+          "baritone/api/IBaritone.class",
+          "baritone/api/IBaritoneProvider.class",
+          "baritone/api/Settings$JavaOnly.class"
+        ],
+        "source": "https://github.com/cabaletta/baritone",
+        "note": "Dosya içinde istemci/otomasyon izi. Çalıştırıldığını veya sunucuda kullanıldığını kanıtlamaz."
+      },
+      {
+        "rule": "meteor-rejects",
+        "name": "Meteor Rejects",
+        "category": "utility-addon",
+        "severity": "high",
+        "path": "addons\\path-assist.jar",
+        "method": "mod-id",
+        "evidence": [
+          "meteor-rejects"
+        ],
+        "source": "https://github.com/AntiCope/meteor-rejects",
+        "note": "İstemci eklentisi izi; bağımsız istemci değildir. Çalıştırıldığını veya sunucuda kullanıldığını kanıtlamaz."
+      }
+    ],
+    "issues": [],
+    "duration_seconds": 0.76,
+    "rule_version": "2026.10.29.2"
+  }
+]

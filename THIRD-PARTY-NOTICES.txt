@@ -1,0 +1,26 @@
+AtlasAC uses the following bundled components:
+
+PySide6 Essentials / Shiboken6 / Qt 6.12.0
+https://www.qt.io/qt-for-python
+https://code.qt.io/cgit/pyside/pyside-setup.git/
+https://code.qt.io/cgit/qt/qtbase.git/
+Third-party components retain their respective licenses. The one-file package
+extracts its shared Qt libraries to a temporary directory at runtime. Source and
+build instructions are provided in this repository.
+
+Python 3.14.8
+https://docs.python.org/3/license.html
+
+PyInstaller 6.22.3 bootloader
+https://pyinstaller.org/en/stable/license.html
+
+Poppins font family, SIL Open Font License 1.1
+The license is included as atlasac/web/assets/Poppins-OFL.txt.
+https://github.com/google/fonts/tree/main/ofl/poppins
+
+AtlasOyuncu logo and animated background were obtained from the official
+AtlasOyuncu site at the user's request. Sources and checksums are recorded in
+BRAND-ASSETS.json. These assets retain the rights of their respective owners.
+
+No cheat clients, malicious plugins, Ocean binaries, account credentials or
+private player reports are included in AtlasAC's distribution.

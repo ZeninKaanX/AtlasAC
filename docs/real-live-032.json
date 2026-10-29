@@ -1,0 +1,44 @@
+{
+  "version": "0.3.2",
+  "unique_real_files": 6,
+  "sources": [
+    {
+      "url": "https://github.com/JorianWoltjer/LiveOverflowMod/releases/download/1.19.2-1.0.2/liveoverflowmod-1.0.jar",
+      "sha256": "b298bf1c89a79bfd9baaf7ea19eb6ac9c5fea9c3789309543abd8a1d8439d3ce",
+      "expected": "detection"
+    },
+    {
+      "url": "https://github.com/JorianWoltjer/LiveOverflowMod/releases/download/1.19.2-1.0.3/liveoverflowmod-1.0.jar",
+      "sha256": "161450c83cdd5330e276597933aab50ac4e45f789f5f89bc08e7a93298a81948",
+      "expected": "detection"
+    },
+    {
+      "url": "https://github.com/JorianWoltjer/LiveOverflowMod/releases/download/1.19.4-2.0/liveoverflowmod-1.0.jar",
+      "sha256": "54bebb1452246007c0f37b100aff19ea5126a69eb67035e847f8ba607455a906",
+      "expected": "detection"
+    },
+    {
+      "url": "https://cdn.modrinth.com/data/uXXizFIs/versions/LtVvw4uS/ferritecore-9.0.0-neoforge.jar",
+      "sha256": "a3292dadb1caf7ad220d3a4b68abff2ad58592ddd372160f9cf66c57d159b539",
+      "expected": "no_detection"
+    },
+    {
+      "url": "https://cdn.modrinth.com/data/uXXizFIs/versions/d5ddUdiB/ferritecore-9.0.0-fabric.jar",
+      "sha256": "213966c72ed967acc7392beb28a866fba301ff56b9976c2e7801c2db7de6bf22",
+      "expected": "no_detection"
+    },
+    {
+      "url": "https://cdn.modrinth.com/data/uXXizFIs/versions/mLI5k2Gi/ferritecore-8.2.0-neoforge.jar",
+      "sha256": "63619fbcf2938ecc223510e0336f92d754b83c536b4f6e1ec653699c8678e816",
+      "expected": "no_detection"
+    }
+  ],
+  "initial_live_matches": 3,
+  "initial_final_matches": 3,
+  "initial_status": "completed",
+  "copies_total": 18,
+  "copies_matches": 9,
+  "copies_archive_reuses": 12,
+  "copies_status": "completed",
+  "issues": []
+}

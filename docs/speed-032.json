@@ -1,0 +1,68 @@
+{
+  "scanner_sha256": "eaf5e697fd93cc71b37be2d274f553f3533405b60cbec06eee6138d5ec315cc8",
+  "sources": [
+    {
+      "path": "/home/eververity/.minecraft/mods/ViaFabricPlus-4.4.15.jar",
+      "sha256": "002308aba61f85ff236f9cda391e93c158a9b197674c5a1c75db2afd185f224e"
+    },
+    {
+      "path": "/home/eververity/.minecraft/mods/sodium-fabric-0.8.15-beta.1+mc1.21.11.jar",
+      "sha256": "f0bd613154a9ed0712d1d8aa62f1de3fb0fc1e76b4edc37f1250679007029775"
+    }
+  ],
+  "runs": [
+    {
+      "deduplication": true,
+      "seconds": 2.274,
+      "files": 12,
+      "findings": 0,
+      "issues": 0,
+      "archive_reuses": 10
+    },
+    {
+      "deduplication": false,
+      "seconds": 10.8562,
+      "files": 12,
+      "findings": 0,
+      "issues": 0,
+      "archive_reuses": 0
+    },
+    {
+      "deduplication": false,
+      "seconds": 9.4007,
+      "files": 12,
+      "findings": 0,
+      "issues": 0,
+      "archive_reuses": 0
+    },
+    {
+      "deduplication": true,
+      "seconds": 1.9348,
+      "files": 12,
+      "findings": 0,
+      "issues": 0,
+      "archive_reuses": 10
+    },
+    {
+      "deduplication": true,
+      "seconds": 1.9055,
+      "files": 12,
+      "findings": 0,
+      "issues": 0,
+      "archive_reuses": 10
+    },
+    {
+      "deduplication": false,
+      "seconds": 11.7442,
+      "files": 12,
+      "findings": 0,
+      "issues": 0,
+      "archive_reuses": 0
+    }
+  ],
+  "scope": "Repeated copies of two real installed mods; not a whole-PC speed guarantee.",
+  "median_seconds": {
+    "False": 10.8562,
+    "True": 1.9348
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "scope": "Controlled scanner-only before/after; no GUI or collectors. Separate cold indexes, identical actual files. One-core CPU percentage=100 per logical core. Not a whole-machine or whole-disk guarantee.",
+  "linux": {
+    "before": {
+      "scope": "Scanner process only; real files; cold independent index; no GUI or collectors; one-core CPU=100%",
+      "manifest": [
+        {
+          "file": "ViaFabricPlus-4.4.15.jar",
+          "size": 27015009,
+          "sha256": "002308aba61f85ff236f9cda391e93c158a9b197674c5a1c75db2afd185f224e"
+        },
+        {
+          "file": "sodium-fabric-0.8.15-beta.1+mc1.21.11.jar",
+          "size": 1914874,
+          "sha256": "f0bd613154a9ed0712d1d8aa62f1de3fb0fc1e76b4edc37f1250679007029775"
+        }
+      ],
+      "wall_seconds": 0.6024,
+      "cpu_seconds": 0.6707,
+      "one_core_cpu_percent": 111.33,
+      "scan": {
+        "version": "0.3.2",
+        "status": "completed",
+        "indexed_files": 2,
+        "content_files": 2,
+        "archive_reuses": 0,
+        "issues_total": 0,
+        "cpu_target_cores": null
+      },
+      "matches": []
+    },
+    "after": {
+      "scope": "Scanner process only; real files; cold independent index; no GUI or collectors; one-core CPU=100%",
+      "manifest": [
+        {
+          "file": "ViaFabricPlus-4.4.15.jar",
+          "size": 27015009,
+          "sha256": "002308aba61f85ff236f9cda391e93c158a9b197674c5a1c75db2afd185f224e"
+        },
+        {
+          "file": "sodium-fabric-0.8.15-beta.1+mc1.21.11.jar",
+          "size": 1914874,
+          "sha256": "f0bd613154a9ed0712d1d8aa62f1de3fb0fc1e76b4edc37f1250679007029775"
+        }
+      ],
+      "wall_seconds": 1.8644,
+      "cpu_seconds": 0.7662,
+      "one_core_cpu_percent": 41.09,
+      "scan": {
+        "version": "0.3.3",
+        "status": "completed",
+        "indexed_files": 2,
+        "content_files": 2,
+        "archive_reuses": 0,
+        "issues_total": 0,
+        "cpu_target_cores": 0.4
+      },
+      "matches": []
+    }
+  },
+  "windows_vm": {
+    "before": {
+      "scope": "Scanner process only; real files; cold independent index; no GUI or collectors; one-core CPU=100%",
+      "manifest": [
+        {
+          "file": "0.jar",
+          "size": 1028720,
+          "sha256": "3cd0629abfbacfb90a32d10f8c613549cf2580926a0e267dc9ad6fadd301b502"
+        },
+        {
+          "file": "1.jar",
+          "size": 1084541,
+          "sha256": "c981ed9ad46613d0805dd10a435190d92e6850a61df3c5f4f6d653e24ef0b712"
+        },
+        {
+          "file": "2.jar",
+          "size": 1086081,
+          "sha256": "fde2c821b97b798d4a19c3d47c5202111b513b4de12752cd9b20b67fe53aa49b"
+        },
+        {
+          "file": "3.jar",
+          "size": 1092685,
+          "sha256": "4899d6c60afa2af859b3a7e0824d0ef6b404f26458f831e3d877faa36be9af1c"
+        }
+      ],
+      "wall_seconds": 0.3258,
+      "cpu_seconds": 0.4062,
+      "one_core_cpu_percent": 124.68,
+      "scan": {
+        "version": "0.3.2",
+        "status": "completed",
+        "indexed_files": 4,
+        "content_files": 4,
+        "archive_reuses": 0,
+        "issues_total": 0,
+        "cpu_target_cores": null
+      },
+      "matches": []
+    },
+    "after": {
+      "scope": "Scanner process only; real files; cold independent index; no GUI or collectors; one-core CPU=100%",
+      "manifest": [
+        {
+          "file": "0.jar",
+          "size": 1028720,
+          "sha256": "3cd0629abfbacfb90a32d10f8c613549cf2580926a0e267dc9ad6fadd301b502"
+        },
+        {
+          "file": "1.jar",
+          "size": 1084541,
+          "sha256": "c981ed9ad46613d0805dd10a435190d92e6850a61df3c5f4f6d653e24ef0b712"
+        },
+        {
+          "file": "2.jar",
+          "size": 1086081,
+          "sha256": "fde2c821b97b798d4a19c3d47c5202111b513b4de12752cd9b20b67fe53aa49b"
+        },
+        {
+          "file": "3.jar",
+          "size": 1092685,
+          "sha256": "4899d6c60afa2af859b3a7e0824d0ef6b404f26458f831e3d877faa36be9af1c"
+        }
+      ],
+      "wall_seconds": 1.3161,
+      "cpu_seconds": 0.2656,
+      "one_core_cpu_percent": 20.18,
+      "scan": {
+        "version": "0.3.3",
+        "status": "completed",
+        "indexed_files": 4,
+        "content_files": 4,
+        "archive_reuses": 0,
+        "issues_total": 0,
+        "cpu_target_cores": 0.2
+      },
+      "matches": []
+    }
+  }
+}

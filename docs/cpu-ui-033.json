@@ -1,0 +1,220 @@
+{
+  "version": "0.3.3",
+  "scope": "Qt native UI only; no scanning; 1280x860; offscreen; one-core CPU percentages, not Task Manager total-machine percentages",
+  "method": "Two alternating before/after runs, 1.2 seconds warmup and 4 seconds measured per state. Baseline is source 0.3.2 captured before edits. GUI rendering only: no filesystem scan or scanner CPU included. No Task Manager percentage or universal CPU cap is claimed.",
+  "linux": {
+    "logical_cpus": 8,
+    "before": [
+      {
+        "scope": "Qt native UI only; no scanning; 1280x860; offscreen; one-core CPU percentages, not Task Manager total-machine percentages",
+        "logical_cpus": 8,
+        "samples": [
+          {
+            "mode": "idle",
+            "wall_seconds": 4.009,
+            "cpu_seconds": 0.4003,
+            "one_core_cpu_percent": 9.98
+          },
+          {
+            "mode": "fish",
+            "wall_seconds": 4.009,
+            "cpu_seconds": 2.1945,
+            "one_core_cpu_percent": 54.74
+          },
+          {
+            "mode": "reveal",
+            "wall_seconds": 4.007,
+            "cpu_seconds": 3.1674,
+            "one_core_cpu_percent": 79.05
+          },
+          {
+            "mode": "minimized",
+            "wall_seconds": 4.008,
+            "cpu_seconds": 0.4001,
+            "one_core_cpu_percent": 9.98
+          }
+        ]
+      },
+      {
+        "scope": "Qt native UI only; no scanning; 1280x860; offscreen; one-core CPU percentages, not Task Manager total-machine percentages",
+        "logical_cpus": 8,
+        "samples": [
+          {
+            "mode": "idle",
+            "wall_seconds": 4.003,
+            "cpu_seconds": 0.4068,
+            "one_core_cpu_percent": 10.16
+          },
+          {
+            "mode": "fish",
+            "wall_seconds": 4.006,
+            "cpu_seconds": 1.9901,
+            "one_core_cpu_percent": 49.68
+          },
+          {
+            "mode": "reveal",
+            "wall_seconds": 4.002,
+            "cpu_seconds": 3.0675,
+            "one_core_cpu_percent": 76.65
+          },
+          {
+            "mode": "minimized",
+            "wall_seconds": 4.004,
+            "cpu_seconds": 0.4037,
+            "one_core_cpu_percent": 10.08
+          }
+        ]
+      }
+    ],
+    "after": [
+      {
+        "scope": "Qt native UI only; no scanning; 1280x860; offscreen; one-core CPU percentages, not Task Manager total-machine percentages",
+        "logical_cpus": 8,
+        "samples": [
+          {
+            "mode": "idle",
+            "wall_seconds": 4.007,
+            "cpu_seconds": 0.3192,
+            "one_core_cpu_percent": 7.97
+          },
+          {
+            "mode": "fish",
+            "wall_seconds": 4.002,
+            "cpu_seconds": 0.6596,
+            "one_core_cpu_percent": 16.48
+          },
+          {
+            "mode": "reveal",
+            "wall_seconds": 4.003,
+            "cpu_seconds": 0.5376,
+            "one_core_cpu_percent": 13.43
+          },
+          {
+            "mode": "minimized",
+            "wall_seconds": 4.006,
+            "cpu_seconds": 0.0147,
+            "one_core_cpu_percent": 0.37
+          }
+        ]
+      },
+      {
+        "scope": "Qt native UI only; no scanning; 1280x860; offscreen; one-core CPU percentages, not Task Manager total-machine percentages",
+        "logical_cpus": 8,
+        "samples": [
+          {
+            "mode": "idle",
+            "wall_seconds": 4.007,
+            "cpu_seconds": 0.3104,
+            "one_core_cpu_percent": 7.75
+          },
+          {
+            "mode": "fish",
+            "wall_seconds": 4.006,
+            "cpu_seconds": 0.6697,
+            "one_core_cpu_percent": 16.72
+          },
+          {
+            "mode": "reveal",
+            "wall_seconds": 4.005,
+            "cpu_seconds": 0.546,
+            "one_core_cpu_percent": 13.63
+          },
+          {
+            "mode": "minimized",
+            "wall_seconds": 4.002,
+            "cpu_seconds": 0.0165,
+            "one_core_cpu_percent": 0.41
+          }
+        ]
+      }
+    ],
+    "comparison": [
+      {
+        "mode": "idle",
+        "before_one_core_cpu_percent_mean": 10.07,
+        "after_one_core_cpu_percent_mean": 7.86,
+        "reduction_percent": 21.9
+      },
+      {
+        "mode": "fish",
+        "before_one_core_cpu_percent_mean": 52.21,
+        "after_one_core_cpu_percent_mean": 16.6,
+        "reduction_percent": 68.2
+      },
+      {
+        "mode": "reveal",
+        "before_one_core_cpu_percent_mean": 77.85,
+        "after_one_core_cpu_percent_mean": 13.53,
+        "reduction_percent": 82.6
+      },
+      {
+        "mode": "minimized",
+        "before_one_core_cpu_percent_mean": 10.03,
+        "after_one_core_cpu_percent_mean": 0.39,
+        "reduction_percent": 96.1
+      }
+    ]
+  },
+  "windows_vm": {
+    "before": {
+      "scope": "Qt native UI only; no scanning; 1280x860; offscreen; one-core CPU percentages, not Task Manager total-machine percentages",
+      "logical_cpus": 4,
+      "samples": [
+        {
+          "mode": "idle",
+          "wall_seconds": 4.003,
+          "cpu_seconds": 0.6094,
+          "one_core_cpu_percent": 15.22
+        },
+        {
+          "mode": "fish",
+          "wall_seconds": 4.008,
+          "cpu_seconds": 3.9062,
+          "one_core_cpu_percent": 97.47
+        },
+        {
+          "mode": "reveal",
+          "wall_seconds": 4.014,
+          "cpu_seconds": 4.5156,
+          "one_core_cpu_percent": 112.49
+        },
+        {
+          "mode": "minimized",
+          "wall_seconds": 4.011,
+          "cpu_seconds": 0.2656,
+          "one_core_cpu_percent": 6.62
+        }
+      ]
+    },
+    "after": {
+      "scope": "Qt native UI only; no scanning; 1280x860; offscreen; one-core CPU percentages, not Task Manager total-machine percentages",
+      "logical_cpus": 4,
+      "samples": [
+        {
+          "mode": "idle",
+          "wall_seconds": 4.003,
+          "cpu_seconds": 0.125,
+          "one_core_cpu_percent": 3.12
+        },
+        {
+          "mode": "fish",
+          "wall_seconds": 4.006,
+          "cpu_seconds": 0.9688,
+          "one_core_cpu_percent": 24.18
+        },
+        {
+          "mode": "reveal",
+          "wall_seconds": 4.011,
+          "cpu_seconds": 0.9219,
+          "one_core_cpu_percent": 22.98
+        },
+        {
+          "mode": "minimized",
+          "wall_seconds": 4.015,
+          "cpu_seconds": 0.0156,
+          "one_core_cpu_percent": 0.39
+        }
+      ]
+    }
+  }
+}

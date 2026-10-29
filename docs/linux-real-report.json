@@ -1,0 +1,93 @@
+{
+  "started_at": "2026-10-29T09:21:46.965848+00:00",
+  "platform": "posix",
+  "root": "/tmp/atlasac-linux-real",
+  "rule_version": "2026.10.29.5",
+  "files": [
+    {
+      "path": "aoba.dat",
+      "sha256": "4865675435b6435fc9a6b59becaee7ac4caf0a5daff4b3376e300b31fe078e54",
+      "size": 16437008,
+      "format": "ZIP",
+      "modified_at": "2026-10-29T09:21:45.172993+00:00"
+    },
+    {
+      "path": "cigarette.dat",
+      "sha256": "eba9e683d69ed7f04d8c42ca7b9b59e5aa778a5bf8d51a46761229f686c1ed2a",
+      "size": 491317,
+      "format": "ZIP",
+      "modified_at": "2026-10-29T09:21:41.491235+00:00"
+    },
+    {
+      "path": "forgehax.dat",
+      "sha256": "969492419683e8d68971cfe20b19d6b05055416df772f1a619931fdae0728cfa",
+      "size": 1148750,
+      "format": "ZIP",
+      "modified_at": "2026-10-29T09:21:41.881898+00:00"
+    }
+  ],
+  "findings": [
+    {
+      "rule": "aoba",
+      "name": "Aoba",
+      "category": "utility-client",
+      "severity": "high",
+      "path": "aoba.dat",
+      "method": "mod-id",
+      "evidence": [
+        "aoba"
+      ],
+      "source": "https://github.com/Cocolots/Aoba-Client",
+      "note": "Dosya içinde istemci/otomasyon izi. Çalıştırıldığını veya sunucuda kullanıldığını kanıtlamaz."
+    },
+    {
+      "rule": "cigarette",
+      "name": "Cigarette",
+      "category": "utility-client",
+      "severity": "high",
+      "path": "cigarette.dat",
+      "method": "mod-id",
+      "evidence": [
+        "cigarette"
+      ],
+      "source": "https://github.com/cigaretteclient/cigarette",
+      "note": "Dosya içinde istemci/otomasyon izi. Çalıştırıldığını veya sunucuda kullanıldığını kanıtlamaz."
+    },
+    {
+      "rule": "forgehax",
+      "name": "ForgeHax",
+      "category": "utility-client",
+      "severity": "high",
+      "path": "forgehax.dat",
+      "method": "mod-id",
+      "evidence": [
+        "forgehax"
+      ],
+      "source": "https://github.com/fr1kin/ForgeHax",
+      "note": "Dosya içinde istemci/otomasyon izi. Çalıştırıldığını veya sunucuda kullanıldığını kanıtlamaz."
+    }
+  ],
+  "issues": [],
+  "status": "completed",
+  "coverage": {
+    "file_hashes": true,
+    "mod_metadata": true,
+    "class_namespaces": true,
+    "nested_jars": true,
+    "known_java_backdoor_pattern": true,
+    "process_memory": false,
+    "deleted_files": false,
+    "dma_firmware": false,
+    "server_behavior": false
+  },
+  "limitations": [
+    "Seçilen klasörde dosya başlıkları okunur; JAR/ZIP/EXE/DLL/SO ve ZIP/PE/ELF başlıklı dosyalar incelenir.",
+    "Eşleşme olmaması cihazın veya oyuncunun temiz olduğunu kanıtlamaz.",
+    "Dosya kimlikleri değiştirilebilir. Aktif kullanım tespit edilmez.",
+    "Rapor yerel ve imzasızdır; oyuncu tarafından değiştirilebilir."
+  ],
+  "finished_at": "2026-10-29T09:21:47.284909+00:00",
+  "duration_seconds": 0.319,
+  "bytes_read": 18077075,
+  "verdict": "review"
+}

@@ -1,0 +1,21 @@
+__pycache__/
+*.pyc
+.venv/
+build/
+dist/
+*.spec
+*.db
+*.db-*
+*.log
+
+# Local credentials and machine-specific launcher
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+.atlasac/
+/AtlasAC.desktop
+.DS_Store

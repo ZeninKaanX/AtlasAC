@@ -1,0 +1,7 @@
+{
+  "status": "interrupted_test",
+  "completed_full_disk_scan": false,
+  "indexed_files": 104000,
+  "index_integrity": "ok",
+  "note": "Tüm C: taraması tamamlanmadan test sonlandırıldı; tam disk hızı veya tam sonuç ölçümü değildir."
+}

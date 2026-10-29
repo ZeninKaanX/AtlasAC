@@ -1,0 +1,23 @@
+{
+  "scope": "AAC Uygulamalar supplied binaries, static reads only",
+  "runs": [
+    {
+      "indexed_files": 13,
+      "content_files": 11,
+      "cache_hits": 0,
+      "bytes_read": 794490,
+      "duration_seconds": 0.029,
+      "status": "completed",
+      "issues_total": 0
+    },
+    {
+      "indexed_files": 13,
+      "content_files": 11,
+      "cache_hits": 13,
+      "bytes_read": 0,
+      "duration_seconds": 0.013,
+      "status": "completed",
+      "issues_total": 0
+    }
+  ]
+}

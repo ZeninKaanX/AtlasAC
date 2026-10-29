@@ -1,0 +1,43 @@
+{
+  "counts": {
+    "processes": 329,
+    "modules": 454,
+    "history": 0,
+    "downloads": 0,
+    "startup": 133,
+    "usb": 15,
+    "events": 500
+  },
+  "components": [
+    {
+      "name": "İşlemler / oyun modülleri",
+      "status": "completed",
+      "records": 783,
+      "detail": "0 korumalı veya kapanmış süreç; modüller oyun/launcher/AtlasAC süreçlerinde okunur."
+    },
+    {
+      "name": "Tarayıcı geçmişi / indirmeler",
+      "status": "completed",
+      "records": 0,
+      "detail": "0 profil; profil başına son 3000 kayıt. "
+    },
+    {
+      "name": "Linux başlangıç / USB / journal",
+      "status": "completed",
+      "records": 648,
+      "detail": "USB: şu an bağlı aygıtlar. Journal: erişilebilen son 500 olay."
+    },
+    {
+      "name": "USN / Windows Prefetch",
+      "status": "not_applicable",
+      "records": 0,
+      "detail": "Windows kayıt biçimleri; Linux üzerinde eşdeğer Windows kaydı yok."
+    },
+    {
+      "name": "Procmon çekirdek izleme",
+      "status": "unavailable",
+      "records": 0,
+      "detail": "Çekirdek dosya/Registry/stack yakalama sürücüsü eklenmedi. Bu kayıtlar canlı Procmon yakalaması değildir."
+    }
+  ]
+}

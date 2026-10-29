@@ -1,0 +1,79 @@
+354 INFO: PyInstaller: 6.22.3, contrib hooks: 2026.9
+354 INFO: Python: 3.14.8
+400 INFO: Platform: Windows-11-10.0.26100-SP0
+400 INFO: Python environment: C:\Users\Oyuncu\Desktop\AtlasAC-Lab\runtime
+401 INFO: wrote C:\Users\Oyuncu\Desktop\AtlasAC-Lab\app\AtlasAC.spec
+406 INFO: Module search paths (PYTHONPATH):
+['C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\python314.zip',
+ 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime',
+ 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\app',
+ 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages',
+ 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\app']
+981 INFO: Appending 'datas' from .spec
+983 INFO: checking Analysis
+1024 INFO: Building because C:\Users\Oyuncu\Desktop\AtlasAC-Lab\app\atlasac\reveal.py changed
+1025 INFO: Looking for Python shared library...
+1025 INFO: Using Python shared library: C:\Users\Oyuncu\Desktop\AtlasAC-Lab\runtime\python314.dll
+1025 INFO: Running Analysis Analysis-00.toc
+1025 INFO: Target bytecode optimization level: 0
+1025 INFO: Initializing module dependency graph...
+1026 INFO: Initializing module graph hook caches...
+1054 INFO: Analyzing modules for base_library.zip ...
+3887 INFO: Processing standard module hook 'hook-encodings.py' from 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\PyInstaller\\hooks'
+4831 INFO: Processing standard module hook 'hook-pickle.py' from 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\PyInstaller\\hooks'
+4951 INFO: Processing standard module hook 'hook-math.py' from 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\PyInstaller\\hooks'
+5144 INFO: Processing standard module hook 'hook-difflib.py' from 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\PyInstaller\\hooks'
+5165 INFO: Processing standard module hook 'hook-heapq.py' from 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\PyInstaller\\hooks'
+9010 INFO: Caching module dependency graph...
+9050 INFO: Analyzing C:\Users\Oyuncu\Desktop\AtlasAC-Lab\app\run.py
+9309 INFO: Processing standard module hook 'hook-multiprocessing.util.py' from 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\PyInstaller\\hooks'
+9425 INFO: Processing standard module hook 'hook-xml.py' from 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\PyInstaller\\hooks'
+9796 INFO: Processing standard module hook 'hook-sysconfig.py' from 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\PyInstaller\\hooks'
+9803 INFO: Processing standard module hook 'hook-_ctypes.py' from 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\PyInstaller\\hooks'
+9930 INFO: Processing standard module hook 'hook-platform.py' from 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\PyInstaller\\hooks'
+10021 INFO: Processing standard module hook 'hook-psutil.py' from 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+10163 INFO: Processing standard module hook 'hook-sqlite3.py' from 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\PyInstaller\\hooks'
+10934 INFO: Processing standard module hook 'hook-PySide6.py' from 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\PyInstaller\\hooks'
+11427 INFO: Processing standard module hook 'hook-shiboken6.py' from 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\PyInstaller\\hooks'
+12172 INFO: Processing standard module hook 'hook-PySide6.QtNetwork.py' from 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\PyInstaller\\hooks'
+19533 INFO: Processing standard module hook 'hook-PySide6.QtCore.py' from 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\PyInstaller\\hooks'
+26884 INFO: Processing standard module hook 'hook-PySide6.QtGui.py' from 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\PyInstaller\\hooks'
+48352 INFO: Processing standard module hook 'hook-PySide6.QtWidgets.py' from 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\PyInstaller\\hooks'
+52529 INFO: Processing standard module hook 'hook-PySide6.QtMultimedia.py' from 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\PyInstaller\\hooks'
+54731 INFO: Processing module hooks (post-graph stage)...
+54747 INFO: Processing standard module hook 'hook-PySide6.QtMultimediaWidgets.py' from 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\PyInstaller\\hooks'
+55429 INFO: Performing binary vs. data reclassification (185 entries)
+55494 INFO: Looking for ctypes DLLs
+55536 INFO: Analyzing run-time hooks ...
+55539 INFO: Including run-time hook 'pyi_rth_inspect.py' from 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+55544 INFO: Including run-time hook 'pyi_rth_multiprocessing.py' from 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+55548 INFO: Including run-time hook 'pyi_rth_pkgutil.py' from 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+55552 INFO: Including run-time hook 'pyi_rth_pyside6.py' from 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+55556 INFO: Processing pre-find-module-path hook 'hook-_pyi_rth_utils.py' from 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\PyInstaller\\hooks\\pre_find_module_path'
+55560 INFO: Processing standard module hook 'hook-_pyi_rth_utils.py' from 'C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\PyInstaller\\hooks'
+55577 INFO: Creating base_library.zip...
+55610 INFO: Looking for dynamic libraries
+56057 INFO: Extra DLL search directories (AddDllDirectory): ['C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\shiboken6']
+56057 INFO: Extra DLL search directories (PATH): ['C:\\Users\\Oyuncu\\Desktop\\AtlasAC-Lab\\runtime\\Lib\\site-packages\\PySide6']
+57631 INFO: Warnings written to C:\Users\Oyuncu\Desktop\AtlasAC-Lab\app\build\Standalone-031-icons\AtlasAC\warn-AtlasAC.txt
+57667 INFO: Graph cross-reference written to C:\Users\Oyuncu\Desktop\AtlasAC-Lab\app\build\Standalone-031-icons\AtlasAC\xref-AtlasAC.html
+57709 INFO: checking PYZ
+57725 INFO: Building because C:\Users\Oyuncu\Desktop\AtlasAC-Lab\app\atlasac\reveal.py changed
+57725 INFO: Building PYZ (ZlibArchive) C:\Users\Oyuncu\Desktop\AtlasAC-Lab\app\build\Standalone-031-icons\AtlasAC\PYZ-00.pyz
+57934 INFO: Building PYZ (ZlibArchive) C:\Users\Oyuncu\Desktop\AtlasAC-Lab\app\build\Standalone-031-icons\AtlasAC\PYZ-00.pyz completed successfully.
+57952 INFO: checking PKG
+57975 INFO: Building because toc changed
+57975 INFO: Building PKG (CArchive) AtlasAC.pkg
+67592 INFO: Building PKG (CArchive) AtlasAC.pkg completed successfully.
+67614 INFO: Bootloader C:\Users\Oyuncu\Desktop\AtlasAC-Lab\runtime\Lib\site-packages\PyInstaller\bootloader\Windows-64bit-intel\runw.exe
+67614 INFO: checking EXE
+67665 INFO: Rebuilding EXE-00.toc because AtlasAC.exe missing
+67666 INFO: Building EXE from EXE-00.toc
+67666 INFO: Copying bootloader EXE to C:\Users\Oyuncu\Desktop\AtlasAC-Lab\app\dist\Standalone-031-logo\AtlasAC.exe
+67806 INFO: Copying icon to EXE
+67925 INFO: Copying 0 resources to EXE
+67925 INFO: Embedding manifest in EXE
+68060 INFO: Appending PKG archive to EXE
+68322 INFO: Fixing EXE headers
+70109 INFO: Building EXE from EXE-00.toc completed successfully.
+70123 INFO: Build complete! The results are available in: C:\Users\Oyuncu\Desktop\AtlasAC-Lab\app\dist\Standalone-031-logo

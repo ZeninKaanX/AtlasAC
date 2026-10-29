@@ -1,0 +1,23 @@
+[
+  {
+    "family": "forgehax",
+    "sha256": "969492419683e8d68971cfe20b19d6b05055416df772f1a619931fdae0728cfa",
+    "url": "https://github.com/fr1kin/ForgeHax/releases/download/2.9.0/forgehax-1.12.2-2.9.0.jar",
+    "path": "/tmp/atlasac-linux-real/forgehax.dat",
+    "already_in_main_corpus": true
+  },
+  {
+    "family": "aoba",
+    "sha256": "4865675435b6435fc9a6b59becaee7ac4caf0a5daff4b3376e300b31fe078e54",
+    "url": "https://github.com/Cocolots/Aoba-Client/releases/download/build-26.3-10102026/Aoba-26.3-10102026.jar",
+    "path": "/tmp/atlasac-linux-real/aoba.dat",
+    "already_in_main_corpus": true
+  },
+  {
+    "family": "cigarette",
+    "sha256": "eba9e683d69ed7f04d8c42ca7b9b59e5aa778a5bf8d51a46761229f686c1ed2a",
+    "url": "https://github.com/cigaretteclient/cigarette/releases/download/v0.0.5-alpha/cigarette-v0.0.5-alpha%2B1.21.5.jar",
+    "path": "/tmp/atlasac-linux-real/cigarette.dat",
+    "already_in_main_corpus": true
+  }
+]

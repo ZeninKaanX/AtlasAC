@@ -1,0 +1,25 @@
+{
+  "scope": "Two actual official DoomsDay loader downloads, static inspection only; not executed. Different outer hashes; two exact internal class SHA-256 checks, not filename or dd mod-id.",
+  "samples": [
+    {
+      "url": "https://doomsdayclient.com/download/DoomsDay.jar",
+      "sha256": "bdcb9bd162125d9831878e8494046dfc9411a7625e4ca1772ba91b0f87aaae09",
+      "size": 3114249,
+      "official_page": "https://doomsdayclient.com/"
+    },
+    {
+      "url": "https://doomsdayclient.com/loader_random/atlas-verification.jar",
+      "sha256": "e33fe65b514b8a758d1f543269958380ebc700c72bab1f70ca66fc8efde81d31",
+      "size": 2561038,
+      "official_page": "https://doomsdayclient.com/"
+    }
+  ],
+  "matches": 2,
+  "live_matches": 2,
+  "methods": [
+    "member-sha256"
+  ],
+  "issues": [],
+  "status": "completed",
+  "limits": "Only matching known loader bytes; no guarantee for changed builds, erased files or memory-only injections."
+}

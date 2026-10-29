@@ -1,0 +1,10 @@
+{
+  "version": "0.3.1",
+  "status": "partial",
+  "stop_reason": "time_budget",
+  "duration_seconds": 2.016,
+  "indexed_files": 13,
+  "ignored_files": 15,
+  "time_budget_seconds": 2.0,
+  "partial_snapshot": true
+}

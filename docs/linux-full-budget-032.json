@@ -1,0 +1,12 @@
+{
+  "version": "0.3.2",
+  "status": "partial",
+  "stop_reason": "time_budget",
+  "duration_seconds": 590.046,
+  "indexed_files": 132155,
+  "ignored_files": 286959,
+  "archive_reuses": 167,
+  "time_budget_seconds": 590,
+  "partial_snapshot": true,
+  "matches": 16
+}
