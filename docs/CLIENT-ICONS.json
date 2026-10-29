@@ -90,5 +90,19 @@
     "icon_sha256": "86588927143380ce0cadba4da72e38dc1d6ac2d1402eadf43ad0f8d9d2b2a0e7",
     "source": "https://doomsdayclient.com/download/DoomsDay.jar",
     "operation": "Embedded l.png read statically from official loader; software never executed"
+  },
+  "nemui": {
+    "sample_sha256": "ed91773852c7bd94969e3df8138a1b2491d9af01c70c386fe900cd95dc152d14",
+    "icon_sha256": "2f31e515516fbbbe8b76ec729867b08d94d6a4851fa57df09f7bc6846b6e5e3e",
+    "source": "https://github.com/SleepyFish-YT/Nemui/releases/download/v1.5/Nemui-v1.5.jar",
+    "member": "assets/minecraft/nemui/icon_white.png",
+    "operation": "Original embedded PNG read statically; software never executed; no artwork edits"
+  },
+  "lumina": {
+    "sample_sha256": "65de330e453713f7f469ea70e48fb7d90841ca3ec09899a2c4e88609dfa327ae",
+    "icon_sha256": "b0e88ad99a87a5dcd602392e2f29cbcb1ba88e701d829de6e41f160cc1524743",
+    "source": "https://github.com/stormcoph/LuminaClient/releases/download/lumina-client-alpha-2.6.1/lumina-alpha-v2.6.1.jar",
+    "member": "assets/lumina/icon.png",
+    "operation": "Original embedded PNG read statically; software never executed; no artwork edits"
   }
 }

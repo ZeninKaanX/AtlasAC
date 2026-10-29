@@ -1,0 +1,1171 @@
+{
+  "at": "2026-10-29T22:09:36.170316+00:00",
+  "platform": "linux",
+  "rule_version": "2026.10.30.2-ghost3",
+  "sample_execution": false,
+  "tests": [
+    {
+      "sample": "argon-bugfix",
+      "variant": "renamed",
+      "sha256": "0ba5c89b4873e2a24a31d316a090cc98353ee1d04881695cafee18d0bb3390fd",
+      "input_sha256": "0ba5c89b4873e2a24a31d316a090cc98353ee1d04881695cafee18d0bb3390fd",
+      "expected": [
+        "argon"
+      ],
+      "actual": [
+        "argon"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "argon-bugfix",
+      "variant": "metadata-removed",
+      "sha256": "0ba5c89b4873e2a24a31d316a090cc98353ee1d04881695cafee18d0bb3390fd",
+      "input_sha256": "75fb989f08388f5a5fae583d3921ddaecb8f1c41e3290172cacc0fc353e85e54",
+      "expected": [
+        "argon"
+      ],
+      "actual": [
+        "argon"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "argon-bugfix",
+      "variant": "nested",
+      "sha256": "0ba5c89b4873e2a24a31d316a090cc98353ee1d04881695cafee18d0bb3390fd",
+      "input_sha256": "4a1031fb1939073e4d4c69f05b2fc9e5c9555bbf0a59b4e0bcd9360a16dbe654",
+      "expected": [
+        "argon"
+      ],
+      "actual": [
+        "argon"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "argon-jar",
+      "variant": "renamed",
+      "sha256": "c105ca836cd8e7b9c1097afc3a0fbcef7c2d0e300a499c6a84e67bab3bd1e239",
+      "input_sha256": "c105ca836cd8e7b9c1097afc3a0fbcef7c2d0e300a499c6a84e67bab3bd1e239",
+      "expected": [
+        "argon"
+      ],
+      "actual": [
+        "argon"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "argon-jar",
+      "variant": "metadata-removed",
+      "sha256": "c105ca836cd8e7b9c1097afc3a0fbcef7c2d0e300a499c6a84e67bab3bd1e239",
+      "input_sha256": "df75dbd246bb1aa7eb426094b26f423a2c0bab9f5cd33a0da5fc6ebd27da4caf",
+      "expected": [
+        "argon"
+      ],
+      "actual": [
+        "argon"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "argon-jar",
+      "variant": "nested",
+      "sha256": "c105ca836cd8e7b9c1097afc3a0fbcef7c2d0e300a499c6a84e67bab3bd1e239",
+      "input_sha256": "6ae2899bd3543f11073f87d925de826e14b2860b1b35e5b1534c24ff0b1fec80",
+      "expected": [
+        "argon"
+      ],
+      "actual": [
+        "argon"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "marlow-v5",
+      "variant": "renamed",
+      "sha256": "5572f87e53b9d666ae50a9903880c0e7099a9965ad3e1e90814e900881e290d7",
+      "input_sha256": "5572f87e53b9d666ae50a9903880c0e7099a9965ad3e1e90814e900881e290d7",
+      "expected": [
+        "marlow"
+      ],
+      "actual": [
+        "marlow"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "marlow-v5",
+      "variant": "metadata-removed",
+      "sha256": "5572f87e53b9d666ae50a9903880c0e7099a9965ad3e1e90814e900881e290d7",
+      "input_sha256": "f842ce498c17f45416e56eda4d1b295aa2ff11e9a33659c67388f72ea94496e1",
+      "expected": [
+        "marlow"
+      ],
+      "actual": [
+        "marlow"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "marlow-v5",
+      "variant": "nested",
+      "sha256": "5572f87e53b9d666ae50a9903880c0e7099a9965ad3e1e90814e900881e290d7",
+      "input_sha256": "bdf48ce57c66c9292b37d89db5e2dae17044a83a25ab5c72d029da9933ba48d8",
+      "expected": [
+        "marlow"
+      ],
+      "actual": [
+        "marlow"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "marlow-v4",
+      "variant": "renamed",
+      "sha256": "1ac78e51ad1e6c4c33749b55d792e819d36cf1573046bd2b77dbcf5e1d62ccba",
+      "input_sha256": "1ac78e51ad1e6c4c33749b55d792e819d36cf1573046bd2b77dbcf5e1d62ccba",
+      "expected": [
+        "marlow"
+      ],
+      "actual": [
+        "marlow"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "marlow-v4",
+      "variant": "metadata-removed",
+      "sha256": "1ac78e51ad1e6c4c33749b55d792e819d36cf1573046bd2b77dbcf5e1d62ccba",
+      "input_sha256": "00ce160fb1975729827df7723ba9c2a8eff6949a3af70b121a1ce9ff97aad4f4",
+      "expected": [
+        "marlow"
+      ],
+      "actual": [
+        "marlow"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "marlow-v4",
+      "variant": "nested",
+      "sha256": "1ac78e51ad1e6c4c33749b55d792e819d36cf1573046bd2b77dbcf5e1d62ccba",
+      "input_sha256": "17340a5f7d71ca16f80927f582a390692c43258f391c8890caf094d95a600a44",
+      "expected": [
+        "marlow"
+      ],
+      "actual": [
+        "marlow"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "mbth-v010",
+      "variant": "renamed",
+      "sha256": "b9f1ba5afcada80d82180d3c89247dcacf60c6746b16087efcd71e13f92c9f30",
+      "input_sha256": "b9f1ba5afcada80d82180d3c89247dcacf60c6746b16087efcd71e13f92c9f30",
+      "expected": [
+        "mbth"
+      ],
+      "actual": [
+        "mbth"
+      ],
+      "methods": [
+        "file-sha256"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "mbth-v010",
+      "variant": "nested",
+      "sha256": "b9f1ba5afcada80d82180d3c89247dcacf60c6746b16087efcd71e13f92c9f30",
+      "input_sha256": "ff6edb47c89bb3674a10dbb530c8825c395df5f82b82d96fe5835828bb4b6f60",
+      "expected": [
+        "mbth"
+      ],
+      "actual": [
+        "mbth"
+      ],
+      "methods": [
+        "file-sha256"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "immediatelyfast",
+      "variant": "renamed",
+      "sha256": "9c391f0864caf9083cac98e44b1ab6235e45fbf340efda5ba75e0a21929d05d5",
+      "input_sha256": "9c391f0864caf9083cac98e44b1ab6235e45fbf340efda5ba75e0a21929d05d5",
+      "expected": [],
+      "actual": [],
+      "methods": [],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "sodium",
+      "variant": "renamed",
+      "sha256": "e04599514d88e41765f710eeba59e3814909833396bc11b977f48fc2e7e50353",
+      "input_sha256": "e04599514d88e41765f710eeba59e3814909833396bc11b977f48fc2e7e50353",
+      "expected": [],
+      "actual": [],
+      "methods": [],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "doomsday-normal",
+      "variant": "renamed",
+      "sha256": "bdcb9bd162125d9831878e8494046dfc9411a7625e4ca1772ba91b0f87aaae09",
+      "input_sha256": "bdcb9bd162125d9831878e8494046dfc9411a7625e4ca1772ba91b0f87aaae09",
+      "expected": [
+        "doomsday"
+      ],
+      "actual": [
+        "doomsday"
+      ],
+      "methods": [
+        "member-sha256"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "doomsday-normal",
+      "variant": "metadata-removed",
+      "sha256": "bdcb9bd162125d9831878e8494046dfc9411a7625e4ca1772ba91b0f87aaae09",
+      "input_sha256": "ce09ebf04a851da651ae221132066915e884db33c228e53f6dd9bd9f6be72d26",
+      "expected": [
+        "doomsday"
+      ],
+      "actual": [
+        "doomsday"
+      ],
+      "methods": [
+        "member-sha256"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "doomsday-normal",
+      "variant": "nested",
+      "sha256": "bdcb9bd162125d9831878e8494046dfc9411a7625e4ca1772ba91b0f87aaae09",
+      "input_sha256": "bc63408d97b11c307ba70dd669fac49eb39db39eb8c6ad1957a4a97e0bb2e92d",
+      "expected": [
+        "doomsday"
+      ],
+      "actual": [
+        "doomsday"
+      ],
+      "methods": [
+        "member-sha256"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "doomsday-random",
+      "variant": "renamed",
+      "sha256": "e33fe65b514b8a758d1f543269958380ebc700c72bab1f70ca66fc8efde81d31",
+      "input_sha256": "e33fe65b514b8a758d1f543269958380ebc700c72bab1f70ca66fc8efde81d31",
+      "expected": [
+        "doomsday"
+      ],
+      "actual": [
+        "doomsday"
+      ],
+      "methods": [
+        "member-sha256"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "doomsday-random",
+      "variant": "metadata-removed",
+      "sha256": "e33fe65b514b8a758d1f543269958380ebc700c72bab1f70ca66fc8efde81d31",
+      "input_sha256": "8aa764af2f44d5f9ee123cd49511e538c72eb497dbd521413e0aff182966c79a",
+      "expected": [
+        "doomsday"
+      ],
+      "actual": [
+        "doomsday"
+      ],
+      "methods": [
+        "member-sha256"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "doomsday-random",
+      "variant": "nested",
+      "sha256": "e33fe65b514b8a758d1f543269958380ebc700c72bab1f70ca66fc8efde81d31",
+      "input_sha256": "094e58c35b2f3acb776ffe177c9841abc6ccef118ad986b04f6d0d13637fc77d",
+      "expected": [
+        "doomsday"
+      ],
+      "actual": [
+        "doomsday"
+      ],
+      "methods": [
+        "member-sha256"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "hydrogen-1.12.5",
+      "variant": "renamed",
+      "sha256": "ac4fa55782a7782e63b02feb20d31bec1db30c479a08008d33881f3211f00658",
+      "input_sha256": "ac4fa55782a7782e63b02feb20d31bec1db30c479a08008d33881f3211f00658",
+      "expected": [
+        "hydrogen"
+      ],
+      "actual": [
+        "hydrogen"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [
+        "Metadata okunamadı: JSONDecodeError"
+      ],
+      "issues": [
+        {
+          "path": "/tmp/atlasac-ghost-j49b9y8e/variant.dat",
+          "reason": "Metadata okunamadı: JSONDecodeError"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "sample": "hydrogen-1.12.5",
+      "variant": "metadata-removed",
+      "sha256": "ac4fa55782a7782e63b02feb20d31bec1db30c479a08008d33881f3211f00658",
+      "input_sha256": "5d3d8502375af4a896d97621a33016c86736747f04fbd35a0e5408dc00df1252",
+      "expected": [
+        "hydrogen"
+      ],
+      "actual": [
+        "hydrogen"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "hydrogen-1.12.5",
+      "variant": "nested",
+      "sha256": "ac4fa55782a7782e63b02feb20d31bec1db30c479a08008d33881f3211f00658",
+      "input_sha256": "63d486ce91ac710d3646338d635feb36725bea787e1e4d3fdb827c571a66395b",
+      "expected": [
+        "hydrogen"
+      ],
+      "actual": [
+        "hydrogen"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [
+        "Metadata okunamadı: JSONDecodeError"
+      ],
+      "issues": [
+        {
+          "path": "/tmp/atlasac-ghost-j49b9y8e/variant.dat!/payload/data.bin",
+          "reason": "Metadata okunamadı: JSONDecodeError"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "sample": "hydrogen-1.12.4",
+      "variant": "renamed",
+      "sha256": "11da12cff2542ceec9788916115f3de7f46d7631e220cf10f5c9574d1534fb28",
+      "input_sha256": "11da12cff2542ceec9788916115f3de7f46d7631e220cf10f5c9574d1534fb28",
+      "expected": [
+        "hydrogen"
+      ],
+      "actual": [
+        "hydrogen"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [
+        "Metadata okunamadı: JSONDecodeError"
+      ],
+      "issues": [
+        {
+          "path": "/tmp/atlasac-ghost-j49b9y8e/variant.dat",
+          "reason": "Metadata okunamadı: JSONDecodeError"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "sample": "hydrogen-1.12.4",
+      "variant": "metadata-removed",
+      "sha256": "11da12cff2542ceec9788916115f3de7f46d7631e220cf10f5c9574d1534fb28",
+      "input_sha256": "c12bb61a37431a55871657db3fbd769be890cf821918937d313dc43dd04533cc",
+      "expected": [
+        "hydrogen"
+      ],
+      "actual": [
+        "hydrogen"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "hydrogen-1.12.4",
+      "variant": "nested",
+      "sha256": "11da12cff2542ceec9788916115f3de7f46d7631e220cf10f5c9574d1534fb28",
+      "input_sha256": "1e51cf12d1acb02d0b7f10d235ebcb6c89bb2ca7a1e6316a16546d4ff15f0382",
+      "expected": [
+        "hydrogen"
+      ],
+      "actual": [
+        "hydrogen"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [
+        "Metadata okunamadı: JSONDecodeError"
+      ],
+      "issues": [
+        {
+          "path": "/tmp/atlasac-ghost-j49b9y8e/variant.dat!/payload/data.bin",
+          "reason": "Metadata okunamadı: JSONDecodeError"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "sample": "zyklon-4.1",
+      "variant": "renamed",
+      "sha256": "5de07e2fab5908b9eaf6f0eb5c664770dd3dbc630facb3adaad47b6563f23bf0",
+      "input_sha256": "5de07e2fab5908b9eaf6f0eb5c664770dd3dbc630facb3adaad47b6563f23bf0",
+      "expected": [
+        "zyklon"
+      ],
+      "actual": [
+        "zyklon"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "zyklon-4.1",
+      "variant": "extracted-payload",
+      "sha256": "5de07e2fab5908b9eaf6f0eb5c664770dd3dbc630facb3adaad47b6563f23bf0",
+      "input_sha256": "c030dcd55b883894ddc8313ced91d30c598cc1a57e18ea684ee6e4d9e9acf10a",
+      "expected": [
+        "zyklon"
+      ],
+      "actual": [
+        "zyklon"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "zyklon-4.1",
+      "variant": "metadata-removed",
+      "sha256": "5de07e2fab5908b9eaf6f0eb5c664770dd3dbc630facb3adaad47b6563f23bf0",
+      "input_sha256": "1d3e6d071df6c0ccc39abbd7a9a53bcc800ec3e7b02dcf6bee0d06db76d09e6d",
+      "expected": [
+        "zyklon"
+      ],
+      "actual": [
+        "zyklon"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "zyklon-4.1",
+      "variant": "nested",
+      "sha256": "5de07e2fab5908b9eaf6f0eb5c664770dd3dbc630facb3adaad47b6563f23bf0",
+      "input_sha256": "6ba9405794328404316e93eb55389a6dfb2e47c4ebfeb3947bdc7f19acb9286b",
+      "expected": [
+        "zyklon"
+      ],
+      "actual": [
+        "zyklon"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "zyklon-4.0",
+      "variant": "renamed",
+      "sha256": "024e2a156c2837486538f3c6126bf3b03def3a65ae4f9acbdce027b4db64b240",
+      "input_sha256": "024e2a156c2837486538f3c6126bf3b03def3a65ae4f9acbdce027b4db64b240",
+      "expected": [
+        "zyklon"
+      ],
+      "actual": [
+        "zyklon"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "zyklon-4.0",
+      "variant": "extracted-payload",
+      "sha256": "024e2a156c2837486538f3c6126bf3b03def3a65ae4f9acbdce027b4db64b240",
+      "input_sha256": "8d71c50b7c31d79bf1a3718d0e927dea732ad5453f496fe4d0003af42a2e5031",
+      "expected": [
+        "zyklon"
+      ],
+      "actual": [
+        "zyklon"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "zyklon-4.0",
+      "variant": "metadata-removed",
+      "sha256": "024e2a156c2837486538f3c6126bf3b03def3a65ae4f9acbdce027b4db64b240",
+      "input_sha256": "d7ea5d3a6643cc2beb55dd6e230689f4b4202f48ccd68cc02cdca20b5690eafb",
+      "expected": [
+        "zyklon"
+      ],
+      "actual": [
+        "zyklon"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "zyklon-4.0",
+      "variant": "nested",
+      "sha256": "024e2a156c2837486538f3c6126bf3b03def3a65ae4f9acbdce027b4db64b240",
+      "input_sha256": "dbe865e576c9f14eb8f6adda4b58ff72eadf0f521c8d9567ac51589f6c4e3f7d",
+      "expected": [
+        "zyklon"
+      ],
+      "actual": [
+        "zyklon"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "lumina-lumina-client-alpha-2.6.1",
+      "variant": "renamed",
+      "sha256": "65de330e453713f7f469ea70e48fb7d90841ca3ec09899a2c4e88609dfa327ae",
+      "input_sha256": "65de330e453713f7f469ea70e48fb7d90841ca3ec09899a2c4e88609dfa327ae",
+      "expected": [
+        "lumina"
+      ],
+      "actual": [
+        "lumina"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "lumina-lumina-client-alpha-2.6.1",
+      "variant": "metadata-removed",
+      "sha256": "65de330e453713f7f469ea70e48fb7d90841ca3ec09899a2c4e88609dfa327ae",
+      "input_sha256": "ad873b1817049c5b9d7a460bfa33aebd717b91288f03ad6355c1d9e6decb35c7",
+      "expected": [
+        "lumina"
+      ],
+      "actual": [
+        "lumina"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "lumina-lumina-client-alpha-2.6.1",
+      "variant": "nested",
+      "sha256": "65de330e453713f7f469ea70e48fb7d90841ca3ec09899a2c4e88609dfa327ae",
+      "input_sha256": "b735f416c70f9035cfbd5771a961bee0a1858e4417c4890fab0948a391faf223",
+      "expected": [
+        "lumina"
+      ],
+      "actual": [
+        "lumina"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "lumina-2.4.8",
+      "variant": "renamed",
+      "sha256": "4c732cc13cd466039ac34cd69fb43af92935d6ef82e361e65d6762dbdbbf0695",
+      "input_sha256": "4c732cc13cd466039ac34cd69fb43af92935d6ef82e361e65d6762dbdbbf0695",
+      "expected": [
+        "lumina"
+      ],
+      "actual": [
+        "lumina"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "lumina-2.4.8",
+      "variant": "metadata-removed",
+      "sha256": "4c732cc13cd466039ac34cd69fb43af92935d6ef82e361e65d6762dbdbbf0695",
+      "input_sha256": "e6018c8e5250e64e7c2eb5279be7f1fd2d199ecd773b254b73eb959b9e2a3111",
+      "expected": [
+        "lumina"
+      ],
+      "actual": [
+        "lumina"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "lumina-2.4.8",
+      "variant": "nested",
+      "sha256": "4c732cc13cd466039ac34cd69fb43af92935d6ef82e361e65d6762dbdbbf0695",
+      "input_sha256": "01cec541062b06b1511e7e333fd7742339375963331fad92de90eac9d605b6e4",
+      "expected": [
+        "lumina"
+      ],
+      "actual": [
+        "lumina"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "nemui-v1.5-forge",
+      "variant": "renamed",
+      "sha256": "df2eb690a1b063e9a2527bd7c23f6b32861f1ca1bccfc02dfd3acaf13774aa8c",
+      "input_sha256": "df2eb690a1b063e9a2527bd7c23f6b32861f1ca1bccfc02dfd3acaf13774aa8c",
+      "expected": [
+        "nemui"
+      ],
+      "actual": [
+        "nemui"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "nemui-v1.5-forge",
+      "variant": "metadata-removed",
+      "sha256": "df2eb690a1b063e9a2527bd7c23f6b32861f1ca1bccfc02dfd3acaf13774aa8c",
+      "input_sha256": "6dc7cc33596f84fe351affc3dea3b961090144f5ec25ec5b765c058055973df2",
+      "expected": [
+        "nemui"
+      ],
+      "actual": [
+        "nemui"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "nemui-v1.5-forge",
+      "variant": "nested",
+      "sha256": "df2eb690a1b063e9a2527bd7c23f6b32861f1ca1bccfc02dfd3acaf13774aa8c",
+      "input_sha256": "40299d7a3a539806bc7eecbbcf0fb8ea0738dd4e5cfae547bc1e9e30a655a24b",
+      "expected": [
+        "nemui"
+      ],
+      "actual": [
+        "nemui"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "nemui-v1.5",
+      "variant": "renamed",
+      "sha256": "ed91773852c7bd94969e3df8138a1b2491d9af01c70c386fe900cd95dc152d14",
+      "input_sha256": "ed91773852c7bd94969e3df8138a1b2491d9af01c70c386fe900cd95dc152d14",
+      "expected": [
+        "nemui"
+      ],
+      "actual": [
+        "nemui"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "nemui-v1.5",
+      "variant": "metadata-removed",
+      "sha256": "ed91773852c7bd94969e3df8138a1b2491d9af01c70c386fe900cd95dc152d14",
+      "input_sha256": "70e57e5669e95051b3947ea4bd995ac175ff2f8b91be7463bc7a55e94b543295",
+      "expected": [
+        "nemui"
+      ],
+      "actual": [
+        "nemui"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "nemui-v1.5",
+      "variant": "nested",
+      "sha256": "ed91773852c7bd94969e3df8138a1b2491d9af01c70c386fe900cd95dc152d14",
+      "input_sha256": "4127603160c3eaa521bfa7b6026330b76f84e217c8798570a3497f3a0e9cf1d6",
+      "expected": [
+        "nemui"
+      ],
+      "actual": [
+        "nemui"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "vox-0.1.1",
+      "variant": "renamed",
+      "sha256": "1f44b376cebd25ad1fe14a7ae45eebe48677644b15bd2cfd6bca9b994bfdd25d",
+      "input_sha256": "1f44b376cebd25ad1fe14a7ae45eebe48677644b15bd2cfd6bca9b994bfdd25d",
+      "expected": [
+        "vox"
+      ],
+      "actual": [
+        "vox"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "vox-0.1.1",
+      "variant": "metadata-removed",
+      "sha256": "1f44b376cebd25ad1fe14a7ae45eebe48677644b15bd2cfd6bca9b994bfdd25d",
+      "input_sha256": "789a11f1bf1b9bb09356316bbddf350bad9bb0c184899e4996c65982f62e8167",
+      "expected": [
+        "vox"
+      ],
+      "actual": [
+        "vox"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "vox-0.1.1",
+      "variant": "nested",
+      "sha256": "1f44b376cebd25ad1fe14a7ae45eebe48677644b15bd2cfd6bca9b994bfdd25d",
+      "input_sha256": "6690be529da763ae6f741c60af3bd727c6cd890ba1370c8eda6003aa90a6b537",
+      "expected": [
+        "vox"
+      ],
+      "actual": [
+        "vox"
+      ],
+      "methods": [
+        "class-signature"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "fusion-plus-v0.0.4",
+      "variant": "renamed",
+      "sha256": "6826430e3d0a040352bf73dbfc99ba005d16b84787bf5450bb8c90f43ed350e5",
+      "input_sha256": "6826430e3d0a040352bf73dbfc99ba005d16b84787bf5450bb8c90f43ed350e5",
+      "expected": [
+        "fusion-plus"
+      ],
+      "actual": [
+        "fusion-plus"
+      ],
+      "methods": [
+        "file-sha256"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "fusion-plus-v0.0.4",
+      "variant": "nested",
+      "sha256": "6826430e3d0a040352bf73dbfc99ba005d16b84787bf5450bb8c90f43ed350e5",
+      "input_sha256": "a805eb7d6b8b446fcd244b32bfb5853079421ee68022a7e6bc90873cd4eff21b",
+      "expected": [
+        "fusion-plus"
+      ],
+      "actual": [
+        "fusion-plus"
+      ],
+      "methods": [
+        "file-sha256"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "fusion-plus-v0.0.3",
+      "variant": "renamed",
+      "sha256": "55026b9be0d7ff29db305d93755c1b11b9e19c0c3d06fbca2fa2f720afa93ad9",
+      "input_sha256": "55026b9be0d7ff29db305d93755c1b11b9e19c0c3d06fbca2fa2f720afa93ad9",
+      "expected": [
+        "fusion-plus"
+      ],
+      "actual": [
+        "fusion-plus"
+      ],
+      "methods": [
+        "file-sha256"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "fusion-plus-v0.0.3",
+      "variant": "nested",
+      "sha256": "55026b9be0d7ff29db305d93755c1b11b9e19c0c3d06fbca2fa2f720afa93ad9",
+      "input_sha256": "a0b987a43edd290ab08b9a2a1870efbbea31b4428ec8c548238ef318567f6c15",
+      "expected": [
+        "fusion-plus"
+      ],
+      "actual": [
+        "fusion-plus"
+      ],
+      "methods": [
+        "file-sha256"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "wraith-v1.0.0",
+      "variant": "renamed",
+      "sha256": "821e0348c51c64c7c0ac69d418ceb8a08e530d615a3e3cc49c251f662c154ca3",
+      "input_sha256": "821e0348c51c64c7c0ac69d418ceb8a08e530d615a3e3cc49c251f662c154ca3",
+      "expected": [
+        "wraith"
+      ],
+      "actual": [
+        "wraith"
+      ],
+      "methods": [
+        "file-sha256"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "wraith-v1.0.0",
+      "variant": "nested",
+      "sha256": "821e0348c51c64c7c0ac69d418ceb8a08e530d615a3e3cc49c251f662c154ca3",
+      "input_sha256": "16d5cf7954e264ccdba90a5443148e4f49895eeba72cf0911c47d727013fc69f",
+      "expected": [
+        "wraith"
+      ],
+      "actual": [
+        "wraith"
+      ],
+      "methods": [
+        "file-sha256"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "wraith-v1.0a",
+      "variant": "renamed",
+      "sha256": "8ff57d7ece82ced27ba73465e6e3985a2752f5ebf682b5bee5c29d3422536837",
+      "input_sha256": "8ff57d7ece82ced27ba73465e6e3985a2752f5ebf682b5bee5c29d3422536837",
+      "expected": [
+        "wraith"
+      ],
+      "actual": [
+        "wraith"
+      ],
+      "methods": [
+        "file-sha256"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "wraith-v1.0a",
+      "variant": "nested",
+      "sha256": "8ff57d7ece82ced27ba73465e6e3985a2752f5ebf682b5bee5c29d3422536837",
+      "input_sha256": "9aa9a03ea021d96a729488ca2fcbb35ba80fc5b2cf0d47430939239db765fe28",
+      "expected": [
+        "wraith"
+      ],
+      "actual": [
+        "wraith"
+      ],
+      "methods": [
+        "file-sha256"
+      ],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "sysinternals-sigcheck",
+      "variant": "renamed",
+      "sha256": "8756099c1ce3d3f450245c0d4b39aeb5b29309f56bf77f8c18f1469c418abf12",
+      "input_sha256": "8756099c1ce3d3f450245c0d4b39aeb5b29309f56bf77f8c18f1469c418abf12",
+      "expected": [],
+      "actual": [],
+      "methods": [],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "sysinternals-sigcheck",
+      "variant": "native-control:sigcheck.exe",
+      "sha256": "8756099c1ce3d3f450245c0d4b39aeb5b29309f56bf77f8c18f1469c418abf12",
+      "input_sha256": "7cf481ae647639d03782c614e268894caf94811da300deef9c6a74fccc5f7804",
+      "expected": [],
+      "actual": [],
+      "methods": [],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "sysinternals-sigcheck",
+      "variant": "native-control:sigcheck64.exe",
+      "sha256": "8756099c1ce3d3f450245c0d4b39aeb5b29309f56bf77f8c18f1469c418abf12",
+      "input_sha256": "f3d671b4bab4714746d0034104363d4f6deef591e979e8e37170803e8960487d",
+      "expected": [],
+      "actual": [],
+      "methods": [],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "sysinternals-sigcheck",
+      "variant": "native-control:sigcheck64a.exe",
+      "sha256": "8756099c1ce3d3f450245c0d4b39aeb5b29309f56bf77f8c18f1469c418abf12",
+      "input_sha256": "c081f7ec670bd90c2209738801050683f1e5d908653636674f5b9f1280f7bf09",
+      "expected": [],
+      "actual": [],
+      "methods": [],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "sample": "caffeinemc-hydrogen",
+      "variant": "renamed",
+      "sha256": "598f6168244467220f37e9a5a07a5ba59af5a0df0edf5ba13a44c7ee9b02c1e1",
+      "input_sha256": "598f6168244467220f37e9a5a07a5ba59af5a0df0edf5ba13a44c7ee9b02c1e1",
+      "expected": [],
+      "actual": [],
+      "methods": [],
+      "expected_issue_reasons": [],
+      "issues": [],
+      "passed": true
+    },
+    {
+      "variant": "cold-system",
+      "expected_matches": 20,
+      "matches": 20,
+      "live_matches": 20,
+      "cache_hits": 0,
+      "files": 24,
+      "status": "partial",
+      "expected_status": "partial",
+      "issues_total": 2,
+      "passed": true
+    },
+    {
+      "variant": "cached-system",
+      "expected_matches": 20,
+      "matches": 20,
+      "live_matches": 20,
+      "cache_hits": 22,
+      "files": 24,
+      "status": "partial",
+      "expected_status": "partial",
+      "issues_total": 2,
+      "passed": true
+    }
+  ],
+  "all_passed": true
+}

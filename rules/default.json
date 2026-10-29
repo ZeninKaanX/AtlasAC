@@ -1,5 +1,5 @@
 {
-  "version": "2026.10.30.1-ghost2",
+  "version": "2026.10.30.2-ghost3",
   "rules": [
     {
       "id": "meteor",
@@ -311,6 +311,107 @@
         {
           "size": 1664000,
           "sha256": "b9f1ba5afcada80d82180d3c89247dcacf60c6746b16087efcd71e13f92c9f30"
+        }
+      ]
+    },
+    {
+      "id": "hydrogen",
+      "name": "Hydrogen",
+      "category": "ghost-client",
+      "source": "https://github.com/zPeanut/Hydrogen/releases",
+      "mod_ids": [],
+      "class_prefixes": [],
+      "required_classes": [
+        "me/peanut/hydrogen/module/modules/combat/AutoClicker.class",
+        "me/peanut/hydrogen/module/modules/combat/Reach.class",
+        "me/peanut/hydrogen/module/modules/combat/TriggerBot.class"
+      ]
+    },
+    {
+      "id": "nemui",
+      "name": "Nemui",
+      "category": "ghost-client",
+      "source": "https://github.com/SleepyFish-YT/Nemui/releases",
+      "mod_ids": [],
+      "class_prefixes": [],
+      "required_classes": [
+        "me/sleepyfish/nemui/client/Nemui.class",
+        "me/sleepyfish/nemui/modules/impl/ghost/AimAssist.class",
+        "me/sleepyfish/nemui/modules/impl/ghost/TriggerBot.class"
+      ]
+    },
+    {
+      "id": "vox",
+      "name": "VOX",
+      "category": "ghost-client",
+      "source": "https://github.com/ShimadaNanaki/vox-client/releases",
+      "mod_ids": [],
+      "class_prefixes": [],
+      "required_classes": [
+        "dev/rabies/vox/VoxMod.class",
+        "dev/rabies/vox/cheats/cheats/AimAssistCheat.class",
+        "dev/rabies/vox/cheats/cheats/AutoClickerCheat.class"
+      ]
+    },
+    {
+      "id": "lumina",
+      "name": "Lumina",
+      "category": "ghost-client",
+      "source": "https://github.com/stormcoph/LuminaClient/releases",
+      "mod_ids": [],
+      "class_prefixes": [],
+      "required_classes": [
+        "me/stormcph/lumina/Lumina.class",
+        "me/stormcph/lumina/module/impl/combat/Killaura.class",
+        "me/stormcph/lumina/module/impl/combat/TriggerBot.class"
+      ]
+    },
+    {
+      "id": "zyklon",
+      "name": "Zyklon",
+      "category": "ghost-client",
+      "source": "https://github.com/jeopardization/Zyklon/releases",
+      "mod_ids": [],
+      "class_prefixes": [],
+      "required_classes": [
+        "respectful/rapist/client/module/modules/combat/Velocity.class",
+        "respectful/rapist/client/module/modules/combat/AutoClicker.class",
+        "respectful/rapist/client/module/modules/combat/Reach.class"
+      ]
+    },
+    {
+      "id": "fusion-plus",
+      "name": "Fusion+ — doğrulanan DLL sürümleri",
+      "category": "ghost-client",
+      "source": "https://github.com/h1meji/fusion-plus/releases",
+      "mod_ids": [],
+      "class_prefixes": [],
+      "file_signatures": [
+        {
+          "size": 998400,
+          "sha256": "6826430e3d0a040352bf73dbfc99ba005d16b84787bf5450bb8c90f43ed350e5"
+        },
+        {
+          "size": 776192,
+          "sha256": "55026b9be0d7ff29db305d93755c1b11b9e19c0c3d06fbca2fa2f720afa93ad9"
+        }
+      ]
+    },
+    {
+      "id": "wraith",
+      "name": "Wraith — doğrulanan Linux sürümleri",
+      "category": "ghost-client",
+      "source": "https://github.com/decryller/wraith/releases",
+      "mod_ids": [],
+      "class_prefixes": [],
+      "file_signatures": [
+        {
+          "size": 237712,
+          "sha256": "821e0348c51c64c7c0ac69d418ceb8a08e530d615a3e3cc49c251f662c154ca3"
+        },
+        {
+          "size": 264696,
+          "sha256": "8ff57d7ece82ced27ba73465e6e3985a2752f5ebf682b5bee5c29d3422536837"
         }
       ]
     }

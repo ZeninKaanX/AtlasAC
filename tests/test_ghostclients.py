@@ -39,7 +39,8 @@ class GhostTests(unittest.TestCase):
         }])
 
     def test_benign_metadata_names_do_not_impersonate_ghosts(self):
-        for mod_id in ('immediatelyfast', 'argon', 'imnotcheatingyouare', 'vape', 'slinky', 'raven'):
+        for mod_id in ('immediatelyfast', 'argon', 'imnotcheatingyouare', 'vape', 'slinky', 'raven',
+                       'hydrogen', 'lumina', 'vox', 'nemui'):
             p = self.root / (mod_id + '.jar')
             p.write_bytes(self.archive({'fabric.mod.json': json.dumps({'id': mod_id})}))
         self.assertFalse(scan(self.root, self.rules)['findings'])
@@ -103,6 +104,42 @@ class GhostTests(unittest.TestCase):
         changed_rules = dict(rules, rules=[dict(rules['rules'][0], file_signatures=[])])
         r = system_scan(changed_rules, [disk], data_dir=self.root/'state', artifacts=False)
         self.assertFalse(r['findings'])
+
+    def test_linux_appimage_is_a_candidate_and_remains_live(self):
+        content = b'\x7fELF' + b'controlled Linux fixture' * 10
+        rules = self.native_rules(content)
+        disk = self.root/'disk'; disk.mkdir()
+        target = disk/'unrelated.AppImage'; target.write_bytes(content)
+        events = []
+        report = system_scan(rules, [disk], data_dir=self.root/'state', artifacts=False, progress=events.append)
+        self.assertEqual(report['indexed_files'], 1)
+        self.assertEqual(report['findings'][0]['path'], str(target))
+        self.assertEqual(report['files'][0]['format'], 'ELF')
+        self.assertEqual([f for e in events for f in e['new_findings']], report['findings'])
+
+    def test_new_java_clients_require_all_three_specific_class_paths(self):
+        for rule in self.rules['rules']:
+            if rule['id'] not in {'hydrogen','nemui','vox','lumina','zyklon'}:continue
+            target = self.root/'renamed.jar'
+            for count in (0, 1, 2, 3):
+                target.write_bytes(self.archive({n: b'controlled fixture' for n in rule['required_classes'][:count]}))
+                findings = probe(target, self.rules, threading.Event())['findings']
+                self.assertEqual([f['rule'] for f in findings], [rule['id']] if count == 3 else [])
+
+    def test_invalid_metadata_keeps_live_ghost_detection_and_partial_status(self):
+        rule = next(r for r in self.rules['rules'] if r['id'] == 'hydrogen')
+        disk = self.root/'disk'; disk.mkdir()
+        target = disk/'unrelated.jar'
+        members = {n: b'controlled fixture' for n in rule['required_classes']}
+        members['mcmod.info'] = '[{"modid":"hydrogen","credits":"literal\nnewline"}]'
+        target.write_bytes(self.archive(members))
+        for _ in range(2):
+            events = []
+            report = system_scan(self.rules, [disk], data_dir=self.root/'state', artifacts=False, progress=events.append)
+            self.assertEqual(report['status'], 'partial')
+            self.assertEqual(report['cache_hits'], 0)
+            self.assertEqual([f['rule'] for f in report['findings']], ['hydrogen'])
+            self.assertEqual([f for e in events for f in e['new_findings']], report['findings'])
 
     def test_invalid_native_signatures_rejected(self):
         content = b'MZfixture'

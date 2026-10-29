@@ -1,34 +1,63 @@
-# Ghost client coverage — 0.3.5
+# Ghost client coverage — 0.3.6
 
-AtlasAC performs static file inspection. A match identifies a known file or archive structure; it does not prove execution, injection, server use, or detect a payload that only remains in memory. This is a first expansion, not completion of the all-client goal.
+AtlasAC performs static file inspection. A match identifies a known file or archive structure; it does not prove execution, injection or server use. Memory-only or deleted payloads are not covered. This expansion does not complete the all-client goal.
 
-| Client | Verified builds | Detection | Limits |
-| --- | --- | --- | --- |
-| DoomsDay | Two official loader downloads, previous 0.3.4 samples | Two member SHA-256 values together | Different internals and memory-only remnants not covered |
-| Argon | Developer releases `JAR`, `Bugfix` | Three specific main/combat class paths together | Metadata falsely says ImmediatelyFast; benign ImmediatelyFast is not flagged; renamed classes can evade |
-| Marlow | Developer releases `v4`, `v5` | Three specific client/combat class paths together | Different class layouts not covered |
-| MBTH Ghost Client | Developer release `v0.1.0` DLL | Exact SHA-256 and byte size, including archive members | Only these exact DLL bytes; altered/other builds not covered |
-| Vape / Vape Lite | No verified sample | Not supported by a dedicated rule | Official download requires an account; no fabricated signature |
-| Whiteout / Entropy / Dream / Drip / Slinky / Raven | No verified sample added | Not supported by a dedicated rule | No guessed filename, URL, generic `ghost` string or client-name rule |
+| Named project/group | Verified published builds | Detection |
+| --- | --- | --- |
+| DoomsDay | Two official 0.3.4 loader samples | Two member SHA-256 values together |
+| Argon | `JAR`, `Bugfix` | Three specific main/combat class paths |
+| Marlow | `v4`, `v5` | Three specific client/combat class paths |
+| MBTH Ghost Client | `v0.1.0` DLL | Exact SHA-256 and byte size |
+| Hydrogen ghost client (zPeanut) | `1.12.5`, `1.12.4` | Three specific combat class paths |
+| Nemui | `v1.5-forge`, `v1.5` Weave | Three specific client/ghost class paths |
+| VOX | `0.1.1` | Three specific client/combat class paths |
+| Lumina | `lumina-client-alpha-2.6.1`, `2.4.8` | Three specific client/combat class paths |
+| Zyklon | `4.1`, `4.0` published ZIP packages and inner payloads | Three specific combat class paths inside `bin/cloud/public/client.jar` |
+| Fusion+ | `v0.0.4`, `v0.0.3` DLL | Exact SHA-256 and byte size |
+| Wraith | Linux `v1.0.0`, `v1.0a` | Exact SHA-256 and byte size; `.AppImage` is now eligible |
 
-Published sample provenance and exact digests: [ghost-samples-035.json](ghost-samples-035.json). Raw samples are kept outside the repository, not redistributed, and never executed. Five new positive sample files represent **three additional client families**, not five distinct families. The two old DoomsDay files bring this ghost-specific sample set to seven positive files across four named groups. The larger historical general-client corpus is separate.
+This is **20 positive sample files across 11 named projects/groups**, including **13 newly added files across seven projects**. Releases, repackings, related projects and derivatives are not counted as independent cheat architectures. The historical general-client corpus is separate. Native hash rules cover only the exact pinned bytes, not all variants. Java class paths can be renamed or copied; three paths together reduce weak name-only matches but do not provide an unforgeable identity.
 
-Linux evidence: [linux-ghost-real-035.json](linux-ghost-real-035.json), 24 checks. Each positive is checked after renaming and nesting; Java positives are also repacked with all metadata removed. Two genuine normal mods (ImmediatelyFast, Sodium) produce no findings. Cold and cached whole-scope runs both publish all seven expected live/final findings. Windows CI evidence: [windows-ghost-real-035.json](windows-ghost-real-035.json), 18 checks covering the five new positives, two genuine normal mods, repacking and cold/cached live results. These are static tests of real published files, not tests of injected/self-destructed clients in a running game.
+## Real sample checks
 
-Reproduce against the exact sample files named in the manifest:
+[ghost-samples-036.json](ghost-samples-036.json) pins download URLs, byte sizes and SHA-256 values. Raw samples are outside the repository, never redistributed and never executed.
+
+[linux-ghost-real-036.json](linux-ghost-real-036.json) contains **66 checks** over the full set:
+
+- Real positives after renaming and placing inside an archive.
+- Java positives repacked with all metadata removed.
+- Zyklon's extracted client payload tested separately from its distribution ZIP.
+- Cold and cached whole-scope scans, with every expected finding present in live updates and the final report. The real Wraith files use `.AppImage` filenames in this path, rather than only calling the per-file inspector directly.
+- Four benign distribution files: ImmediatelyFast, Sodium, CaffeineMC's **normal Hydrogen optimization mod**, and Microsoft's Sigcheck ZIP. The three Sigcheck EXE members are also checked separately. All produce no findings. Matching the generic `hydrogen` mod ID alone would wrongly accuse the normal CaffeineMC mod; that rule is deliberately absent.
+
+The two real Hydrogen ghost releases contain malformed JSON metadata (a literal newline inside a JSON string). Their specific class signatures still match. The scan explicitly retains the metadata read issue and **partial status** on both cold and cached passes; partial metadata inspections are not reused as completed cache results. The manifest lists the exact expected issue reasons. An unrelated issue still fails validation. Twenty detections do not mean twenty fully readable metadata records.
+
+CI validates the 0.3.6 expansion cohort on both Windows and Ubuntu using `--expansion-only`: 18 positive files, four benign distributions, **60 checks**. The two previously pinned DoomsDay samples are excluded from automated re-download because the randomized endpoint cannot reproduce the same outer bytes. Earlier Windows evidence is retained in [windows-doomsday-real-034.json](windows-doomsday-real-034.json). CI validation reports are uploaded as separate workflow artifacts.
+
+## Important distinctions
+
+Argon's genuine tested files claim the benign ImmediatelyFast identity. Their normal metadata ID is never itself a cheat rule; specific Argon classes are required, and its misleading benign icon is suppressed. Nemui and Lumina have original embedded branding icons with provenance in [CLIENT-ICONS.json](CLIENT-ICONS.json); there are 20 bundled client icons in total. Atlas remains the fallback where no suitable icon is available.
+
+Only the actual Fusion+ client DLLs are pinned. A generic injector executable is not automatically equated with the cheat it could load. Wraith is a Linux payload; recognizing its static bytes when inspecting files on Windows does not mean that Wraith itself runs on Windows. `.AppImage` coverage is exact-file detection, not a general SquashFS/embedded filesystem scanner.
+
+Vape/Vape Lite, Whiteout, Entropy, Dream, Drip, Slinky and Raven still have **no verified dedicated rule**. Slinky's official download requires a license key, Entropy directs to account login, and Vape's official installation requires account access. No account/license bypass or guessed brand-string signature is used. Local authorized samples are needed before claiming detection of these builds.
+
+## Reproduce
+
+Download exact sample files separately under the manifest's `file` names, then run:
 
 ```sh
 python tools/validate_ghost_samples.py --samples-dir /private/samples --output ghost-validation.json
 ```
 
-The new five positives and two benign controls can be downloaded and checked explicitly:
+Fetch and validate the re-downloadable cohort explicitly:
 
 ```sh
 python tools/validate_ghost_samples.py --expansion-only --download --samples-dir /private/samples --output ghost-validation.json
 ```
 
-Download validation rejects changed bytes and never runs downloaded code. CI executes this second command on Windows and Linux and saves a separate validation artifact. The old randomized DoomsDay URL cannot reproduce an identical whole-file digest; the existing pinned file must be supplied for the full test. Future tested builds need a new manifest entry rather than quietly replacing old evidence.
+The downloader rejects changed bytes and never executes a sample. To reproduce the older 0.3.5 cohort, add `--manifest docs/ghost-samples-035.json`. Downloaded native binaries should remain non-executable data files in the test directory. No Defender, audit, game, or protection setting is changed.
 
-Rules do not add a running-process memory reader. Existing directory exclusions, candidate extensions, CPU budget, ten-minute deadline and partial-result reporting still apply; a matching file can remain outside reached scope. No claim of 200 different verified cheat families or universal detection is made.
+Existing candidate extensions, directory exclusions, CPU budget, ten-minute deadline and partial-result reporting still apply. Known game/SDK caches remain archives-only; a matching native file can remain outside reached scope. There is no claim of universal detection, process-memory scanning, injected/self-destructed client recovery, or 200 independent verified cheat families.
 
-Developer sources: [Argon releases](https://github.com/LvStrnggg/argon/releases), [Marlow releases](https://github.com/nxghtCry0/marlowwwclient/releases), [MBTH v0.1.0](https://github.com/mbth-studios/MBTH-GHOST-CLIENT/releases/tag/v0.1.0), [Vape installation documentation](https://docs.vape.gg/intro/install).
+Developer sources: [Hydrogen ghost](https://github.com/zPeanut/Hydrogen/releases), [Nemui](https://github.com/SleepyFish-YT/Nemui/releases), [VOX](https://github.com/ShimadaNanaki/vox-client/releases), [Lumina](https://github.com/stormcoph/LuminaClient/releases), [Zyklon](https://github.com/jeopardization/Zyklon/releases), [Fusion+](https://github.com/h1meji/fusion-plus/releases), [Wraith](https://github.com/decryller/wraith/releases), [normal Hydrogen](https://github.com/CaffeineMC/hydrogen-fabric/releases), [Slinky download](https://slinky.gg/download/), [Entropy login](https://entropy.club/dashboard/login), [Vape installation](https://docs.vape.gg/intro/install).

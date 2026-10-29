@@ -1,6 +1,6 @@
 """Candidate extensions requested by the user; images/media/documents are skipped."""
 ARCHIVES={'.jar','.zip'}
-CANDIDATES=ARCHIVES|{'.exe','.dll','.sys','.scr','.com','.msi','.pyd','.so','.dylib','.class',
+CANDIDATES=ARCHIVES|{'.exe','.dll','.sys','.scr','.com','.msi','.pyd','.so','.dylib','.appimage','.class',
     '.dat','.bin','.tmp','.cache','.ps1','.bat','.cmd','.vbs','.js','.py','.ahk','.lua'}
 
 def candidate(path,archives_only=False):

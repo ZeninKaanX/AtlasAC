@@ -50,6 +50,15 @@ def decode_icon(encoded):
     except (ValueError,TypeError):pass
     return result
 
+
+def known_icon(path):
+    """Keep the displayed pixmap bounded even when original branding is 4096px."""
+    reader=QImageReader(str(path));size=reader.size()
+    if size.width()<=0 or size.height()<=0:return QPixmap()
+    if max(size.width(),size.height())>512:
+        reader.setScaledSize(size.scaled(QSize(512,512),Qt.AspectRatioMode.KeepAspectRatio))
+    return QPixmap.fromImage(reader.read())
+
 class ResultReveal(QWidget):
     finished=Signal()
     activeChanged=Signal(bool)
@@ -80,7 +89,7 @@ class ResultReveal(QWidget):
             seen.add(rule);icon=QPixmap()
             if rule and all(c.isascii() and (c.isalnum() or c=='-') for c in rule):
                 known=ASSETS/'client-icons'/(rule+'.png')
-                if known.is_file():icon=QPixmap(str(known))
+                if known.is_file():icon=known_icon(known)
             if icon.isNull():icon=decode_icon(finding.get('icon_png_base64',''))
             self.center_icons.append((icon,str(finding.get('name',rule))[:70]))
         if self.center_icons:self.center_icon,self.center_name=self.center_icons[0]

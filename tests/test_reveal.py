@@ -46,6 +46,16 @@ class RevealTests(unittest.TestCase):
         self.assertLess(strip.fish.width(),strip.shark.width()/2)
         self.assertLess(strip.fish.height(),strip.shark.height()/2)
         strip.close()
+    def test_large_original_client_branding_keeps_bounded_display_pixmaps(self):
+        parent=QWidget();overlay=ResultReveal(parent,LOGO);overlay.sound.setMuted(True)
+        try:
+            overlay.start({'status':'completed','findings':[{'rule':'lumina'},{'rule':'nemui'}]})
+            self.assertEqual(len(overlay.center_icons),2)
+            for icon,_ in overlay.center_icons:
+                self.assertFalse(icon.isNull())
+                self.assertLessEqual(max(icon.width(),icon.height()),512)
+            overlay.finish()
+        finally:parent.close()
     def test_reference_sound_ends_but_result_waits_for_click(self):
         parent=QWidget();parent.resize(960,600);parent.show();overlay=ResultReveal(parent,LOGO);overlay.sound.setMuted(True);done=[];overlay.finished.connect(lambda:done.append(True))
         try:
