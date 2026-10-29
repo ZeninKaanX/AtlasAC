@@ -24,7 +24,7 @@ class ProcessTests(unittest.TestCase):
             self.assertEqual(report['internal_exclusions'],['owned-resource']);self.assertEqual(report['scope_note'],'candidate scope')
     def test_excluded_library_does_not_hide_other_files(self):
         with tempfile.TemporaryDirectory() as tmp:
-            root=Path(tmp);skip=root/'games';skip.mkdir();(skip/'game.dat').write_text('game');(root/'other.dat').write_text('scan')
+            root=Path(tmp).resolve();skip=root/'games';skip.mkdir();(skip/'game.dat').write_text('game');(root/'other.dat').write_text('scan')
             with patch('atlasac.systemscan.excluded_locations',return_value={skip:'Oyun kütüphanesi'}):
                 report=system_scan(load_rules(RULES),[root],data_dir=root/'state',artifacts=False)
             self.assertEqual(report['indexed_files'],1);self.assertEqual(report['excluded_paths'],[str(skip)])
@@ -32,7 +32,7 @@ class ProcessTests(unittest.TestCase):
     def test_all_jars_survive_library_filter_and_images_are_skipped(self):
         import json,zipfile
         with tempfile.TemporaryDirectory() as tmp:
-            root=Path(tmp);games=root/'library';games.mkdir()
+            root=Path(tmp).resolve();games=root/'library';games.mkdir()
             for p in (games/'client.JAR',root/'client.jar'):
                 with zipfile.ZipFile(p,'w') as z:z.writestr('fabric.mod.json',json.dumps({'id':'meteor-client'}))
             for p in (games/'game.png',root/'picture.png',games/'game.exe',root/'readme.md'):p.write_bytes(b'normal')
@@ -45,7 +45,7 @@ class ProcessTests(unittest.TestCase):
     def test_only_running_frozen_resource_directory_is_excluded(self):
         import sys,json,zipfile
         with tempfile.TemporaryDirectory() as tmp:
-            root=Path(tmp);internal=root/'_MEI-active';internal.mkdir()
+            root=Path(tmp).resolve();internal=root/'_MEI-active';internal.mkdir()
             for path in (internal/'inside.jar',root/'real-mod.jar'):
                 with zipfile.ZipFile(path,'w') as z:z.writestr('fabric.mod.json',json.dumps({'id':'meteor-client'}))
             with patch.object(sys,'frozen',True,create=True),patch.object(sys,'_MEIPASS',str(internal),create=True):

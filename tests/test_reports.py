@@ -22,5 +22,5 @@ class ReportTests(unittest.TestCase):
 
     def test_roots_are_deduplicated_without_losing_siblings(self):
         with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
+            root = Path(tmp).resolve()
             self.assertCountEqual(unique_roots([root/'a',root/'a/mods',root/'b',root/'a']),[root/'a',root/'b'])
