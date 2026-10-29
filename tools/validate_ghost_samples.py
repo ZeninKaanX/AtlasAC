@@ -93,7 +93,7 @@ if __name__ == '__main__':
     parser.add_argument('--expansion-only', action='store_true', help='Only the newly added sample builds and benign controls')
     parser.add_argument('--download', action='store_true', help='Fetch exact pinned public builds; never execute them')
     args = parser.parse_args()
-    manifest = json.loads(args.manifest.read_text())
+    manifest = json.loads(args.manifest.read_text(encoding='utf-8'))
     if args.expansion_only:
         manifest['samples'] = [s for s in manifest['samples'] if not s['id'].startswith('doomsday-')]
     if args.download:
@@ -106,6 +106,6 @@ if __name__ == '__main__':
                 raise ValueError('Published bytes changed; refusing to validate as pinned sample: '+sample['id'])
             (args.samples_dir/sample['file']).write_bytes(content)
     result = validate(args.samples_dir, manifest)
-    args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2)+'\n')
+    args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     print(json.dumps({'all_passed': result['all_passed'], 'checks': len(result['tests'])}))
     raise SystemExit(0 if result['all_passed'] else 1)
