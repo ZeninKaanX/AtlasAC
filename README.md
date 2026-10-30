@@ -1,4 +1,4 @@
-# AtlasAC 0.3.9
+# AtlasAC 0.3.10
 
 [Windows EXE indir](https://github.com/ZeninKaanX/AtlasAC/releases/latest/download/AtlasAC.exe) · [Linux x64 indir](https://github.com/ZeninKaanX/AtlasAC/releases/latest/download/AtlasAC-Linux-x64) · [Tüm sürümler](https://github.com/ZeninKaanX/AtlasAC/releases)
 
@@ -13,7 +13,7 @@ AtlasOyuncu temalı, Windows ve Linux için **yerel masaüstü dosya ve sistem k
 
 İlk açılışta gömülü çalışma dosyaları geçici klasöre hazırlanırken kısa bir bekleme olabilir. Hazır uygulama Python veya pip kurulumu ve yönetici yetkisi istemez. Windows’ta korumalı Prefetch/USN/BAM kayıtları için isteğe bağlı “Yönetici olarak çalıştır” kullanılabilir; normal çalıştırmada erişim eksikleri gösterilir. Linux’ta indirilmiş dosyanın çalıştırma izni korunmamışsa dosya özelliklerinden çalıştırılabilir yap.
 
-ZIP/TAR.GZ arşivleri aynı tek dosyalık uygulamayı içerir. Linux derlemeleri glibc 2.44 üzerinde üretildi; eski dağıtımlarda doğrulanmadı. SHA-256 değerleri `dist/SHA256SUMS.txt` içindedir. Derlemeler imzasızdır.
+ZIP/TAR.GZ arşivleri aynı tek dosyalık uygulamayı içerir. Yayınlanan Linux paketi Ubuntu CI ortamında üretilir; eski dağıtımlarda doğrulanmadı. SHA-256 değerleri `dist/SHA256SUMS.txt` içindedir. Derlemeler imzasızdır.
 
 Son 50 tarama, en fazla 7 gün `~/.atlasac/reports` altında maskelenmiş JSON olarak saklanır. Yaş kontrolü uygulama açılırken ve tarama başlarken yapılır; uygulama kapalıyken silme görevi çalışmaz. Dosya indeksi de 7 günlük son görülme süresiyle temizlenir. Sonuçlar sayfasındaki **Yerel verileri sil** rapor/indeks/işlem günlüğünü siler; dışa aktarılan kopyaları kapsamaz. Linux izinleri 700/600, Windows DACL mevcut kullanıcı ve SYSTEM ile sınırlandırılır; yöneticilere veya aynı kullanıcı altında çalışan zararlı yazılıma karşı şifreleme değildir. Dosyalar yalnızca okunur; silinmez, taşınmaz veya çalıştırılmaz. Otomatik veri gönderimi ya da ban yoktur. Defender ayarları değiştirilmez. Dosya adları ve tarama metadatası `~/.atlasac/file-index.sqlite3` içinde tutulur. Tarama verileri cihazda kalır; tarayıcı çerez/parola kasaları okunmaz. Komutlarda bilinen sır biçimleri maskelenir; her sır biçimi tanınamaz. Genel gezinme geçmişi kaydedilmez. Ayrıntılar: [gizlilik ve saklama](docs/PRIVACY.md), [olay müdahale planı](docs/INCIDENT-RESPONSE.md).
 
@@ -117,3 +117,5 @@ Ghost istemci kapsamı: DoomsDay için resmi sitenin normal ve rastgele boyutlu 
 0.3.8: [Yerel sonuç bütünlüğü](docs/LOCAL-INTEGRITY.md). Kalıcı tespit önbelleği devre dışı; her oturumda adaylar yeniden incelenir. Standart GUI/CLI yayımlanan kural özetiyle uyuşmayan kuralları reddeder. Tarama mesajları oturum/sıra ve sayaç/kapsam tutarlılığıyla denetlenir; final raporu canlı eşleşmeleri silemez. JSON raporuna imzasız içerik SHA-256 özeti eklenir; bu dijital imza veya bilgisayar doğrulaması değildir. Güvenilen ortamda `--verify-report rapor.json --expected-digest DENETLEYENIN_AYRI_SAKLADIGI_OZET` ile özgün içerikle karşılaştırılabilir. Oyuncunun gönderdiği rapor ve yeni özetin birlikte değiştirilmesi bağımsız doğrulama sayılmaz. Sunucu/hesap/key eklenmedi.
 
 0.3.9: Sunucu yönetiminin bildirdiği 30 günlük kontrolü reddetme yaptırımı, tarama öncesinde ayrı sunucu kuralı olarak gösterilir. Vazgeçme korunur; otomatik ban veya red bilgisinin gönderimi eklenmedi. Bu kural, tek başına KVKK açık rızasının geçerliliğini veya sorumluluktan muafiyeti sağlamaz. Ayrıntılar: [gizlilik belgesi](docs/PRIVACY.md).
+
+0.3.10: Düşük CPU hedefinde pahalı zamanlayıcı uyanmalarının okuyucuları sürekli bekletebildiği döngü düzeltildi. CPU hedefi ve süre sınırları aynı; iptal beklemeyi doğrudan uyandırır. 0.3.9’daki ayrı sunucu kuralı bu sürüme dahildir.

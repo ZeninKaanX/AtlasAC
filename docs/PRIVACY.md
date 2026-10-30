@@ -1,4 +1,4 @@
-# AtlasAC 0.3.9 — teknik gizlilik ve saklama
+# AtlasAC 0.3.10 — teknik gizlilik ve saklama
 
 Kuruluş olarak kullanıcı tarafından belirtilen ad: **TrueFormTech**.
 İletişim: **trueformtechx@gmail.com**. Teknik bilgilendirme sürümü: `2026-10-30.2`.

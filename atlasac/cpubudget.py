@@ -20,8 +20,12 @@ class ScanControl:
                 wall=time.monotonic();cpu=time.process_time()
                 self.balance=min(self.burst,self.balance+(wall-self.wall)*self.cores)-(cpu-self.cpu)
                 self.wall=wall;self.cpu=cpu
-                delay=max(0,-self.balance/self.cores)
+                # Refill a work burst rather than waking at zero credit.
+                # On slow VMs, repeated 50 ms timer wakeups can themselves
+                # consume the low CPU allowance and starve both readers.
+                delay=(self.burst-self.balance)/self.cores if self.balance<0 else 0
                 if delay<=0:self.next_check=wall+.002
             if delay<=0:return False
-            if self.cancel.wait(min(.05,delay)):return True
+            # Event.wait wakes immediately on cancellation; polling is needless.
+            if self.cancel.wait(delay):return True
         return True
