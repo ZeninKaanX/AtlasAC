@@ -1,4 +1,4 @@
-# AtlasAC 0.3.7 — teknik gizlilik ve saklama
+# AtlasAC 0.3.8 — teknik gizlilik ve saklama
 
 Kuruluş olarak kullanıcı tarafından belirtilen ad: **TrueFormTech**.
 İletişim: **trueformtechx@gmail.com**. Teknik bilgilendirme sürümü: `2026-10-30.1`.
@@ -28,3 +28,5 @@ POSIX dizin/dosya izinleri 700/600; Windows korumalı DACL mevcut süreç kullan
 Üretim uygulaması otomatik rapor yüklemez, e-posta/SMS göndermez; hesap, Supabase veya ödeme akışı yoktur. Fontlar/ikon/arka plan yereldir. Geliştirme araçları açıkça çalıştırıldığında sabit örnek kaynaklarından indirme yapar; CI ve paket kurulumu da ağ kullanır. Bunlar oyuncu tarama telemetrisi değildir.
 
 `audit.json` yalnız zaman, olay türü ve sayı tutar: tarama başlangıcı/bitişi, kısmi/durdurulmuş tarama ve rapor dışa aktarma. Yol, komut, e-posta veya rapor içeriği yazılmaz. Bu yerel günlük bütünlük korumalı değildir; dosyaya izinsiz erişimi veya tüm sızıntıları otomatik algılamaz. Olay müdahale adımları: [INCIDENT-RESPONSE.md](INCIDENT-RESPONSE.md).
+
+0.3.8: Kalıcı indekste tespit sonucu/temiz sonucu önbelleği tutulmaz; eski cache alanları temizlenir. İmzalı olmayan SHA-256 içerik makbuzu kişisel veri alanı eklemez; bunun amacı bağımsız saklanan özgün özetle karşılaştırmadır. Makbuz bulunan eski raporlar otomatik yeniden mühürlenmez; içerik değişmişse okuyucu özeti reddeder. Yerel dosya sahibi veya yönetici, uygulama kodunu ve rapor/özet çiftini değiştirebilir. Ayrıntılar: [LOCAL-INTEGRITY.md](LOCAL-INTEGRITY.md).

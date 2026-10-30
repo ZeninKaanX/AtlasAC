@@ -19,6 +19,7 @@ from .index import search_files,purge_index,maintain_index
 from .audit import AuditTrail
 from .privacy import notice_text,NOTICE_VERSION,minimize_report
 from .securestore import write_json
+from .integrity import require_official_rules,attach_receipt
 from .widgets import FishProgress
 from .scanprocess import run_scan
 from .reveal import ResultReveal
@@ -196,6 +197,9 @@ class AtlasWindow(QMainWindow):
         if self.worker and self.worker.isRunning():return
         roots=computer_roots() if self.scan_roots is None else self.scan_roots
         if not roots:self.status_label.setText('Taranabilecek yerel disk bulunamadı.');return
+        try:
+            require_official_rules(load_rules(RULES));require_official_rules(self.rules)
+        except (OSError,ValueError) as exc:self.status_label.setText(str(exc));return
         if not self.confirm_scan():return
         try:self.history.maintain();self.audit.record('scan-start')
         except OSError as exc:self.status_label.setText('Özel kayıt alanı hazırlanamadı: '+str(exc));return
@@ -241,6 +245,7 @@ class AtlasWindow(QMainWindow):
         report=minimize_report(report);report['privacy_notice_version']=NOTICE_VERSION
         self.report=report
         try:
+            report=attach_receipt(report);self.report=report
             self.history.save(report)
             self.audit.record({'completed':'scan-complete','cancelled':'scan-cancelled'}.get(report.get('status'),'scan-partial'),len(report.get('findings',[])))
         except OSError as exc:report.setdefault('issues',[]).append({'reason':'Rapor kaydedilemedi: '+str(exc)})
@@ -260,9 +265,9 @@ class AtlasWindow(QMainWindow):
         if key=='index':
             try:rows=search_files(report['index_path'],report['scan_id'],self.search.text()) if report.get('index_path') else []
             except (OSError,KeyError,ValueError,sqlite3.Error) as exc:rows=[{'reason':str(exc)}]
-            note='Aramaya uyan ilk 500 kayıt gösterilir; tüm dosya adları yerel indekste tutulur.'
+            note='Aramaya uyan ilk 500 metadata kaydı gösterilir. Yerel indeks değiştirilebilir; tespit kararları bu indeksten alınmaz.'
         elif key=='coverage':
-            rows=report.get('components',[])+report.get('issues',[])+[{'path':p,'reason':report.get('exclusion_reasons',{}).get(p,'Kullanıcı tercihiyle kapsam dışında')} for p in report.get('excluded_paths',[])]
+            rows=([{'name':'Yerel sonuç bütünlüğü',**report['integrity']}] if report.get('integrity') else [])+report.get('components',[])+report.get('issues',[])+[{'path':p,'reason':report.get('exclusion_reasons',{}).get(p,'Kullanıcı tercihiyle kapsam dışında')} for p in report.get('excluded_paths',[])]
             note=f"{report.get('issues_total',len(report.get('issues',[]))):,} dosya erişim/kapsam kaydı. İçerik sınırları: 256 MiB/dosya, 30 sn/arşiv; bellek/DMA ve Procmon çekirdek izlemesi yok."
         elif key=='findings':
             rows=report['findings'];note='Statik dosya eşleşmeleridir; delil düzeyi ayrıdır. Çalıştırma, oyunda kullanım ve aktif özellik kanıtı değildir.'
@@ -284,7 +289,8 @@ class AtlasWindow(QMainWindow):
         name,_=QFileDialog.getSaveFileName(self,'Sonuçları kaydet','AtlasAC-sonuclar.json','JSON (*.json)')
         if name:
             try:
-                write_json(Path(name),minimize_report(self.report));self.audit.record('report-export')
+                exported=attach_receipt(self.report);write_json(Path(name),exported);self.audit.record('report-export')
+                self.result_note.setText('İçerik SHA-256: '+exported['report_receipt']['payload_sha256']+' — dijital imza değildir; özgün özeti denetleyen kişi ayrı saklamalıdır.')
             except OSError as exc:self.result_note.setText('Kaydedilemedi: '+str(exc))
     def clear_local_data(self):
         if self.worker and self.worker.isRunning():

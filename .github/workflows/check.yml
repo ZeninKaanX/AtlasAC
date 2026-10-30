@@ -34,6 +34,12 @@ jobs:
           path: ghost-validation.json
       - run: python -m PyInstaller --noconfirm --clean --onedir --windowed --name AtlasAC --icon atlasac/web/assets/atlasac.ico --add-data "atlasac/web/assets:atlasac/web/assets" --add-data "rules:rules" --add-data "corpus/results:corpus/results" run.py
       - run: python -m PyInstaller --noconfirm --onefile --windowed --noupx --name AtlasAC --distpath dist/Standalone --workpath build/Standalone --icon atlasac/web/assets/atlasac.ico --add-data "atlasac/web/assets:atlasac/web/assets" --add-data "rules:rules" --add-data "corpus/results:corpus/results" run.py
+      - name: Validate frozen report verification and tamper rejection
+        shell: python
+        run: |
+          import os, pathlib, subprocess, sys
+          binary = pathlib.Path('dist/Standalone') / ('AtlasAC.exe' if os.name == 'nt' else 'AtlasAC')
+          subprocess.run([sys.executable, 'tools/validate_report_receipt.py', str(binary)], check=True)
       - uses: actions/upload-artifact@v4
         with:
           name: AtlasAC-${{ matrix.os }}

@@ -3,6 +3,7 @@ import json,time,uuid
 from pathlib import Path
 from .privacy import minimize_report,RETENTION_DAYS,REPORT_LIMIT
 from .securestore import private_directory,private_permissions,write_json,check_plain
+from .integrity import verify_receipt
 
 
 class ReportHistory:
@@ -21,7 +22,7 @@ class ReportHistory:
             if path.stat().st_size>16*1024*1024:continue
             try:
                 original=json.loads(path.read_text(encoding='utf-8'));clean=minimize_report(original)
-                if clean!=original:
+                if clean!=original and 'report_receipt' not in original:
                     stamp=path.stat().st_mtime_ns;write_json(path,clean)
                     import os
                     os.utime(path,ns=(stamp,stamp))
@@ -46,4 +47,5 @@ class ReportHistory:
         if path.parent.resolve()!=self.directory.resolve() or path.stat().st_size>16*1024*1024:raise ValueError('Geçersiz rapor yolu veya boyutu')
         report=json.loads(path.read_text(encoding='utf-8'))
         if not isinstance(report,dict) or not all(k in report for k in ('started_at','status','roots','findings','files','issues')):raise ValueError('Geçersiz rapor')
+        if 'report_receipt' in report and not verify_receipt(report)['checksum_matches']:raise ValueError('Rapor içerik özeti uyuşmuyor; sonuç doğrulanamadı.')
         return minimize_report(report)

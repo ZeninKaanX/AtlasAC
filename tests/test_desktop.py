@@ -122,3 +122,10 @@ class DesktopTests(unittest.TestCase):
         with patch('atlasac.desktop.QMessageBox.question',return_value=QMessageBox.StandardButton.Yes):self.window.clear_local_data()
         self.assertFalse(self.window.history.paths());self.assertFalse((self.root/'cache/file-index.sqlite3').exists())
         self.assertFalse(self.window.audit.path.exists());self.assertEqual(sample.read_bytes(),b'keep')
+
+    def test_modified_rules_cannot_start_standard_scan(self):
+        import copy
+        rules=copy.deepcopy(self.window.rules);rules['rules']=[]
+        with patch('atlasac.desktop.load_rules',return_value=rules):self.window.start_scan()
+        self.assertIsNone(self.window.worker);self.assertIsNone(self.window.report)
+        self.assertIn('bütünlüğü',self.window.status_label.text())

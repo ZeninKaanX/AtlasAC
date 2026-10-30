@@ -1,9 +1,8 @@
 """Persistent local filename index and inspection cache. One writer, WAL readers."""
-import json
 from pathlib import Path
 import sqlite3
 import time
-from .privacy import RETENTION_DAYS,sanitize
+from .privacy import RETENTION_DAYS
 from .securestore import private_directory,private_permissions,check_plain
 
 class FileIndex:
@@ -21,17 +20,17 @@ class FileIndex:
         self.db.execute('CREATE INDEX IF NOT EXISTS files_scan ON files(scan_id)')
         columns={r[1] for r in self.db.execute('PRAGMA table_info(files)')}
         if 'seen_at' not in columns:self.db.execute('ALTER TABLE files ADD COLUMN seen_at REAL NOT NULL DEFAULT 0')
+        self.db.execute('UPDATE files SET cache=NULL WHERE cache IS NOT NULL')
         self.db.execute('DELETE FROM files WHERE seen_at < ?',(time.time()-RETENTION_DAYS*86400,))
         self.db.commit();self.db.execute('PRAGMA wal_checkpoint(TRUNCATE)')
         self._protect_sidecars()
         self.pending=0
     def cached(self,path,token):
-        row=self.db.execute('SELECT cache FROM files WHERE path=? AND token=?',(str(path),token)).fetchone()
-        try:return json.loads(row[0]) if row and row[0] else None
-        except (ValueError,TypeError):return None
+        # Player-writable persistent data is never an authority for inspection results.
+        return None
     def put(self,path,st,scan_id,token,result):
         record=result.get('file') or {}
-        cache=json.dumps(sanitize(result),ensure_ascii=False) if result.get('fingerprint') and not result['issues'] else None
+        cache=None  # Index metadata only; never persist trusted findings or clean verdicts.
         self.db.execute('INSERT OR REPLACE INTO files VALUES(?,?,?,?,?,?,?,?,?)',(str(path),st.st_size,st.st_mtime_ns,record.get('format',''),record.get('sha256'),scan_id,token,cache,time.time()))
         self.pending+=1
         if self.pending>=500:self.db.commit();self.pending=0

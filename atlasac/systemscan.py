@@ -18,6 +18,7 @@ from .assessment import classify,name_context,process_context,report_verdict
 from .methodcoverage import coverage
 from .privacy import minimize_report,sanitize,NOTICE_VERSION
 from .securestore import private_directory
+from .integrity import integrity_state
 
 VIRTUAL={'proc','sysfs','devtmpfs','devpts','tmpfs','cgroup','cgroup2','overlay','squashfs','autofs','nfs','nfs4','cifs','smbfs','fuse.sshfs'}
 
@@ -120,17 +121,7 @@ def system_scan(rules,roots=None,cancel=None,progress=None,data_dir=None,artifac
                                     if context:report['artifacts']['name_context'].append(context);pending_names.append(context)
                                 if stat.S_ISDIR(st.st_mode):children.append((path,archives_only or path in skipped))
                                 elif stat.S_ISREG(st.st_mode):
-                                    cached=index.cached(path,token)
-                                    # Unix ctime catches restored mtimes; Windows uses native ChangeTime in probe().
-                                    stamp=fingerprint(st) if os.name!='nt' else None
-                                    if cached and stamp and cached.get('fingerprint')==stamp:
-                                        classify(cached['findings']);cached['cache_hit']=True;cached['bytes_read']=0
-                                        index.put(path,st,scan_id,token,cached);report['indexed_files']+=1;report['cache_hits']+=1
-                                        if cached['file']:
-                                            report['content_files']+=1
-                                            if len(report['files'])<2000:report['files'].append(cached['file'])
-                                        report['findings'].extend(cached['findings']);remember(path,cached);update('Önbellek doğrulanıyor',path)
-                                    else:futures[pool.submit(probe,path,rules,cancel,cached,content_cache)]=(path,st)
+                                    futures[pool.submit(probe,path,rules,cancel,None,content_cache)]=(path,st)
                                     if len(futures)>=24:
                                         done,_=wait(futures,return_when=FIRST_COMPLETED)
                                         for future in done:accept(future)
@@ -152,5 +143,6 @@ def system_scan(rules,roots=None,cancel=None,progress=None,data_dir=None,artifac
         update('Durduruluyor' if cancel.is_set() else 'Dosya incelemesi tamamlandı',force=True)
         index.close()
     report['finished_at']=now();report['duration_seconds']=round(time.monotonic()-started,3);report['verdict']=report_verdict(report)
+    report['integrity']=integrity_state(rules)
     report['privacy_notice_version']=NOTICE_VERSION
     return minimize_report(report)

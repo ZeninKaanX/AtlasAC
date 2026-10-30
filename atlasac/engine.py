@@ -31,7 +31,13 @@ def now():
 
 
 def load_rules(path):
-    data = json.loads(Path(path).read_text(encoding='utf-8'))
+    def unique_pairs(pairs):
+        result={}
+        for key,value in pairs:
+            if key in result:raise ValueError('Yinelenen JSON kural alanı: '+key)
+            result[key]=value
+        return result
+    data = json.loads(Path(path).read_text(encoding='utf-8'),object_pairs_hook=unique_pairs)
     if not isinstance(data.get('rules'), list) or not isinstance(data.get('hashes'), dict):
         raise ValueError('Kural dosyası geçersiz.')
     for rule in data['rules']:
@@ -279,5 +285,7 @@ def scan(root: Path, rules: dict, cancel: threading.Event | None = None, progres
     result['bytes_read'] = total
     from .assessment import classify
     classify(result['findings'])
+    from .integrity import integrity_state
+    result['integrity']=integrity_state(rules)
     result['verdict'] = 'review' if result['findings'] else 'no_match'
     return result

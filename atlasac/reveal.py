@@ -37,6 +37,9 @@ def verdict_for(report):
     if signals:
         suffix=' Tarama tamamlanmadı.' if report.get('status')!='completed' else ''
         return 'İnceleme',f'{len(signals)} bağlam sinyali var; hile kullanımı kanıtlanmadı.'+suffix,'#e4ad63'
+    integrity=report.get('integrity',{})
+    if integrity and (not integrity.get('bundled_rules_match') or not integrity.get('protocol_consistent')):
+        return 'Tamamlanmadı','Sonuç / kural bütünlüğü doğrulanamadı. Temiz sonucu verilemez.','#e4ad63'
     if report.get('status')=='completed':return 'Temiz','Taranan aday dosyalarda bilinen hile eşleşmesi bulunmadı.','#55dbc6'
     detail='Süre sınırına ulaşıldı.' if report.get('stop_reason')=='time_budget' else 'Tarama kısmi kaldı veya durduruldu.'
     return 'Tamamlanmadı',detail+' Temiz sonucu verilemez.','#e4ad63'
