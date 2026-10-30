@@ -125,7 +125,8 @@ def attach_receipt(report):
 def verify_receipt(report,expected=None):
     receipt=report.get('report_receipt',{})
     digest=receipt_digest(report)
-    matches=isinstance(receipt,dict) and receipt.get('algorithm')=='SHA-256' and isinstance(receipt.get('payload_sha256'),str) and hmac.compare_digest(digest,receipt['payload_sha256'])
+    supplied=receipt.get('payload_sha256') if isinstance(receipt,dict) else None
+    matches=isinstance(receipt,dict) and receipt.get('algorithm')=='SHA-256' and isinstance(supplied,str) and len(supplied)==64 and all(c in '0123456789abcdef' for c in supplied) and hmac.compare_digest(digest,supplied)
     if expected is not None:
         if not isinstance(expected,str) or len(expected)!=64 or any(c not in '0123456789abcdefABCDEF' for c in expected):raise ValueError('Beklenen özet 64 haneli SHA-256 olmalı.')
         matches=matches and hmac.compare_digest(digest,expected.lower())

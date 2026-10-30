@@ -79,6 +79,8 @@ class IntegrityTests(unittest.TestCase):
         self.assertTrue(verify_receipt(forged)['checksum_matches'])
         self.assertFalse(verify_receipt(forged,original)['checksum_matches'])
         self.assertFalse(verify_receipt(forged)['host_verified'])
+        forged['report_receipt']['payload_sha256']='ş'*64
+        self.assertFalse(verify_receipt(forged)['checksum_matches'])
 
     def test_history_reader_rejects_edit_of_sealed_report(self):
         with tempfile.TemporaryDirectory() as tmp:
