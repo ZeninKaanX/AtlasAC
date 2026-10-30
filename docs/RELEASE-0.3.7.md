@@ -8,3 +8,5 @@ AtlasAC 0.3.7, rapor gizliliği ve delil sınıflandırmasını düzeltir.
 - Rehberdeki 50 yöntemin yetenek/kapsam haritası eklendi. Bellek, silinmiş disk verisi ve diğer uygulanmayan alanlar açık gösterilir; tüm yöntemlerin tamamlandığı veya sıfır yanlış alarm garantisi verilmez.
 
 Mevcut doğrulanmış ghost-client dosya kuralları korundu. Bu sürüm hukuki uygunluk sertifikası değildir; kuruluşun tam hukuki kimliği, işleme şartı, bildirim sorumluları ve kapsamlı aydınlatması ayrıca kesinleştirilmelidir. Kullanıcıya özel izinler, aynı kullanıcı altındaki zararlı yazılıma veya yöneticilere karşı şifreleme değildir.
+
+Doğrulama: Windows'ta 84 test; Linux'ta 83 test + bir Windows'a özel atlama. Windows/Ubuntu CI'de gerçek örneklerle 60'ar statik kontrol, yerel Linux'ta tam kümeyle 66 kontrol geçti. Yerel tek dosyalı Linux paketinde 20 eşleşme ve beklenen iki metadata sorunu doğrulandı. Ayrıntılar: `docs/VALIDATION-0.3.7.md`.
