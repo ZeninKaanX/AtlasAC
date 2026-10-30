@@ -3,6 +3,7 @@ from pathlib import Path
 from atlasac.scanplan import ScanPlan
 from atlasac.scanprogress import ScanProgress
 from atlasac.integrity import validate_file_progress
+from atlasac.filepolicy import candidate_name
 
 
 class ProgressTests(unittest.TestCase):
@@ -29,6 +30,7 @@ class ProgressTests(unittest.TestCase):
         with self.assertRaises(ValueError):validate_file_progress(dict(state,discovery_complete=False),{})
 
     def test_spooled_discovery_keeps_every_candidate_and_prioritises_archives(self):
+        self.assertTrue(candidate_name('...jar',True));self.assertTrue(candidate_name('trailing.'))
         with tempfile.TemporaryDirectory() as tmp:
             base=Path(tmp);disk=base/'disk';disk.mkdir();state=base/'state';state.mkdir()
             for i in range(1100):(disk/f'ordinary-{i}.dat').write_bytes(b'fixture')

@@ -1,5 +1,4 @@
 """Candidate extensions requested by the user; images/media/documents are skipped."""
-import os
 ARCHIVES={'.jar','.zip'}
 CANDIDATES=ARCHIVES|{'.exe','.dll','.sys','.scr','.com','.msi','.pyd','.so','.dylib','.appimage','.class',
     '.dat','.bin','.tmp','.cache','.ps1','.bat','.cmd','.vbs','.js','.py','.ahk','.lua'}
@@ -8,7 +7,8 @@ def candidate(path,archives_only=False):
     return candidate_name(path.name,archives_only)
 
 def candidate_name(name,archives_only=False):
-    suffix=os.path.splitext(name)[1].lower()
+    dot=name.rfind('.')
+    suffix=name[dot:].lower() if 0<dot<len(name)-1 else ''
     return suffix in ARCHIVES if archives_only else not suffix or suffix in CANDIDATES
 
 def directory_priority(path,archives_only):
