@@ -7,6 +7,17 @@ from atlasac.filepolicy import candidate_name
 
 
 class ProgressTests(unittest.TestCase):
+    def test_modifying_the_private_work_spool_is_not_accepted_as_a_new_file(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            base=Path(tmp);disk=base/'disk';disk.mkdir();state=base/'state';state.mkdir()
+            (disk/'candidate.dat').write_bytes(b'fixture')
+            plan=ScanPlan([disk],{},[state],threading.Event(),state)
+            try:
+                plan.thread.join(timeout=5);self.assertFalse(plan.thread.is_alive())
+                plan.stream.seek(50);old=plan.stream.read(1);self.assertTrue(old)
+                plan.stream.seek(50);plan.stream.write(bytes([old[0]^1]))
+                with self.assertRaises(ValueError):plan.take(1)
+            finally:plan.close()
     def test_unknown_inventory_has_no_percentage_and_eta_needs_measured_throughput(self):
         progress=ScanProgress()
         self.assertIsNone(progress.update(1,10,False,0)['progress_percent'])

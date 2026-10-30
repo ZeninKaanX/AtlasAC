@@ -3,7 +3,7 @@
 The spool holds work paths/metadata, never trusted findings or clean verdicts.
 Every queued candidate is still opened and inspected from disk by fileprobe.
 """
-import json,os,struct,tempfile,threading,time
+import hmac,json,os,secrets,struct,tempfile,threading,time
 from collections import deque
 from pathlib import Path
 from .filepolicy import candidate_name,directory_priority
@@ -17,7 +17,7 @@ class ScanPlan:
         self.stream=tempfile.TemporaryFile(dir=base,buffering=0)
         self.lock=threading.Condition();self.stop=threading.Event()
         self.write_offset=0;self.read_offset=0;self.buffer=b'';self.buffer_offset=0
-        self.priority=deque()
+        self.priority=deque();self.key=secrets.token_bytes(32);self.write_sequence=0;self.read_sequence=0
         self.seen=0;self.candidates=0;self.ignored=0;self.directories=0
         self.done=False;self.complete=False;self.error=None;self.closing=False
         self.thread=threading.Thread(target=self._discover,name='AtlasAC-discovery',daemon=True)
@@ -39,7 +39,13 @@ class ScanPlan:
                 length=struct.unpack_from('>I',self.buffer,self.buffer_offset)[0] if available>=4 else None
                 if length is not None and length>1024*1024:raise ValueError('Dosya listesi kaydı boyut sınırını aştı')
                 if length is not None and available>=length+4:
-                    start=self.buffer_offset+4;payload=self.buffer[start:start+length];self.buffer_offset=start+length
+                    start=self.buffer_offset+4;record=self.buffer[start:start+length];self.buffer_offset=start+length
+                    if len(record)<41:raise ValueError('Geçici dosya listesi kaydı eksik')
+                    signed,tag=record[:-32],record[-32:]
+                    sequence=struct.unpack_from('>Q',signed)[0]
+                    if sequence!=self.read_sequence or not hmac.compare_digest(tag,hmac.digest(self.key,signed,'sha256')):
+                        raise ValueError('Geçici dosya listesi bütünlüğü doğrulanamadı')
+                    self.read_sequence+=1;payload=signed[8:]
                     if payload[:1]==b'F':
                         size,modified,path=payload[1:].split(b'\0',2)
                         rows.append({'kind':'file','path':os.fsdecode(path),'size':int(size),'modified_ns':int(modified)})
@@ -80,7 +86,9 @@ class ScanPlan:
                             self.priority.append(row);continue
                         payload=b'F'+str(row['size']).encode()+b'\0'+str(row['modified_ns']).encode()+b'\0'+os.fsencode(row['path'])
                     else:payload=b'J'+json.dumps(row,ensure_ascii=True).encode()
-                    chunks.append(struct.pack('>I',len(payload))+payload)
+                    signed=struct.pack('>Q',self.write_sequence)+payload;self.write_sequence+=1
+                    record=signed+hmac.digest(self.key,signed,'sha256')
+                    chunks.append(struct.pack('>I',len(record))+record)
                 data=b''.join(chunks)
                 if data:
                     self.stream.seek(self.write_offset)
