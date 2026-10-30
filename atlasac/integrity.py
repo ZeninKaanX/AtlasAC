@@ -38,6 +38,28 @@ def finding_id(row):
     return canonical({k:row.get(k) for k in ('rule','path','method','evidence')})
 
 
+def validate_file_progress(data,snapshot):
+    keys=('files_seen','discovered_candidates','directories_seen','processed_candidates')
+    for key in keys:
+        if key in data or key in snapshot:
+            value=data.get(key)
+            if type(value) is not int or value<snapshot.get(key,0):raise ValueError('Dosya ilerleme sayacı geriledi veya geçersiz: '+key)
+    if 'discovery_complete' not in data and 'discovery_complete' not in snapshot:return
+    complete=data.get('discovery_complete')
+    if type(complete) is not bool or snapshot.get('discovery_complete') and not complete:raise ValueError('Dosya listesi durumu geçersiz.')
+    done=data.get('processed_candidates',0);found=data.get('discovered_candidates',0)
+    if done>found:raise ValueError('İşlenen aday sayısı keşfedilen aday sayısını aşıyor.')
+    total=data.get('total_candidates');percent=data.get('progress_percent')
+    if complete:
+        if type(total) is not int or total!=found:raise ValueError('Toplam aday sayısı dosya listesiyle uyuşmuyor.')
+        if snapshot.get('discovery_complete') and total!=snapshot.get('total_candidates'):raise ValueError('Tamamlanan dosya listesinin toplamı değişti.')
+        expected=100. if not total else round(100.*done/total,1)
+        if type(percent) not in (int,float) or abs(percent-expected)>.11:raise ValueError('Dosya yüzdesi sayaçlarla uyuşmuyor.')
+    elif total is not None or percent is not None:raise ValueError('Dosya listesi tamamlanmadan kesin yüzde bildirildi.')
+    eta=data.get('eta_seconds')
+    if eta is not None and (type(eta) not in (int,float) or eta<0):raise ValueError('Kalan süre tahmini geçersiz.')
+
+
 def checked_final(snapshot,final,rules,roots):
     """Never permit a final packet to erase already observed evidence or shrink scope."""
     if not isinstance(final,dict):return mark_failure(snapshot,'Final rapor biçimi geçersiz.')
@@ -47,6 +69,8 @@ def checked_final(snapshot,final,rules,roots):
     if any(not isinstance(r,dict) for k in ('findings','files','issues','components') for r in final[k]):return mark_failure(snapshot,'Final kayıt biçimi geçersiz.')
     if final.get('status') not in ('completed','partial','cancelled'):return mark_failure(snapshot,'Final tarama durumu geçersiz.')
     reasons=[]
+    try:validate_file_progress(final,snapshot)
+    except ValueError as exc:reasons.append(str(exc))
     if final.get('application')!='AtlasAC' or final.get('version')!=snapshot.get('version') or final.get('rule_version')!=rules.get('version'):reasons.append('Uygulama / kural sürümü uyuşmuyor.')
     expected=[os.path.normcase(str(Path(r).resolve())) for r in roots]
     observed=final.get('roots',[])
@@ -75,6 +99,7 @@ def checked_final(snapshot,final,rules,roots):
 def validate_progress(data,snapshot):
     try:canonical(data)
     except (TypeError,ValueError) as exc:raise ValueError('Canlı mesaj JSON verisi geçersiz.') from exc
+    validate_file_progress(data,snapshot)
     for key in ('phase','path'):
         if not isinstance(data.get(key),str):raise ValueError('Canlı tarama metni geçersiz.')
     for key in ('indexed','matches'):

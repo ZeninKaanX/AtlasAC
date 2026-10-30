@@ -3,7 +3,8 @@ import json,os,tempfile,time,unittest,zipfile
 from pathlib import Path
 from unittest.mock import patch
 os.environ.setdefault('QT_QPA_PLATFORM','offscreen')
-from PySide6.QtWidgets import QApplication,QLabel
+from PySide6.QtWidgets import QApplication,QLabel,QPlainTextEdit
+from PySide6.QtCore import Qt,QPersistentModelIndex
 from PySide6.QtTest import QTest
 from atlasac.desktop import AtlasWindow,LOGO
 from PySide6.QtGui import QImage
@@ -61,10 +62,32 @@ class DesktopTests(unittest.TestCase):
             self.window.live_filter.setCurrentIndex(1)
             self.assertEqual(self.window.live_model.rowCount(),1)
             self.assertTrue(self.window.progress_bar.timer.isActive())
+            index=self.window.live_model.index(0,0)
+            point=self.window.live_table.visualRect(index).center()
+            QTest.mouseClick(self.window.live_table.viewport(),Qt.MouseButton.LeftButton,pos=point)
+            QTest.mouseDClick(self.window.live_table.viewport(),Qt.MouseButton.LeftButton,pos=point)
+            QTest.qWait(10)
+            self.assertEqual(len(self.window.detail_dialogs),1)
+            dialog=next(iter(self.window.detail_dialogs));self.assertFalse(dialog.isModal())
+            details=dialog.findChild(QPlainTextEdit).toPlainText()
+            self.assertIn('meteor-client',details);self.assertIn('client.dat',details)
+            self.assertTrue(self.window.worker.isRunning())
+            self.window.live_model.set_rows([{'path':'another.jar','name':'another fixture'}])
+            self.assertEqual(dialog.findChild(QPlainTextEdit).toPlainText(),details)
+            dialog.close()
             while self.window.worker.isRunning() and time.monotonic()<deadline:QTest.qWait(20)
             QTest.qWait(30)
             self.assertFalse(self.window.progress_bar.timer.isActive())
             self.assertEqual(len(self.window.report['findings']),1)
+            self.assertEqual(self.window.report['progress_percent'],100)
+
+    def test_growing_and_rolling_tables_preserve_the_selected_record(self):
+        from atlasac.desktop import Rows
+        model=Rows();a={'path':'a.jar'};b={'path':'b.jar'};c={'path':'c.jar'}
+        model.set_rows([a,b]);selected=QPersistentModelIndex(model.index(0,0))
+        model.set_rows([a,b,c]);self.assertTrue(selected.isValid());self.assertEqual(selected.data(),'a.jar')
+        model.set_rows([c,a,b]);self.assertTrue(selected.isValid());self.assertEqual(selected.data(),'a.jar')
+        self.assertEqual(selected.row(),1)
     def test_swimming_fish_frames_change(self):
         from atlasac.widgets import FishProgress
         strip=FishProgress();strip.resize(600,34);strip.show();QTest.qWait(40)

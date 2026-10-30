@@ -3,9 +3,16 @@ import threading,time,unittest
 from types import SimpleNamespace
 from unittest.mock import patch
 from concurrent.futures import ThreadPoolExecutor
-from atlasac.cpubudget import ScanControl
+from atlasac.cpubudget import ScanControl,cpu_target
 
 class CPUBudgetTests(unittest.TestCase):
+    def test_explicit_speed_modes_preserve_the_low_cpu_default(self):
+        self.assertEqual(cpu_target('low',8),.4)
+        self.assertEqual(cpu_target('balanced',8),.8)
+        self.assertAlmostEqual(cpu_target('fast',8),1.2)
+        self.assertEqual(cpu_target('low',64),.6)
+        self.assertEqual(cpu_target('fast',64),2.)
+        with self.assertRaises(ValueError):cpu_target('invalid')
     def test_pacing_makes_progress_when_timer_wakeups_are_expensive(self):
         # A slow VM can spend more CPU waking two readers every 50 ms than
         # their entire allowance. Waiting only for zero credit then loops

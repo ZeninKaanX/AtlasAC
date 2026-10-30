@@ -1,6 +1,8 @@
 """Cancellable scan process with an optional explicit wall-clock budget."""
 import multiprocessing as mp
 import math,queue,time,secrets
+from functools import partial
+from .cpubudget import cpu_target
 from .engine import now
 from .systemscan import system_scan
 from . import __version__
@@ -9,9 +11,9 @@ from .methodcoverage import coverage
 from .privacy import minimize_report,sanitize,NOTICE_VERSION
 from .integrity import SessionMessages,validate_packet,validate_progress,checked_final,mark_failure,integrity_state,require_official_rules,attach_receipt
 
-def scan_child(messages,cancel,rules,roots,data_dir,artifacts):
+def scan_child(messages,cancel,rules,roots,data_dir,artifacts,cpu_cores=None):
     try:
-        report=system_scan(rules,roots,cancel,lambda data:messages.put(('progress',data)),data_dir,artifacts)
+        report=system_scan(rules,roots,cancel,lambda data:messages.put(('progress',data)),data_dir,artifacts,cpu_cores)
         messages.put(('ready',report))
     except Exception as exc:messages.put(('error',str(exc)[:300]))
 
@@ -19,8 +21,10 @@ def session_child(messages,cancel,rules,roots,data_dir,artifacts,session,target)
     target(SessionMessages(messages,session),cancel,rules,roots,data_dir,artifacts)
 
 
-def run_scan(rules,roots,data_dir,artifacts,cancel,progress,max_seconds=None,target=scan_child):
+def run_scan(rules,roots,data_dir,artifacts,cancel,progress,max_seconds=None,target=scan_child,speed='low'):
     require_official_rules(rules)
+    cores=cpu_target(speed)
+    if speed!='low':target=partial(target,cpu_cores=cores)
     limit=None if max_seconds is None else float(max_seconds)
     if limit is not None and (not math.isfinite(limit) or limit<=0):
         raise ValueError('Tarama süre sınırı pozitif ve sonlu bir saniye değeri olmalı.')
@@ -64,7 +68,7 @@ def run_scan(rules,roots,data_dir,artifacts,cancel,progress,max_seconds=None,tar
                 if 'components' in data:report['components']=data['components']
                 report['findings'].extend(data.get('new_findings',[]))
                 report['files']=(report['files']+data.get('recent_files',[]))[-160:]
-                for key in ('indexed_files','content_files','ignored_files','cache_hits','archive_reuses','issues_total','index_path','scan_id','excluded_paths','exclusion_reasons','internal_exclusions','scope_note','limits','cpu_target_cores'):
+                for key in ('indexed_files','content_files','ignored_files','cache_hits','archive_reuses','issues_total','index_path','scan_id','excluded_paths','exclusion_reasons','internal_exclusions','scope_note','limits','cpu_target_cores','files_seen','discovered_candidates','directories_seen','discovery_complete','processed_candidates','total_candidates','progress_percent','eta_seconds'):
                     source='indexed' if key=='indexed_files' else key
                     if source in data:report[key]=data[source]
                 progress(sanitize(data))
@@ -79,6 +83,7 @@ def run_scan(rules,roots,data_dir,artifacts,cancel,progress,max_seconds=None,tar
     report.setdefault('finished_at',now());report.setdefault('duration_seconds',round(time.monotonic()-started,3))
     report['issues_total']=max(report.get('issues_total',0),len(report['issues']))
     report['time_budget_seconds']=limit
+    report['scan_speed']=speed
     report.setdefault('integrity',integrity_state(rules))
     report['scan_session_id']=session
     report['privacy_notice_version']=NOTICE_VERSION

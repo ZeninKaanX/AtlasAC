@@ -13,8 +13,12 @@ class FishProgress(QWidget):
         self.shark=shark(29)
         self.fish=clownfish(12)
         self._suspended=False;self.clock=QElapsedTimer();self.clock.start();self.timer=QTimer(self)
+        self.percent=None
         self.timer.setTimerType(Qt.TimerType.PreciseTimer);self.timer.setInterval(16);self.timer.timeout.connect(self.update)
     def sizeHint(self):return QSize(500,34)
+    def set_progress(self,value):
+        self.percent=None if value is None else max(0.,min(100.,float(value)))
+        self.update()
     def set_suspended(self,value):
         self._suspended=bool(value)
         if self._suspended:self.timer.stop()
@@ -52,6 +56,7 @@ class FishProgress(QWidget):
         w,h=self.width(),self.height();t=self.clock.elapsed()/1000
         clip=QPainterPath();clip.addRoundedRect(0,0,w,h,10,10);p.setClipPath(clip)
         water=QLinearGradient(0,0,0,h);water.setColorAt(0,QColor(5,47,69,215));water.setColorAt(1,QColor(13,115,147,200));p.fillRect(self.rect(),water)
+        if self.percent is not None:p.fillRect(QRectF(0,0,w*self.percent/100,h),QColor(61,203,244,95))
         wave=QPainterPath();wave.moveTo(0,h)
         for x in range(0,w+9,8):wave.lineTo(x,6+2*math.sin(x/43-t*2))
         wave.lineTo(w,h);wave.closeSubpath();p.fillPath(wave,QColor(44,173,206,35))

@@ -25,8 +25,8 @@ class SystemTests(unittest.TestCase):
             with zipfile.ZipFile(sample,'w') as z:z.writestr('fabric.mod.json',json.dumps({'id':'meteor-client'}))
             rules=load_rules(RULES)
             first=system_scan(rules,[root],data_dir=cache,artifacts=False)
-            self.assertEqual(first['indexed_files'],601);self.assertEqual(len(first['findings']),1)
-            self.assertEqual(len(search_files(first['index_path'],first['scan_id'])),500)
+            self.assertEqual(first['processed_candidates'],601);self.assertEqual(first['indexed_files'],1);self.assertEqual(len(first['findings']),1)
+            self.assertEqual(len(search_files(first['index_path'],first['scan_id'])),1)
             second=system_scan(rules,[root],data_dir=cache,artifacts=False)
             self.assertEqual(second['cache_hits'],0);self.assertEqual(second['content_files'],1)
             self.assertEqual(len(second['findings']),1)
@@ -44,6 +44,28 @@ class SystemTests(unittest.TestCase):
             self.assertEqual(system_scan(load_rules(RULES),[Path(tmp)],cancel,data_dir=Path(tmp)/'state',artifacts=False)['status'],'cancelled')
             result=system_scan(load_rules(RULES),[],data_dir=Path(tmp)/'state',artifacts=False)
             self.assertEqual(result['status'],'partial');self.assertIn('finished_at',result)
+    def test_metadata_write_failure_never_erases_a_fresh_live_match(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)/'disk';root.mkdir()
+            with zipfile.ZipFile(root/'client.jar','w') as z:z.writestr('fabric.mod.json','{"id":"meteor-client"}')
+            events=[]
+            with patch('atlasac.systemscan.FileIndex.put',side_effect=sqlite3.OperationalError('disk full fixture')):
+                report=system_scan(load_rules(RULES),[root],data_dir=Path(tmp)/'state',artifacts=False,progress=events.append)
+            self.assertEqual(report['status'],'partial');self.assertFalse(report['index_available'])
+            self.assertEqual(report['findings'][0]['rule'],'meteor')
+            self.assertEqual([f for e in events for f in e['new_findings']],report['findings'])
+            self.assertEqual(report['processed_candidates'],1)
+    def test_slow_opens_can_add_readers_without_skipping_files(self):
+        from atlasac.fileprobe import probe
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)/'disk';root.mkdir()
+            for i in range(200):(root/f'{i}.dat').write_bytes(b'fixture')
+            def measured(*args,**kwargs):
+                result=probe(*args,**kwargs);result['open_seconds']=.002;return result
+            with patch('atlasac.systemscan.probe',side_effect=measured),patch('atlasac.systemscan.os.cpu_count',return_value=4):
+                report=system_scan(load_rules(RULES),[root],data_dir=Path(tmp)/'state',artifacts=False)
+            self.assertEqual(report['io_readers'],4);self.assertEqual(report['processed_candidates'],200)
+            self.assertEqual(report['indexed_files'],0);self.assertEqual(report['issues_total'],0)
     def test_live_wal_snapshot_reads_committed_data(self):
         with tempfile.TemporaryDirectory() as tmp:
             path=Path(tmp)/'History';db=sqlite3.connect(path)

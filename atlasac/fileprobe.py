@@ -38,7 +38,10 @@ def probe(path, rules, cancel, cached=None, content_cache=None):
     result={'path':str(path),'file':None,'findings':[],'issues':[],'bytes_read':0,'cache_hit':False,'fingerprint':None,'archive_reused':False}
     try:
         if cancel.is_set():raise InterruptedError('Tarama durduruldu')
-        with os.fdopen(os.open(path,os.O_RDONLY|getattr(os,'O_BINARY',0)|getattr(os,'O_NOFOLLOW',0)|getattr(os,'O_NONBLOCK',0)),'rb') as f:
+        opened=time.monotonic()
+        handle=os.open(path,os.O_RDONLY|getattr(os,'O_BINARY',0)|getattr(os,'O_NOFOLLOW',0)|getattr(os,'O_NONBLOCK',0))
+        result['open_seconds']=time.monotonic()-opened
+        with os.fdopen(handle,'rb') as f:
             before=os.fstat(f.fileno())
             if not stat.S_ISREG(before.st_mode):return result
             stamp=fingerprint(before,f.fileno());result['fingerprint']=stamp
@@ -57,7 +60,8 @@ def probe(path, rules, cancel, cached=None, content_cache=None):
                 return result
             record={'path':str(path),'size':before.st_size,'modified_ns':before.st_mtime_ns,'format':kind or 'binary','sha256':None}
             result['file']=record
-            signature_size = any(s['size'] == before.st_size for rule in rules['rules'] for s in rule.get('file_signatures', []))
+            sizes=content_cache.signature_sizes if content_cache is not None else None
+            signature_size = before.st_size in sizes if sizes is not None else any(s['size'] == before.st_size for rule in rules['rules'] for s in rule.get('file_signatures', []))
             if archive or rules['hashes'] or signature_size:
                 if before.st_size>MAX_FILE:raise ValueError('İçerik inceleme boyutu sınırı (256 MiB)')
                 f.seek(0);digest=hashlib.sha256()

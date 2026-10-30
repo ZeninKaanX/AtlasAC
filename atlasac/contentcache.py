@@ -5,8 +5,9 @@ from threading import Lock
 import copy,json
 
 class ContentCache:
-    def __init__(self,max_bytes=16*1024*1024):
+    def __init__(self,max_bytes=16*1024*1024,signature_sizes=None):
         self.lock=Lock();self.items=OrderedDict();self.bytes=0;self.max_bytes=max_bytes
+        self.signature_sizes=signature_sizes
     def inspect(self,digest,reader,path):
         with self.lock:
             entry=self.items.get(digest);owner=entry is None

@@ -6,10 +6,17 @@ This is a rolling target, not an OS-enforced instantaneous CPU ceiling.
 """
 import os,threading,time
 
+def cpu_target(speed='low',logical=None):
+    rates={'low':(.05,.6,.05),'balanced':(.10,1.25,.1),'fast':(.15,2.,.15)}
+    if speed not in rates:raise ValueError('Geçersiz tarama hızı')
+    rate,ceiling,floor=rates[speed]
+    logical=(os.cpu_count() or 1) if logical is None else logical
+    return min(ceiling,max(floor,logical*rate))
+
 class ScanControl:
     def __init__(self,cancel,cores=None):
         self.cancel=cancel
-        self.cores=min(.6,max(.05,(os.cpu_count() or 1)*.05)) if cores is None else max(.01,float(cores))
+        self.cores=cpu_target() if cores is None else max(.01,float(cores))
         self.burst=.02;self.balance=self.burst
         self.wall=time.monotonic();self.cpu=time.process_time();self.lock=threading.Lock();self.next_check=0
     def is_set(self):

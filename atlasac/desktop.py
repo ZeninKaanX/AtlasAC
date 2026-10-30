@@ -1,6 +1,6 @@
 """Native, two-page Qt desktop scanner. All reports and indices stay on the device."""
 from __future__ import annotations
-import json
+import copy,json,math
 import sqlite3
 from pathlib import Path
 import sys
@@ -85,12 +85,12 @@ class OceanBackground(QWidget):
 class ScanWorker(QThread):
     progress=Signal(object)
     ready=Signal(object)
-    def __init__(self,roots,rules,data_dir,artifacts=True,max_seconds=None):
+    def __init__(self,roots,rules,data_dir,artifacts=True,max_seconds=None,speed='low'):
         super().__init__();self.roots=roots;self.rules=rules;self.data_dir=data_dir
-        self.artifacts=artifacts;self.max_seconds=max_seconds;self.cancel=threading.Event()
+        self.artifacts=artifacts;self.max_seconds=max_seconds;self.speed=speed;self.cancel=threading.Event()
     def run(self):
         try:
-            report=run_scan(self.rules,self.roots,self.data_dir,self.artifacts,self.cancel,self.progress.emit,self.max_seconds)
+            report=run_scan(self.rules,self.roots,self.data_dir,self.artifacts,self.cancel,self.progress.emit,self.max_seconds,speed=self.speed)
         except Exception as exc:
             report={'started_at':now(),'roots':list(map(str,self.roots)),'status':'partial','files':[],
                     'findings':[],'issues':[{'reason':str(exc)}],'components':[],'artifacts':{}}
@@ -100,12 +100,27 @@ class Rows(QAbstractTableModel):
     def __init__(self):
         super().__init__();self.rows=[];self.keys=[]
     def set_rows(self,rows):
-        self.beginResetModel();self.rows=rows
+        rows=list(rows)
         keys=list(dict.fromkeys(k for row in rows[:100] for k in row))
         keys=[k for k in keys if k!='icon_png_base64' and any(row.get(k) not in (None,'',[],{}) for row in rows[:100])]
         first=('path','status','name','rule','method','format','evidence','note')
-        self.keys=[k for k in first if k in keys]+[k for k in keys if k not in first]
-        self.endResetModel()
+        keys=[k for k in first if k in keys]+[k for k in keys if k not in first]
+        if keys==self.keys:
+            if rows==self.rows:return
+            old=len(self.rows)
+            if old and len(rows)>old and rows[:old]==self.rows:
+                self.beginInsertRows(QModelIndex(),old,len(rows)-1);self.rows=rows;self.endInsertRows();return
+            if old and rows:
+                start=next((i for i,row in enumerate(rows) if row==self.rows[0]),None)
+                if start is not None:
+                    kept=len(rows)-start
+                    if 0<kept<=old and rows[start:]==self.rows[:kept]:
+                        if kept<old:
+                            self.beginRemoveRows(QModelIndex(),kept,old-1);self.rows=self.rows[:kept];self.endRemoveRows()
+                        if start:
+                            self.beginInsertRows(QModelIndex(),0,start-1);self.rows=rows;self.endInsertRows()
+                        return
+        self.beginResetModel();self.rows=rows;self.keys=keys;self.endResetModel()
     def rowCount(self,parent=QModelIndex()):return 0 if parent.isValid() else len(self.rows)
     def columnCount(self,parent=QModelIndex()):return 0 if parent.isValid() else len(self.keys)
     def data(self,index,role=Qt.ItemDataRole.DisplayRole):
@@ -138,7 +153,7 @@ class AtlasWindow(QMainWindow):
         super().__init__();self.rules=load_rules(rules_path);self.history=ReportHistory(history_dir)
         self.scan_roots=scan_roots;self.data_dir=data_dir;self.collect_artifacts=collect_artifacts
         self.audit=AuditTrail(data_dir);maintain_index(self.audit.base)
-        self.report=None;self.worker=None;self.closing=False;self.live_files=[];self.live_findings=[]
+        self.report=None;self.worker=None;self.closing=False;self.live_files=[];self.live_findings=[];self.detail_dialogs=set()
         self.setWindowTitle('AtlasAC • AtlasOyuncu • '+__version__);self.setWindowIcon(QIcon(str(LOGO)))
         self.resize(1180,780);self.setMinimumSize(840,600)
         self.background=OceanBackground();self.setCentralWidget(self.background)
@@ -162,11 +177,17 @@ class AtlasWindow(QMainWindow):
         layout.addWidget(logo);scope=label('JAR/ZIP ve aday dosyalar · Süre sınırı yok','color: #d6f1ff; font-size: 16px;')
         scope.setWordWrap(True);scope.setAlignment(Qt.AlignmentFlag.AlignCenter);layout.addWidget(scope);layout.addSpacing(22)
         controls=QHBoxLayout();controls.addStretch()
+        self.speed_select=QComboBox();self.speed_select.addItem('Düşük CPU','low');self.speed_select.addItem('Dengeli','balanced');self.speed_select.addItem('Hızlı','fast')
+        self.speed_select.setToolTip('Dengeli ve Hızlı daha fazla CPU payı kullanır. Dosya kapsamı aynıdır; CPU hedefi anlık kullanım sınırı değildir.')
+        controls.addWidget(self.speed_select)
         self.start_button=button('Taramayı başlat',self.start_scan,True);controls.addWidget(self.start_button)
         self.stop_button=button('Durdur',self.cancel_scan);self.stop_button.hide();controls.addWidget(self.stop_button)
         controls.addStretch();layout.addLayout(controls);layout.addSpacing(18)
         self.status_label=label('Hazır');self.status_label.setWordWrap(True);self.status_label.setAlignment(Qt.AlignmentFlag.AlignCenter);layout.addWidget(self.status_label)
         self.progress_bar=FishProgress();self.progress_bar.hide();layout.addWidget(self.progress_bar)
+        self.progress_info=label('','color: #d6f1ff; font-size: 12px;');self.progress_info.setWordWrap(True)
+        self.progress_info.setToolTip('Yüzde, listesi tamamlanan aday dosyalara aittir. Sistem kayıtları ayrıca incelenir; kalan süre yaklaşık değerdir.')
+        self.progress_info.setAlignment(Qt.AlignmentFlag.AlignCenter);layout.addWidget(self.progress_info);self.progress_info.hide()
         self.path_label=label('','color: #bcdeef; font-size: 11px;');self.path_label.setMaximumHeight(36);self.path_label.setWordWrap(True)
         layout.addWidget(self.path_label)
         self.live_filter=QComboBox();self.live_filter.addItem('Canlı dosyalar — son 160 kayıt','files');self.live_filter.addItem('Dosya eşleşmeleri','findings');self.live_filter.addItem('İnceleme sinyalleri','review_signals')
@@ -175,6 +196,8 @@ class AtlasWindow(QMainWindow):
         self.live_model=Rows();self.live_table=QTableView();self.live_table.setModel(self.live_model)
         self.live_table.setMaximumHeight(160);self.live_table.setMinimumHeight(100);self.live_table.setWordWrap(False)
         self.live_table.verticalHeader().hide();self.live_table.horizontalHeader().setStretchLastSection(True)
+        self.live_table.doubleClicked.connect(self.open_details)
+        self.live_table.setToolTip('Kaydın ayrıntısı için çift tıkla. Tarama devam eder.')
         layout.addWidget(self.live_table);self.live_table.hide()
         layout.addStretch(1);self.pages.addWidget(page)
     def build_results(self):
@@ -211,26 +234,40 @@ class AtlasWindow(QMainWindow):
         self.live_filter.show();self.live_table.show()
         self.summary.setText('Tarama sürüyor…');self.model.set_rows([])
         self.start_button.setEnabled(False);self.stop_button.show();self.stop_button.setEnabled(True)
-        self.progress_bar.show();self.status_label.setText('Tarama başlatılıyor…')
-        self.worker=ScanWorker(roots,self.rules,self.data_dir,self.collect_artifacts)
+        self.progress_bar.set_progress(None);self.progress_bar.show();self.progress_info.setText('Dosya listesi hazırlanıyor…');self.progress_info.show();self.status_label.setText('Tarama başlatılıyor…')
+        self.speed_select.setEnabled(False)
+        self.worker=ScanWorker(roots,self.rules,self.data_dir,self.collect_artifacts,speed=self.speed_select.currentData())
         self.worker.progress.connect(self.on_progress);self.worker.ready.connect(self.display_report)
         self.worker.finished.connect(self.scan_finished);self.worker.start()
     def on_progress(self,data):
         cancelling=self.worker and self.worker.cancel.is_set()
         phase='Durduruluyor…' if cancelling else data['phase']
-        self.status_label.setText(f"{phase} · {data['indexed']:,} aday dosya · {data.get('ignored_files',0):,} normal dosya atlandı · {data['matches']} şüpheli eşleşme")
+        self.status_label.setText(f"{phase} · {data.get('processed_candidates',data['indexed']):,} aday incelendi · {data['matches']} şüpheli eşleşme")
+        percent=data.get('progress_percent');self.progress_bar.set_progress(percent)
+        if percent is None:
+            info=f"Dosya listesi hazırlanıyor · {data.get('files_seen',0):,} dosya görüldü · {data.get('discovered_candidates',0):,} aday"
+        else:
+            done=data.get('processed_candidates',0);total=data.get('total_candidates',0)
+            eta=data.get('eta_seconds')
+            remaining='hesaplanıyor' if eta is None else f'{max(1,math.ceil(eta/60))} dk' if eta>=60 else f'{eta:g} sn'
+            info=f"Dosyalar %{percent:.1f} · {done:,} / {total:,} aday"
+            if done<total:info+=' · Tahmini kalan: '+remaining
+            elif self.worker and self.worker.isRunning():info+=' · Son kontroller sürüyor'
+        self.progress_info.setText(info)
         self.path_label.setText(data['path'][-180:])
         self.live_files=(self.live_files+data.get('recent_files',[]))[-160:]
         self.live_findings.extend(data.get('new_findings',[]))
         if self.report and self.report.get('status')=='running':
             self.report.update(indexed_files=data['indexed'],content_files=data.get('content_files',0),excluded_paths=data.get('excluded_paths',[]),exclusion_reasons=data.get('exclusion_reasons',{}),
                                index_path=data.get('index_path'),scan_id=data.get('scan_id'),findings=list(self.live_findings))
+            for key in ('processed_candidates','total_candidates','discovered_candidates','files_seen','discovery_complete','progress_percent','eta_seconds'):
+                if key in data:self.report[key]=data[key]
             self.report['artifacts'].update(data.get('artifact_snapshot',{}))
             for key,rows in data.get('artifact_delta',{}).items():self.report['artifacts'].setdefault(key,[]).extend(rows)
             self.report['components']=data.get('components',self.report.get('components',[]))
             for key,value in self.report['artifacts'].items():
                 if isinstance(value,list) and self.category.findData(key)<0:self.category.addItem(TITLES.get(key,key),key)
-            self.summary.setText(f"Tarama sürüyor · {data['indexed']:,} dosya · {data['matches']} şüpheli eşleşme")
+            self.summary.setText(f"Tarama sürüyor · {data.get('processed_candidates',data['indexed']):,} aday · {data['matches']} şüpheli eşleşme")
             if self.pages.currentIndex()==1:self.refresh_results()
         self.refresh_live()
     def refresh_live(self):
@@ -242,7 +279,7 @@ class AtlasWindow(QMainWindow):
     def cancel_scan(self):
         if self.worker:self.worker.cancel.set();self.stop_button.setEnabled(False);self.status_label.setText('Durduruluyor…')
     def scan_finished(self):
-        self.start_button.setEnabled(True);self.stop_button.hide();self.progress_bar.hide()
+        self.start_button.setEnabled(True);self.speed_select.setEnabled(True);self.stop_button.hide();self.progress_bar.hide();self.progress_info.hide()
         if self.closing:self.close()
     def display_report(self,report):
         report=minimize_report(report);report['privacy_notice_version']=NOTICE_VERSION
@@ -254,7 +291,7 @@ class AtlasWindow(QMainWindow):
         except OSError as exc:report.setdefault('issues',[]).append({'reason':'Rapor kaydedilemedi: '+str(exc)})
         state={'completed':'Tamamlandı','partial':'Kısmen tamamlandı','cancelled':'Durduruldu'}.get(report['status'],report['status'])
         self.status_label.setText(state);self.path_label.setText('Süre sınırına ulaşıldı; eldeki sonuçlar gösteriliyor.' if report.get('stop_reason')=='time_budget' else '')
-        self.summary.setText(f"{state} · {len(report['findings'])} eşleşme · {report.get('indexed_files',len(report['files'])):,} dosya · {report.get('duration_seconds',0):.1f} sn")
+        self.summary.setText(f"{state} · {len(report['findings'])} eşleşme · {report.get('processed_candidates',report.get('indexed_files',len(report['files']))):,} aday · {report.get('duration_seconds',0):.1f} sn")
         self.category.blockSignals(True)
         while self.category.count()>3:self.category.removeItem(3)
         for key,value in report.get('artifacts',{}).items():
@@ -268,7 +305,7 @@ class AtlasWindow(QMainWindow):
         if key=='index':
             try:rows=search_files(report['index_path'],report['scan_id'],self.search.text()) if report.get('index_path') else []
             except (OSError,KeyError,ValueError,sqlite3.Error) as exc:rows=[{'reason':str(exc)}]
-            note='Aramaya uyan ilk 500 metadata kaydı gösterilir. Yerel indeks değiştirilebilir; tespit kararları bu indeksten alınmaz.'
+            note='Tanınan dosya biçimleri ve sorunlu adaylardan aramaya uyan ilk 500 kayıt gösterilir. Diğer adaylar da kontrol edilir; tespit kararları bu indeksten alınmaz.'
         elif key=='coverage':
             rows=([{'name':'Yerel sonuç bütünlüğü',**report['integrity']}] if report.get('integrity') else [])+report.get('components',[])+report.get('issues',[])+[{'path':p,'reason':report.get('exclusion_reasons',{}).get(p,'Kullanıcı tercihiyle kapsam dışında')} for p in report.get('excluded_paths',[])]
             note=f"{report.get('issues_total',len(report.get('issues',[]))):,} dosya erişim/kapsam kaydı. İçerik sınırları: 256 MiB/dosya, 30 sn/arşiv; bellek/DMA ve Procmon çekirdek izlemesi yok."
@@ -284,9 +321,27 @@ class AtlasWindow(QMainWindow):
         for i in range(self.model.columnCount()):self.result_table.setColumnWidth(i,240 if i==0 else 180)
     def open_details(self,index):
         if not index.isValid():return
+        model=index.model()
+        if not hasattr(model,'rows') or not 0<=index.row()<len(model.rows):return
+        row=copy.deepcopy(model.rows[index.row()]);path=row.get('path','')
+        if path and not row.get('rule'):
+            matches=[copy.deepcopy(f) for f in (self.report or {}).get('findings',[]) if f.get('path')==path or f.get('path','').startswith(path+'!/')]
+            if matches:row['matches']=matches
+        elif path:
+            containers=[r for r in self.live_files if r.get('path') and (path==r['path'] or path.startswith(r['path']+'!/'))]
+            if containers:
+                container=max(containers,key=lambda r:len(r['path']))
+                row['container_file']={k:container[k] for k in ('path','format','size','sha256') if container.get(k) is not None}
+        def display(value):
+            if isinstance(value,dict):return {k:('[Gömülü PNG ikon]' if k=='icon_png_base64' else display(v)) for k,v in value.items()}
+            if isinstance(value,list):return [display(v) for v in value]
+            return value
+        # The dialog holds a snapshot: live table updates cannot replace its record.
         dialog=QDialog(self);dialog.setWindowTitle('Kayıt ayrıntısı');dialog.resize(760,480)
+        dialog.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose)
         layout=QVBoxLayout(dialog);text=QPlainTextEdit();text.setReadOnly(True)
-        text.setPlainText(json.dumps(self.model.rows[index.row()],ensure_ascii=False,indent=2));layout.addWidget(text);dialog.exec()
+        text.setPlainText(json.dumps(display(row),ensure_ascii=False,indent=2));layout.addWidget(text)
+        self.detail_dialogs.add(dialog);dialog.finished.connect(lambda _:self.detail_dialogs.discard(dialog));dialog.show()
     def export_report(self):
         if not self.report:return
         name,_=QFileDialog.getSaveFileName(self,'Sonuçları kaydet','AtlasAC-sonuclar.json','JSON (*.json)')

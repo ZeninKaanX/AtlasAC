@@ -1,4 +1,4 @@
-# AtlasAC 0.3.11 — teknik gizlilik ve saklama
+# AtlasAC 0.3.12 — teknik gizlilik ve saklama
 
 Kuruluş olarak kullanıcı tarafından belirtilen ad: **TrueFormTech**.
 İletişim: **trueformtechx@gmail.com**. Teknik bilgilendirme sürümü: `2026-10-30.2`.
@@ -38,3 +38,5 @@ Kullanıcının talimatıyla teknik bilgilendirmede ayrı bir sunucu kontrol kur
 KVKK'nın resmî yayınlarında açık rızanın özgür iradeyle verilmesi gerektiği; hizmetten yararlanmanın açık rıza şartına bağlanmasının özgür irade unsurunu zedeleyebileceği belirtilir. 30 günlük yaptırım altında alınan onayın ve kuruluşun işleme şartının somut durumda değerlendirilmesi gerekir; yalnız “reddetmekte serbest” yazılması geçerli açık rızayı garanti etmez. Bu inceleme tamamlanmış sayılmaz.
 
 Kaynaklar: [KVKK — 2025/1072 İlke Kararı](https://www.kvkk.gov.tr/Icerik/8338/2025-1072), [KVKK — 100 Soruda KVKK](https://kvkk.gov.tr/SharedFolderServer/CMSFiles/185c2130-8070-4b2b-a91e-1d48322ca352.pdf).
+
+0.3.12: Kalıcı dosya indeksi tanınan biçimler ve sorunlu adaylarla sınırlıdır. Diğer adaylar da içerik kontrolünden geçer; son canlı kayıtlar RAM’de gösterilir. Bekleyen tarama yolları bu oturumun özel geçici dosyasında tutulur ve işlem kapanınca kaldırılır; bu kuyruk tespit/temiz sonucu önbelleği değildir.

@@ -16,7 +16,7 @@ def signature(code):
 def verify(path):
     archive=CArchiveReader(str(path))
     embedded=archive.open_embedded_archive(next(k for k in archive.toc if k.endswith('.pyz')))
-    for module in ('integrity','audit','privacy','securestore','reports','assessment','methodcoverage','commandtraces','cpubudget','pixels','contentcache','findingicons','desktop','widgets','reveal','filepolicy','scope','scanprocess','fileprobe','systemscan','index','collectors','winrecords','engine','__main__'):
+    for module in ('integrity','audit','privacy','securestore','reports','assessment','methodcoverage','commandtraces','cpubudget','pixels','contentcache','findingicons','desktop','widgets','reveal','filepolicy','scope','scanprocess','scanplan','scanprogress','fileprobe','systemscan','index','collectors','winrecords','engine','__main__'):
         file=Path('atlasac')/(module+'.py')
         expected=compile(file.read_bytes(),str(file),'exec',dont_inherit=True)
         actual=embedded.extract('atlasac.'+module)

@@ -23,6 +23,15 @@ def gated_scan_child(messages,cancel,rules,roots,data_dir,artifacts):
     messages.put(('ready',report))
 
 class ProcessTests(unittest.TestCase):
+    def test_selected_speed_reaches_the_actual_scan_worker(self):
+        from atlasac.cpubudget import cpu_target
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)/'disk';root.mkdir()
+            report=run_scan(load_rules(RULES),[root],Path(tmp)/'state',False,threading.Event(),lambda data:None,speed='balanced')
+            self.assertEqual(report['status'],'completed')
+            self.assertEqual(report['scan_speed'],'balanced')
+            self.assertAlmostEqual(report['cpu_target_cores'],cpu_target('balanced'))
+            self.assertIsNone(report['time_budget_seconds'])
     def test_default_scan_survives_old_deadline_and_explicit_long_budget_is_honoured(self):
         import zipfile
         for limit,jump in ((None,7201),(7200,601)):
@@ -81,7 +90,7 @@ class ProcessTests(unittest.TestCase):
             root=Path(tmp).resolve();skip=root/'games';skip.mkdir();(skip/'game.dat').write_text('game');(root/'other.dat').write_text('scan')
             with patch('atlasac.systemscan.excluded_locations',return_value={skip:'Oyun kütüphanesi'}):
                 report=system_scan(load_rules(RULES),[root],data_dir=root/'state',artifacts=False)
-            self.assertEqual(report['indexed_files'],1);self.assertEqual(report['excluded_paths'],[str(skip)])
+            self.assertEqual(report['processed_candidates'],1);self.assertEqual(report['excluded_paths'],[str(skip)])
 
     def test_all_jars_survive_library_filter_and_images_are_skipped(self):
         import json,zipfile

@@ -1,0 +1,138 @@
+{
+  "scope": "Generated on-disk fixture: 20,001 files, 15,001 candidates, 5,000 ignored PNG files, one Meteor metadata fixture. No GUI/collectors. Busy local host; not an 850k-file or Windows benchmark. Separate fresh indexes. Baseline/new low use the same 0.4-core target; fast explicitly uses a larger 1.2-core target.",
+  "pairs": [
+    {
+      "source": "0.3.11",
+      "wall_seconds": 28.070306925015757,
+      "cpu_seconds": 10.785838536,
+      "updates": 169,
+      "load": [
+        5.92919921875,
+        4.498046875,
+        2.890625
+      ],
+      "counters": {
+        "indexed_files": 15001,
+        "content_files": 5001,
+        "ignored_files": 5000,
+        "issues_total": 0,
+        "cpu_target_cores": 0.4,
+        "total_candidates": null,
+        "processed_candidates": null,
+        "progress_percent": null,
+        "io_readers": null
+      },
+      "matches": [
+        [
+          "meteor",
+          "/tmp/atlasac-speed0312/disk/early.jar"
+        ]
+      ]
+    },
+    {
+      "source": "0.3.12 development",
+      "wall_seconds": 24.292480631003855,
+      "cpu_seconds": 9.448340337,
+      "updates": 146,
+      "load": [
+        7.2353515625,
+        4.93603515625,
+        3.08056640625
+      ],
+      "counters": {
+        "indexed_files": 5001,
+        "content_files": 5001,
+        "ignored_files": 5000,
+        "issues_total": 0,
+        "cpu_target_cores": 0.4,
+        "total_candidates": 15001,
+        "processed_candidates": 15001,
+        "progress_percent": 100.0,
+        "io_readers": 2
+      },
+      "matches": [
+        [
+          "meteor",
+          "/tmp/atlasac-speed0312/disk/early.jar"
+        ]
+      ]
+    },
+    {
+      "source": "0.3.11",
+      "wall_seconds": 25.74193405499682,
+      "cpu_seconds": 9.6266864,
+      "updates": 158,
+      "load": [
+        7.97705078125,
+        5.33349609375,
+        3.26513671875
+      ],
+      "counters": {
+        "indexed_files": 15001,
+        "content_files": 5001,
+        "ignored_files": 5000,
+        "issues_total": 0,
+        "cpu_target_cores": 0.4,
+        "total_candidates": null,
+        "processed_candidates": null,
+        "progress_percent": null,
+        "io_readers": null
+      },
+      "matches": [
+        [
+          "meteor",
+          "/tmp/atlasac-speed0312/disk/early.jar"
+        ]
+      ]
+    },
+    {
+      "source": "0.3.12 development",
+      "wall_seconds": 24.724741773010464,
+      "cpu_seconds": 9.564114321,
+      "updates": 148,
+      "load": [
+        7.98779296875,
+        5.5986328125,
+        3.412109375
+      ],
+      "counters": {
+        "indexed_files": 5001,
+        "content_files": 5001,
+        "ignored_files": 5000,
+        "issues_total": 0,
+        "cpu_target_cores": 0.4,
+        "total_candidates": 15001,
+        "processed_candidates": 15001,
+        "progress_percent": 100.0,
+        "io_readers": 2
+      },
+      "matches": [
+        [
+          "meteor",
+          "/tmp/atlasac-speed0312/disk/early.jar"
+        ]
+      ]
+    }
+  ],
+  "fast_mode": {
+    "mode": "fast",
+    "wall_seconds": 8.899143005983206,
+    "cpu_seconds": 9.441738342,
+    "counters": {
+      "indexed_files": 5001,
+      "content_files": 5001,
+      "ignored_files": 5000,
+      "processed_candidates": 15001,
+      "issues_total": 0,
+      "cpu_target_cores": 1.2,
+      "io_readers": 2
+    },
+    "matches": [
+      [
+        "meteor",
+        "/tmp/atlasac-speed0312/disk/early.jar"
+      ]
+    ]
+  },
+  "index_scope": "New index stores 5,001 recognized files; all 15,001 candidates are still probed. Baseline indexed all 15,001. Detection/candidate/ignored/issue counts are unchanged."
+}

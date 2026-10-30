@@ -1,4 +1,4 @@
-"""Persistent local filename index and inspection cache. One writer, WAL readers."""
+"""Focused local metadata index; inspection decisions are never persisted."""
 from pathlib import Path
 import sqlite3
 import time
@@ -20,28 +20,36 @@ class FileIndex:
         self.db.execute('CREATE INDEX IF NOT EXISTS files_scan ON files(scan_id)')
         columns={r[1] for r in self.db.execute('PRAGMA table_info(files)')}
         if 'seen_at' not in columns:self.db.execute('ALTER TABLE files ADD COLUMN seen_at REAL NOT NULL DEFAULT 0')
+        self.db.execute('CREATE INDEX IF NOT EXISTS files_seen_at ON files(seen_at)')
+        self.db.execute('CREATE INDEX IF NOT EXISTS files_legacy_cache ON files(path) WHERE cache IS NOT NULL')
         self.db.execute('UPDATE files SET cache=NULL WHERE cache IS NOT NULL')
         self.db.execute('DELETE FROM files WHERE seen_at < ?',(time.time()-RETENTION_DAYS*86400,))
         self.db.commit();self.db.execute('PRAGMA wal_checkpoint(TRUNCATE)')
         self._protect_sidecars()
-        self.pending=0
+        self.pending=0;self.buffer=[];self.last_flush=time.monotonic()
     def cached(self,path,token):
         # Player-writable persistent data is never an authority for inspection results.
         return None
     def put(self,path,st,scan_id,token,result):
         record=result.get('file') or {}
         cache=None  # Index metadata only; never persist trusted findings or clean verdicts.
-        self.db.execute('INSERT OR REPLACE INTO files VALUES(?,?,?,?,?,?,?,?,?)',(str(path),st.st_size,st.st_mtime_ns,record.get('format',''),record.get('sha256'),scan_id,token,cache,time.time()))
+        self.buffer.append((str(path),st.st_size,st.st_mtime_ns,record.get('format',''),record.get('sha256'),scan_id,token,cache,time.time()))
         self.pending+=1
-        if self.pending>=500:self.db.commit();self.pending=0
+        if self.pending>=500:self.flush()
     def _protect_sidecars(self):
         for suffix in ('-wal','-shm'):
             path=check_plain(str(self.path)+suffix)
             if path.exists():private_permissions(path)
     def flush(self):
-        self.db.commit();self.pending=0
+        if self.buffer:
+            self.db.executemany('''INSERT INTO files VALUES(?,?,?,?,?,?,?,?,?)
+                ON CONFLICT(path) DO UPDATE SET size=excluded.size,modified_ns=excluded.modified_ns,
+                kind=excluded.kind,sha256=excluded.sha256,scan_id=excluded.scan_id,
+                token=excluded.token,cache=NULL,seen_at=excluded.seen_at''',self.buffer)
+        self.db.commit();self.buffer.clear();self.pending=0
+        self.last_flush=time.monotonic()
     def close(self):
-        self.db.commit();self.db.execute('PRAGMA wal_checkpoint(TRUNCATE)');self.db.close()
+        self.flush();self.db.execute('PRAGMA wal_checkpoint(TRUNCATE)');self.db.close()
 
 
 def search_files(path,scan_id,term='',limit=500):
