@@ -93,15 +93,40 @@ class PrivacyTests(unittest.TestCase):
 
     @unittest.skipUnless(os.name=='nt','Windows DACL integration')
     def test_windows_dacl_is_protected_and_contains_only_current_user_and_system(self):
-        import subprocess
+        import ctypes as c
+        from ctypes import wintypes as w
         from atlasac.securestore import current_sid
+        adv=c.WinDLL('advapi32',use_last_error=True);kernel=c.WinDLL('kernel32',use_last_error=True)
+        adv.GetNamedSecurityInfoW.argtypes=[w.LPWSTR,c.c_int,w.DWORD,c.c_void_p,c.c_void_p,c.POINTER(c.c_void_p),c.c_void_p,c.POINTER(c.c_void_p)]
+        adv.GetNamedSecurityInfoW.restype=w.DWORD
+        adv.GetSecurityDescriptorControl.argtypes=[c.c_void_p,c.POINTER(w.WORD),c.POINTER(w.DWORD)];adv.GetSecurityDescriptorControl.restype=w.BOOL
+        adv.GetAclInformation.argtypes=[c.c_void_p,c.c_void_p,w.DWORD,c.c_int];adv.GetAclInformation.restype=w.BOOL
+        adv.GetAce.argtypes=[c.c_void_p,w.DWORD,c.POINTER(c.c_void_p)];adv.GetAce.restype=w.BOOL
+        adv.ConvertSidToStringSidW.argtypes=[c.c_void_p,c.POINTER(w.LPWSTR)];adv.ConvertSidToStringSidW.restype=w.BOOL
+        kernel.LocalFree.argtypes=[c.c_void_p]
+        class AclSize(c.Structure):
+            _fields_=[('count',w.DWORD),('used',w.DWORD),('free',w.DWORD)]
         with tempfile.TemporaryDirectory() as tmp:
             root=private_directory(Path(tmp)/'private');path=root/'report.json';write_json(path,{})
-            script='$a=Get-Acl -LiteralPath $args[0]; [pscustomobject]@{protected=$a.AreAccessRulesProtected;aces=@($a.Access|ForEach-Object{[pscustomobject]@{sid=$_.IdentityReference.Translate([System.Security.Principal.SecurityIdentifier]).Value;inherited=$_.IsInherited;type=[string]$_.AccessControlType}})}|ConvertTo-Json -Depth 4 -Compress'
             for target in (root,path):
-                # Script file avoids command interpolation of paths.
-                file=Path(tmp)/'verify.ps1';file.write_text(script,encoding='utf-8')
-                result=subprocess.run(['powershell.exe','-NoProfile','-NonInteractive','-File',str(file),str(target)],capture_output=True,check=True)
-                data=json.loads(result.stdout.decode('utf-8-sig'))
-                self.assertTrue(data['protected']);self.assertEqual({r['sid'] for r in data['aces']},{current_sid(),'S-1-5-18'})
-                self.assertTrue(all(not r['inherited'] and r['type']=='Allow' for r in data['aces']))
+                descriptor=c.c_void_p();acl=c.c_void_p()
+                code=adv.GetNamedSecurityInfoW(str(target),1,4,None,None,c.byref(acl),None,c.byref(descriptor))
+                self.assertEqual(code,0)
+                try:
+                    control=w.WORD();revision=w.DWORD();info=AclSize()
+                    self.assertTrue(adv.GetSecurityDescriptorControl(descriptor,c.byref(control),c.byref(revision)))
+                    self.assertTrue(control.value&0x1000,'DACL must be protected from parent inheritance')
+                    self.assertTrue(acl.value,'NULL DACL would allow everyone')
+                    self.assertTrue(adv.GetAclInformation(acl,c.byref(info),c.sizeof(info),2))
+                    self.assertEqual(info.count,2);sids=set()
+                    for i in range(info.count):
+                        ace=c.c_void_p();self.assertTrue(adv.GetAce(acl,i,c.byref(ace)))
+                        self.assertEqual(c.c_ubyte.from_address(ace.value).value,0,'Only allow ACEs expected')
+                        self.assertFalse(c.c_ubyte.from_address(ace.value+1).value&0x10,'No inherited ACEs expected')
+                        self.assertEqual(c.c_uint32.from_address(ace.value+4).value&0x1f01ff,0x1f01ff,'Full control for authorised SID')
+                        text=w.LPWSTR()
+                        self.assertTrue(adv.ConvertSidToStringSidW(c.c_void_p(ace.value+8),c.byref(text)))
+                        try:sids.add(text.value)
+                        finally:kernel.LocalFree(c.cast(text,c.c_void_p))
+                    self.assertEqual(sids,{current_sid(),'S-1-5-18'})
+                finally:kernel.LocalFree(descriptor)
