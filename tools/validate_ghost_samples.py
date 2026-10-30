@@ -10,6 +10,7 @@ from pathlib import Path
 import sys
 import tempfile
 import threading
+import time
 import urllib.request
 import zipfile
 
@@ -68,6 +69,9 @@ def validate(samples, manifest):
                 result['all_passed'] &= passed
         for pass_number in range(2):
             events = []
+            started = time.monotonic()
+            cpu_started = time.process_time()
+            print(json.dumps({'phase': 'system-start', 'pass': pass_number}), flush=True)
             report = system_scan(rules, [disk], artifacts=False, data_dir=root/'state', progress=events.append)
             live = [f for event in events for f in event['new_findings']]
             final_rows = sorted((f['path'], f['rule']) for f in report['findings'])
@@ -80,8 +84,16 @@ def validate(samples, manifest):
                                     'expected_matches': len(expected_rows), 'matches': len(final_rows),
                                     'live_matches': len(live), 'cache_hits': report['cache_hits'],
                                     'files': report['content_files'], 'status': report['status'],
-                                    'expected_status': expected_status, 'issues_total': report['issues_total'], 'passed': passed})
+                                    'expected_status': expected_status, 'issues_total': report['issues_total'],
+                                    'duration_seconds': round(time.monotonic()-started, 3),
+                                    'cpu_seconds': round(time.process_time()-cpu_started, 3),
+                                    'cpu_target_cores': report['cpu_target_cores'],
+                                    'issues': report['issues'],
+                                    'missing_matches': sorted(set(expected_rows)-set(final_rows)),
+                                    'unexpected_matches': sorted(set(final_rows)-set(expected_rows)),
+                                    'passed': passed})
             result['all_passed'] &= passed
+            print(json.dumps({'phase': 'system-end', **result['tests'][-1]}), flush=True)
     return result
 
 
