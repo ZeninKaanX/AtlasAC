@@ -38,7 +38,10 @@ class ScanNotice(QDialog):
     def __init__(self,parent=None):
         super().__init__(parent);self.setWindowTitle('AtlasAC · Tarama öncesi bilgilendirme');self.resize(760,640)
         self.setStyleSheet(STYLE)
-        layout=QVBoxLayout(self);text=QPlainTextEdit();text.setReadOnly(True);text.setPlainText(notice_text());layout.addWidget(text)
+        layout=QVBoxLayout(self)
+        policy=label('Sunucu kuralı: Kontrol için talep edilen uygulamayı reddetmek 30 gün ban ile sonuçlanır. Karar sunucu yönetimine aittir; AtlasAC otomatik ban uygulamaz.','color: #ffd89b; font-weight: 600;')
+        policy.setWordWrap(True);layout.addWidget(policy)
+        text=QPlainTextEdit();text.setReadOnly(True);text.setPlainText(notice_text());layout.addWidget(text)
         self.permission=QCheckBox('Bu cihazı incelemeye yetkiliyim ve belirtilen kapsamda yerel taramayı başlatmak istiyorum.')
         self.permission.setChecked(False);layout.addWidget(self.permission)
         hint=label('Bu seçim teknik tarama iznidir; kuruluşun hukuki işleme şartını belirlemez.');hint.setWordWrap(True);layout.addWidget(hint)

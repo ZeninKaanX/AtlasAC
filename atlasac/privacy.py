@@ -60,7 +60,8 @@ RETENTION_DAYS=7
 REPORT_LIMIT=50
 CONTROLLER='TrueFormTech'
 CONTACT='trueformtechx@gmail.com'
-NOTICE_VERSION='2026-10-30.1'
+NOTICE_VERSION='2026-10-30.2'
+SERVER_CONTROL_POLICY='Sunucu yönetiminin bildirdiği kontrol kuralına göre, hile kontrolü kapsamında talep edilen bir kontrol uygulamasını kullanmayı reddeden oyuncuya 30 gün sunucudan uzaklaştırma (ban) uygulanır. Oyuncu reddedebilir; yaptırım kararı ve uygulaması sunucu yönetimine aittir. AtlasAC otomatik ban uygulamaz.'
 
 
 def minimize_report(report):
@@ -80,6 +81,10 @@ def notice_text():
 Sorumlu olarak belirtilen kuruluş: {CONTROLLER}
 İletişim / veri talepleri: {CONTACT}
 Sürüm: {NOTICE_VERSION}
+
+Sunucu kontrol kuralı — KVKK aydınlatması ve açık rızadan ayrı
+{SERVER_CONTROL_POLICY}
+Bu kural tek başına geçerli açık rıza oluşturmaz ve veri sorumlusunun kanuni yükümlülüklerini ortadan kaldırmaz.
 
 Amaç: Kullanıcının başlattığı yerel oyun dosyası ve sistem izi incelemesi. Eşleşme, oyunda hile kullanımı veya ceza kanıtı değildir.
 

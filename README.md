@@ -1,4 +1,4 @@
-# AtlasAC 0.3.8
+# AtlasAC 0.3.9
 
 [Windows EXE indir](https://github.com/ZeninKaanX/AtlasAC/releases/latest/download/AtlasAC.exe) · [Linux x64 indir](https://github.com/ZeninKaanX/AtlasAC/releases/latest/download/AtlasAC-Linux-x64) · [Tüm sürümler](https://github.com/ZeninKaanX/AtlasAC/releases)
 
@@ -115,3 +115,5 @@ Ghost istemci kapsamı: DoomsDay için resmi sitenin normal ve rastgele boyutlu 
 0.3.7: Sır maskeleme, özel dosya izinleri ve Windows DACL, 7 günlük saklama, eski raporların temizlenmesi, yerel verileri silme ve TrueFormTech iletişimli tarama öncesi bilgilendirme eklendi. Gezinme geçmişi kaldırıldı; ilgili indirme kayıtları daraltıldı. Komut temizleme belirtileri artık hile eşleşmesine eklenmez; ayrı sarı “İnceleme” sonucudur. Rehberin 50 yöntemi için [kapsam tablosu](docs/METHOD-COVERAGE.md) bulunur; desteklenmeyen yöntemler uygulanmış gibi gösterilmez.
 
 0.3.8: [Yerel sonuç bütünlüğü](docs/LOCAL-INTEGRITY.md). Kalıcı tespit önbelleği devre dışı; her oturumda adaylar yeniden incelenir. Standart GUI/CLI yayımlanan kural özetiyle uyuşmayan kuralları reddeder. Tarama mesajları oturum/sıra ve sayaç/kapsam tutarlılığıyla denetlenir; final raporu canlı eşleşmeleri silemez. JSON raporuna imzasız içerik SHA-256 özeti eklenir; bu dijital imza veya bilgisayar doğrulaması değildir. Güvenilen ortamda `--verify-report rapor.json --expected-digest DENETLEYENIN_AYRI_SAKLADIGI_OZET` ile özgün içerikle karşılaştırılabilir. Oyuncunun gönderdiği rapor ve yeni özetin birlikte değiştirilmesi bağımsız doğrulama sayılmaz. Sunucu/hesap/key eklenmedi.
+
+0.3.9: Sunucu yönetiminin bildirdiği 30 günlük kontrolü reddetme yaptırımı, tarama öncesinde ayrı sunucu kuralı olarak gösterilir. Vazgeçme korunur; otomatik ban veya red bilgisinin gönderimi eklenmedi. Bu kural, tek başına KVKK açık rızasının geçerliliğini veya sorumluluktan muafiyeti sağlamaz. Ayrıntılar: [gizlilik belgesi](docs/PRIVACY.md).

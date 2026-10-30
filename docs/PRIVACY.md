@@ -1,7 +1,7 @@
-# AtlasAC 0.3.8 — teknik gizlilik ve saklama
+# AtlasAC 0.3.9 — teknik gizlilik ve saklama
 
 Kuruluş olarak kullanıcı tarafından belirtilen ad: **TrueFormTech**.
-İletişim: **trueformtechx@gmail.com**. Teknik bilgilendirme sürümü: `2026-10-30.1`.
+İletişim: **trueformtechx@gmail.com**. Teknik bilgilendirme sürümü: `2026-10-30.2`.
 
 Bu belge hukuki uygunluk belgesi veya kuruluşun eksiksiz KVKK aydınlatma metni değildir. Kuruluşun tam hukuki kimliği/adresi, işleme şartı, alıcıları, hak başvuru yöntemi ve oyuncu/yaş bağlamı kuruluş tarafından netleştirilmelidir. Teknik izin kutusu bu değerlendirmeyi yapmaz. Metinle izin ayrı sunulur; kutu önceden seçilmez, reddetmek taramayı başlatmaz. Her taramada tekrar gösterilir. CLI, bilgilendirmeyi stderr üzerinden sunar ve `--consent` gerektirir.
 
@@ -30,3 +30,11 @@ POSIX dizin/dosya izinleri 700/600; Windows korumalı DACL mevcut süreç kullan
 `audit.json` yalnız zaman, olay türü ve sayı tutar: tarama başlangıcı/bitişi, kısmi/durdurulmuş tarama ve rapor dışa aktarma. Yol, komut, e-posta veya rapor içeriği yazılmaz. Bu yerel günlük bütünlük korumalı değildir; dosyaya izinsiz erişimi veya tüm sızıntıları otomatik algılamaz. Olay müdahale adımları: [INCIDENT-RESPONSE.md](INCIDENT-RESPONSE.md).
 
 0.3.8: Kalıcı indekste tespit sonucu/temiz sonucu önbelleği tutulmaz; eski cache alanları temizlenir. İmzalı olmayan SHA-256 içerik makbuzu kişisel veri alanı eklemez; bunun amacı bağımsız saklanan özgün özetle karşılaştırmadır. Makbuz bulunan eski raporlar otomatik yeniden mühürlenmez; içerik değişmişse okuyucu özeti reddeder. Yerel dosya sahibi veya yönetici, uygulama kodunu ve rapor/özet çiftini değiştirebilir. Ayrıntılar: [LOCAL-INTEGRITY.md](LOCAL-INTEGRITY.md).
+
+## Sunucu tarafından bildirilen reddetme kuralı
+
+Kullanıcının talimatıyla teknik bilgilendirmede ayrı bir sunucu kontrol kuralı gösterilir: hile kontrolünde talep edilen kontrol uygulamasını kullanmayı reddetmenin sunucu yönetimi tarafından 30 gün uzaklaştırma ile yaptırıma bağlandığı bildirilir. Reddetme/Vazgeç seçeneği korunur; AtlasAC reddetmeyi dışarıya göndermez, otomatik ban vermez ve bu durumu hile kanıtı saymaz. Bu metin kuralın hukuken geçerli olduğuna ilişkin değerlendirme veya genel sorumluluk muafiyeti değildir. Veri sorumlusunun yükümlülüklerini kaldırdığı iddia edilmez.
+
+KVKK'nın resmî yayınlarında açık rızanın özgür iradeyle verilmesi gerektiği; hizmetten yararlanmanın açık rıza şartına bağlanmasının özgür irade unsurunu zedeleyebileceği belirtilir. 30 günlük yaptırım altında alınan onayın ve kuruluşun işleme şartının somut durumda değerlendirilmesi gerekir; yalnız “reddetmekte serbest” yazılması geçerli açık rızayı garanti etmez. Bu inceleme tamamlanmış sayılmaz.
+
+Kaynaklar: [KVKK — 2025/1072 İlke Kararı](https://www.kvkk.gov.tr/Icerik/8338/2025-1072), [KVKK — 100 Soruda KVKK](https://kvkk.gov.tr/SharedFolderServer/CMSFiles/185c2130-8070-4b2b-a91e-1d48322ca352.pdf).
