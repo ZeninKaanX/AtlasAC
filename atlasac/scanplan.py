@@ -1,4 +1,4 @@
-"""Concurrent discovery with a bounded RAM buffer and a private anonymous spool.
+"""Concurrent discovery with a bounded RAM buffer and a private temporary spool.
 
 The spool holds work paths/metadata, never trusted findings or clean verdicts.
 Every queued candidate is still opened and inspected from disk by fileprobe.

@@ -29,3 +29,5 @@ Bilgisayarı tam yöneten kullanıcı/yönetici; Python/native kodu yamalayabili
 0.3.7 ve öncesindeki makbuzsuz raporlar yeni okuyucuda doğrulanmış sonuç olarak açılmaz; dosyalar otomatik silinmez. Makbuz alanını kaldırmak doğrulamayı atlatmaz. Mevcut geçersiz makbuzla verilen rapor geçmişe yeniden mühürlenerek yazılmaz.
 
 0.3.12: Bekleyen dosya yolları oturuma özel geçici kuyruktadır; dosya içerikleri yine taze açılır, kalıcı tespit sonucu kullanılmaz. Odaklı metadata indeksi yazılamasa bile tespitler tutulur ve rapor kısmi olur. Dosya yüzdesi, listesi tamamlanan adayların işlenen sayısına bağlanır; bilinmeyen toplam için kesin yüzde gönderilemez.
+
+Geçici kuyruk kayıtları sıra ve yalnız RAM’de tutulan oturumluk anahtarla denetlenir. Bu bir rapor imzası değildir; anahtar uygulamaya sabit gömülmez. Süreç belleğini/işletim sistemini yöneten saldırgan güven sınırının dışındadır.
