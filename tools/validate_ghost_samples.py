@@ -108,4 +108,6 @@ if __name__ == '__main__':
     result = validate(args.samples_dir, manifest)
     args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     print(json.dumps({'all_passed': result['all_passed'], 'checks': len(result['tests'])}))
+    if not result['all_passed']:
+        print(json.dumps({'failed_checks':[row for row in result['tests'] if not row['passed']]},ensure_ascii=False))
     raise SystemExit(0 if result['all_passed'] else 1)

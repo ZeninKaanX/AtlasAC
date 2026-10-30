@@ -12,7 +12,10 @@ class ReportTests(unittest.TestCase):
             for _ in range(52):
                 history.save(report)
             self.assertEqual(len(history.paths()), 50)
-            self.assertEqual(history.read(history.paths()[0]), report)
+            loaded=history.read(history.paths()[0])
+            self.assertEqual({k:v for k,v in loaded.items() if k!='report_receipt'}, report)
+            from atlasac.integrity import verify_receipt
+            self.assertTrue(verify_receipt(loaded)['checksum_matches'])
             self.assertFalse(list(Path(tmp).glob('*.tmp')))
 
     def test_history_rejects_outside_path(self):

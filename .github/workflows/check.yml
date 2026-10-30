@@ -29,6 +29,7 @@ jobs:
           base = pathlib.Path(os.environ['RUNNER_TEMP']) / 'atlasac-ghost-validation'
           subprocess.run([sys.executable, 'tools/validate_ghost_samples.py', '--expansion-only', '--download', '--samples-dir', str(base), '--output', 'ghost-validation.json'], check=True)
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: ghost-validation-${{ matrix.os }}
           path: ghost-validation.json

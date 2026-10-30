@@ -90,6 +90,10 @@ class IntegrityTests(unittest.TestCase):
             changed=json.loads(path.read_text());changed['findings']=[{'rule':'fake'}];path.write_text(json.dumps(changed))
             history.maintain()
             with self.assertRaises(ValueError):history.read(path)
+            changed.pop('report_receipt');path.write_text(json.dumps(changed))
+            with self.assertRaises(ValueError):history.read(path)
+            malformed=copy.deepcopy(report);malformed['status']='partial'
+            with self.assertRaises(ValueError):history.save(malformed)
 
     def test_scope_counter_and_partial_coverage_cannot_be_upgraded_to_clean(self):
         from atlasac.integrity import checked_final
