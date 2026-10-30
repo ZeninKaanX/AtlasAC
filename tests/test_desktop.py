@@ -34,6 +34,7 @@ class DesktopTests(unittest.TestCase):
         self.assertEqual(self.window.pages.count(),2)
         self.assertEqual(self.window.pages.currentIndex(),1)
         self.assertEqual(self.window.report['status'],'completed')
+        self.assertIsNone(self.window.report['time_budget_seconds'])
         self.assertEqual(self.window.model.rowCount(),1)
         self.assertEqual(self.window.model.rows[0]['rule'],'meteor')
         self.assertEqual(len(self.window.history.paths()),1)

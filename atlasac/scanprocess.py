@@ -1,6 +1,6 @@
-"""Killable scan process: a ten minute wall-clock budget includes startup and collectors."""
+"""Cancellable scan process with an optional explicit wall-clock budget."""
 import multiprocessing as mp
-import queue,time,secrets
+import math,queue,time,secrets
 from .engine import now
 from .systemscan import system_scan
 from . import __version__
@@ -8,9 +8,6 @@ from .assessment import report_verdict
 from .methodcoverage import coverage
 from .privacy import minimize_report,sanitize,NOTICE_VERSION
 from .integrity import SessionMessages,validate_packet,validate_progress,checked_final,mark_failure,integrity_state,require_official_rules,attach_receipt
-
-MAX_TOTAL_SECONDS=600
-MAX_SCAN_SECONDS=590  # Reserve ten seconds for process shutdown and the 5.84-second reveal.
 
 def scan_child(messages,cancel,rules,roots,data_dir,artifacts):
     try:
@@ -22,14 +19,17 @@ def session_child(messages,cancel,rules,roots,data_dir,artifacts,session,target)
     target(SessionMessages(messages,session),cancel,rules,roots,data_dir,artifacts)
 
 
-def run_scan(rules,roots,data_dir,artifacts,cancel,progress,max_seconds=MAX_SCAN_SECONDS,target=scan_child):
+def run_scan(rules,roots,data_dir,artifacts,cancel,progress,max_seconds=None,target=scan_child):
     require_official_rules(rules)
+    limit=None if max_seconds is None else float(max_seconds)
+    if limit is not None and (not math.isfinite(limit) or limit<=0):
+        raise ValueError('Tarama süre sınırı pozitif ve sonlu bir saniye değeri olmalı.')
     started=time.monotonic();session=secrets.token_hex(24);sequence=1;ctx=mp.get_context('spawn');messages=ctx.Queue(maxsize=8);child_cancel=ctx.Event()
     report={'application':'AtlasAC','version':__version__,'started_at':now(),'rule_version':rules['version'],
             'status':'running','roots':list(map(str,roots)),'findings':[],'files':[],'issues':[],'artifacts':{},'components':[],
-            'indexed_files':0,'content_files':0,'ignored_files':0,'cache_hits':0,'issues_total':0,'excluded_paths':[],'time_budget_seconds':min(max_seconds,MAX_SCAN_SECONDS)}
+            'indexed_files':0,'content_files':0,'ignored_files':0,'cache_hits':0,'issues_total':0,'excluded_paths':[],'time_budget_seconds':limit}
     proc=ctx.Process(target=session_child,args=(messages,child_cancel,rules,roots,data_dir,artifacts,session,target),daemon=True)
-    limit=max(.01,min(float(max_seconds),MAX_SCAN_SECONDS));cancel_at=None;finished=False
+    cancel_at=None;finished=False
     try:
         proc.start()
         while True:
@@ -39,10 +39,10 @@ def run_scan(rules,roots,data_dir,artifacts,cancel,progress,max_seconds=MAX_SCAN
                 if cancel_at is None:cancel_at=time.monotonic()
                 if time.monotonic()-cancel_at>=1:
                     report['status']='cancelled';break
-            if elapsed>=limit:
+            if limit is not None and elapsed>=limit:
                 child_cancel.set();report['status']='partial';report['stop_reason']='time_budget'
                 report['issues'].append({'path':'Tarama süresi','reason':f'{limit:g} saniyelik tarama sınırına ulaşıldı; tarama tamamlanmadı.'});break
-            try:packet=messages.get(timeout=min(.1,max(.001,limit-elapsed)))
+            try:packet=messages.get(timeout=.1 if limit is None else min(.1,max(.001,limit-elapsed)))
             except queue.Empty:
                 if not proc.is_alive():
                     report['status']='cancelled' if cancel.is_set() else 'partial'
@@ -69,7 +69,7 @@ def run_scan(rules,roots,data_dir,artifacts,cancel,progress,max_seconds=MAX_SCAN
                     if source in data:report[key]=data[source]
                 progress(sanitize(data))
     finally:
-        # Never wait for an unresponsive reader after the wall-clock deadline.
+        # Cancellation and an explicitly requested deadline can kill stuck readers.
         if proc.pid:
             if proc.is_alive():proc.terminate()
             proc.join(timeout=.2)

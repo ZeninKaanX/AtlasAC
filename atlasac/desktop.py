@@ -85,7 +85,7 @@ class OceanBackground(QWidget):
 class ScanWorker(QThread):
     progress=Signal(object)
     ready=Signal(object)
-    def __init__(self,roots,rules,data_dir,artifacts=True,max_seconds=600):
+    def __init__(self,roots,rules,data_dir,artifacts=True,max_seconds=None):
         super().__init__();self.roots=roots;self.rules=rules;self.data_dir=data_dir
         self.artifacts=artifacts;self.max_seconds=max_seconds;self.cancel=threading.Event()
     def run(self):
@@ -159,7 +159,7 @@ class AtlasWindow(QMainWindow):
         page=QWidget();layout=QVBoxLayout(page);layout.setContentsMargins(70,10,70,35);layout.addStretch(2)
         logo=QLabel();logo.setAlignment(Qt.AlignmentFlag.AlignCenter)
         logo.setPixmap(QPixmap(str(LOGO)).scaled(170,170,Qt.AspectRatioMode.KeepAspectRatio,Qt.TransformationMode.SmoothTransformation))
-        layout.addWidget(logo);scope=label('JAR/ZIP ve aday dosyalar · En fazla 10 dakika','color: #d6f1ff; font-size: 16px;')
+        layout.addWidget(logo);scope=label('JAR/ZIP ve aday dosyalar · Süre sınırı yok','color: #d6f1ff; font-size: 16px;')
         scope.setWordWrap(True);scope.setAlignment(Qt.AlignmentFlag.AlignCenter);layout.addWidget(scope);layout.addSpacing(22)
         controls=QHBoxLayout();controls.addStretch()
         self.start_button=button('Taramayı başlat',self.start_scan,True);controls.addWidget(self.start_button)

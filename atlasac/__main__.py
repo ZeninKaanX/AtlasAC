@@ -14,7 +14,7 @@ def main():
     parser.add_argument('--scan', type=Path, help='Komut satırından seçilen klasörü incele')
     parser.add_argument('--system-scan', action='store_true', help='Tüm yerel diskleri ve sistem kayıtlarını incele')
     parser.add_argument('--consent', action='store_true', help='Seçilen klasörün incelenmesine onay')
-    parser.add_argument('--max-seconds',type=float,default=600,help='Sistem tarama süresi; en fazla 600 saniye')
+    parser.add_argument('--max-seconds',type=float,default=None,help='İsteğe bağlı sistem tarama sınırı (saniye); verilmezse süre sınırı yok')
     parser.add_argument('--rules', type=Path, default=RULES)
     parser.add_argument('--output', type=Path)
     parser.add_argument('--verify-report',type=Path,help='JSON raporunun içerik özetini kontrol et; dijital imza değildir')
