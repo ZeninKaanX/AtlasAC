@@ -277,5 +277,7 @@ def scan(root: Path, rules: dict, cancel: threading.Event | None = None, progres
     result['finished_at'] = now()
     result['duration_seconds'] = round(time.monotonic() - start, 3)
     result['bytes_read'] = total
+    from .assessment import classify
+    classify(result['findings'])
     result['verdict'] = 'review' if result['findings'] else 'no_match'
     return result

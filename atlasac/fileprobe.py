@@ -8,6 +8,7 @@ import stat
 import time
 import zipfile
 from .findingicons import embedded_icon
+from .assessment import classify
 from .engine import inspect_archive, match_file_signatures, MAX_FILE, MAX_ARCHIVE_SECONDS
 
 
@@ -43,6 +44,7 @@ def probe(path, rules, cancel, cached=None, content_cache=None):
             stamp=fingerprint(before,f.fileno());result['fingerprint']=stamp
             if stamp and cached and cached.get('fingerprint')==stamp:
                 result.update(cached);result['cache_hit']=True;result['bytes_read']=0;result['archive_reused']=False
+                classify(result['findings'])
                 return result
             head=f.read(4);result['bytes_read']+=len(head)
             kind='ZIP' if head in (b'PK\x03\x04',b'PK\x05\x06',b'PK\x07\x08') else 'PE' if head[:2]==b'MZ' else 'ELF' if head==b'\x7fELF' else ''
@@ -92,4 +94,5 @@ def probe(path, rules, cancel, cached=None, content_cache=None):
                 raise ValueError('Dosya tarama sırasında değişti')
     except (OSError,ValueError) as exc:
         result['issues'].append({'path':str(path),'reason':str(exc)[:220]});result['fingerprint']=None
+    classify(result['findings'])
     return result

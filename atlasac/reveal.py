@@ -12,6 +12,8 @@ from .widgets import FishProgress
 from .pixels import clownfish,shark
 
 GLYPHS={
+'İ':['00100','00000','11111','00100','00100','00100','11111'],
+'c':['00000','00000','01111','10000','10000','10000','01111'],
 'T':['11111','00100','00100','00100','00100','00100','00100'],
 'e':['00000','00000','01110','10001','11111','10000','01111'],
 'm':['00000','00000','11010','10101','10101','10101','10101'],
@@ -31,6 +33,10 @@ GLYPHS={
 def verdict_for(report):
     count=len(report.get('findings',[]))
     if count:return 'Şüpheli',f'{count} şüpheli eşleşme bulundu. Ayrıntıları incele.','#ed2639'
+    signals=report.get('artifacts',{}).get('review_signals',[])
+    if signals:
+        suffix=' Tarama tamamlanmadı.' if report.get('status')!='completed' else ''
+        return 'İnceleme',f'{len(signals)} bağlam sinyali var; hile kullanımı kanıtlanmadı.'+suffix,'#e4ad63'
     if report.get('status')=='completed':return 'Temiz','Taranan aday dosyalarda bilinen hile eşleşmesi bulunmadı.','#55dbc6'
     detail='Süre sınırına ulaşıldı.' if report.get('stop_reason')=='time_budget' else 'Tarama kısmi kaldı veya durduruldu.'
     return 'Tamamlanmadı',detail+' Temiz sonucu verilemez.','#e4ad63'

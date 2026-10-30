@@ -4,6 +4,8 @@ from datetime import datetime,timezone,timedelta
 import configparser,csv,io,json,os,sqlite3,subprocess,tempfile,time,threading,shutil,hashlib
 import psutil
 from .engine import now
+from .privacy import sanitize,safe_argv,minimize_report
+from .securestore import private_directory,private_permissions
 
 
 def run(argv,timeout=20):
@@ -15,9 +17,6 @@ def run(argv,timeout=20):
 def browser_profiles():
     home=Path.home();profiles=[]
     homes=[home]
-    if os.name=='nt':
-        users=Path(os.environ.get('SystemDrive','C:')+'/Users')
-        if users.is_dir():homes=[p for p in users.iterdir() if p.is_dir() and p.name not in ('Public','Default','Default User','All Users')]
     for user in homes:
         if os.name=='nt':
             local=user/'AppData/Local';roam=user/'AppData/Roaming'
@@ -37,7 +36,7 @@ def browser_profiles():
 
 def snapshot_database(path,cancel,timeout=10):
     path=Path(path)
-    temp=tempfile.TemporaryDirectory(prefix='atlasac-history-');target=Path(temp.name)/'snapshot.sqlite'
+    temp=tempfile.TemporaryDirectory(prefix='atlasac-history-');target=Path(temp.name)/'snapshot.sqlite';private_directory(temp.name)
     source=dest=None;deadline=time.monotonic()+timeout
     def progress(*args):
         if cancel.is_set() or time.monotonic()>deadline:raise TimeoutError('Canlı veritabanı anlık kopyası zaman aşımı')
@@ -52,7 +51,7 @@ def snapshot_database(path,cancel,timeout=10):
         # Chromium may keep an EXCLUSIVE SQLite lock. Clone a stable database plus
         # WAL/rollback journal; SQLite recovers ONLY this private copy, never the source.
         for attempt in range(2):
-            temp=tempfile.TemporaryDirectory(prefix='atlasac-history-');target=Path(temp.name)/'snapshot.sqlite'
+            temp=tempfile.TemporaryDirectory(prefix='atlasac-history-');target=Path(temp.name)/'snapshot.sqlite';private_directory(temp.name)
             try:
                 sources=[(path,target)]
                 for suffix in ('-wal','-journal'):
@@ -93,10 +92,22 @@ def timestamp(value,kind):
     except (ValueError,OverflowError,OSError):return str(value)
 
 
+def relevant_download(row):
+    from urllib.parse import urlsplit
+    extensions={'.jar','.zip','.exe','.dll','.so','.ahk','.au3','.appimage'}
+    for key in ('target_path','current_path','url','tab_url'):
+        value=row.get(key)
+        if not isinstance(value,str):continue
+        try:name=urlsplit(value).path if key in ('url','tab_url') else value
+        except ValueError:continue
+        if Path(name).suffix.lower() in extensions:return True
+    return False
+
+
 def collect_browsers(cancel):
-    history=[];downloads=[];errors=[]
+    downloads=[];errors=[]
     try:profiles=browser_profiles()
-    except OSError as exc:return {'history':[],'downloads':[]},[str(exc)],0
+    except OSError as exc:return {'downloads':[]},[str(exc)],0
     for browser,profile,path,kind in profiles:
         if cancel.is_set():break
         temp=None
@@ -106,41 +117,39 @@ def collect_browsers(cancel):
             db=sqlite3.connect(snapshot)
             try:
                 if kind=='chromium':
-                    for url,title,visited,count in db.execute('SELECT url,title,last_visit_time,visit_count FROM urls ORDER BY last_visit_time DESC LIMIT 3000'):
-                        history.append({'browser':browser,'profile':profile,'url':url,'title':title,'visited_at':timestamp(visited,'chrome'),'visits':count})
                     columns={row[1] for row in db.execute('PRAGMA table_info(downloads)')}
                     if columns:
                         fields=[x for x in ('id','target_path','current_path','start_time','end_time','received_bytes','total_bytes','state','tab_url') if x in columns]
                         chains={}
                         if db.execute("SELECT 1 FROM sqlite_master WHERE name='downloads_url_chains'").fetchone():
-                            for ident,url in db.execute('SELECT id,url FROM downloads_url_chains ORDER BY chain_index'):chains[ident]=url
+                            for ident,url in db.execute('SELECT id,url FROM downloads_url_chains WHERE id IN (SELECT id FROM downloads ORDER BY start_time DESC LIMIT 3000) ORDER BY chain_index'):chains[ident]=url
                         for row in db.execute('SELECT '+','.join(fields)+' FROM downloads ORDER BY start_time DESC LIMIT 3000'):
                             item=dict(zip(fields,row));item.update(browser=browser,profile=profile,url=chains.get(item.get('id'),item.get('tab_url','')))
                             for f in ('start_time','end_time'):
                                 if f in item:item[f]=timestamp(item[f],'chrome')
-                            downloads.append(item)
+                            if relevant_download(item):downloads.append(sanitize(item))
                 else:
-                    for url,title,visited,count in db.execute('SELECT url,title,last_visit_date,visit_count FROM moz_places WHERE last_visit_date IS NOT NULL ORDER BY last_visit_date DESC LIMIT 3000'):
-                        history.append({'browser':browser,'profile':profile,'url':url,'title':title,'visited_at':timestamp(visited,'firefox'),'visits':count})
                     tables={r[0] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
                     if {'moz_annos','moz_anno_attributes'}<=tables:
-                        query='SELECT p.url,p.title,a.content,a.lastModified,n.name FROM moz_annos a JOIN moz_anno_attributes n ON n.id=a.anno_attribute_id JOIN moz_places p ON p.id=a.place_id WHERE n.name LIKE ? LIMIT 3000'
-                        for url,title,content,modified,name in db.execute(query,('downloads/%',)):
-                            downloads.append({'browser':browser,'profile':profile,'url':url,'title':title,'data':content,'type':name,'modified_at':timestamp(modified,'firefox')})
+                        query='SELECT p.url,a.lastModified FROM moz_annos a JOIN moz_anno_attributes n ON n.id=a.anno_attribute_id JOIN moz_places p ON p.id=a.place_id WHERE n.name LIKE ? LIMIT 3000'
+                        for url,modified in db.execute(query,('downloads/%',)):
+                            item={'browser':browser,'profile':profile,'url':url,'modified_at':timestamp(modified,'firefox')}
+                            if relevant_download(item):downloads.append(sanitize(item))
             finally:db.close()
         except (OSError,sqlite3.Error,TimeoutError,ValueError) as exc:errors.append(f'{browser}/{profile}: {exc}')
         finally:
             if temp:temp.cleanup()
-    return {'history':history,'downloads':downloads},errors,len(profiles)
+    return {'downloads':downloads},errors,len(profiles)
 
 
 def processes(cancel):
     result=[];modules=[];denied=0
-    for proc in psutil.process_iter(['pid','ppid','name','exe','cmdline','username','create_time','memory_info','num_threads'],ad_value=None):
+    for proc in psutil.process_iter(['pid','ppid','name','exe','cmdline','create_time','memory_info','num_threads'],ad_value=None):
         if cancel.is_set():break
         try:
             info=dict(proc.info);mem=info.pop('memory_info',None);info['rss']=mem.rss if mem else None
-            info['started_at']=timestamp(info.pop('create_time',None),'unix');result.append(info)
+            info['started_at']=timestamp(info.pop('create_time',None),'unix');info.pop('username',None)
+            info['cmdline']=safe_argv(info.get('cmdline'));result.append(sanitize(info))
             # DLL/map inspection is relevant for launchers/games and this tool, not every protected service.
             if any(s in (info.get('name') or '').lower() for s in ('java','minecraft','prism','atlasac')):
                 try:
@@ -167,7 +176,7 @@ def linux_records(cancel):
     for p in Path('/sys/bus/usb/devices').glob('*'):
         if (p/'idVendor').exists():
             item={'source':str(p)}
-            for key in ['idVendor','idProduct','manufacturer','product','serial']:
+            for key in ['idVendor','idProduct','manufacturer','product']:
                 try:item[key]=(p/key).read_text().strip()
                 except OSError:pass
             usb.append(item)
@@ -186,8 +195,8 @@ def collect_system(roots,cancel,progress):
     progress('İşlemler ve modüller okunuyor');rows,denied=processes(cancel);data.update(rows)
     components.append({'name':'İşlemler / oyun modülleri','status':'partial' if denied else 'completed','records':len(rows['processes'])+len(rows['modules']),'detail':f'{denied} korumalı veya kapanmış süreç; modüller oyun/launcher/AtlasAC süreçlerinde okunur.'})
     if cancel.is_set():return data,components
-    progress('Tarayıcı kayıtları okunuyor');rows,errors,count=collect_browsers(cancel);data.update(rows)
-    components.append({'name':'Tarayıcı geçmişi / indirmeler','status':'partial' if errors else 'completed','records':len(rows['history'])+len(rows['downloads']),'detail':f'{count} profil; profil başına son 3000 kayıt. '+ '; '.join(errors)[:800]})
+    progress('İlgili indirme kayıtları okunuyor');rows,errors,count=collect_browsers(cancel);data.update(rows)
+    components.append({'name':'İlgili indirmeler (gezinme geçmişi alınmaz)','status':'partial' if errors else 'completed','records':len(rows['downloads']),'detail':f'{count} profil; profil başına son 3000 kayıt. '+ '; '.join(errors)[:800]})
     if os.name=='nt':
         from .winrecords import windows_records
         progress('Windows başlangıç, USB ve etkinlik kayıtları okunuyor');rows,more=windows_records(roots,cancel);data.update(rows);components+=more
@@ -196,4 +205,4 @@ def collect_system(roots,cancel,progress):
         components.append({'name':'Linux başlangıç / USB / journal','status':'partial' if errors else 'completed','records':sum(map(len,rows.values())),'detail':'; '.join(errors)[:800] or 'USB: şu an bağlı aygıtlar. Journal: erişilebilen son 500 olay.'})
         components.append({'name':'USN / Windows Prefetch','status':'not_applicable','records':0,'detail':'Windows kayıt biçimleri; Linux üzerinde eşdeğer Windows kaydı yok.'})
     components.append({'name':'Procmon çekirdek izleme','status':'unavailable','records':0,'detail':'Çekirdek dosya/Registry/stack yakalama sürücüsü eklenmedi. Bu kayıtlar canlı Procmon yakalaması değildir.'})
-    return data,components
+    return minimize_report({'artifacts':data})['artifacts'],components

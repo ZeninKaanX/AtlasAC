@@ -47,11 +47,14 @@ class CommandTests(unittest.TestCase):
             events=[]
             with patch('atlasac.systemscan.collect_command_traces',return_value=(records,alerts,component)),patch('atlasac.systemscan.collect_system',return_value=({'processes':[]},[])):
                 report=system_scan(load_rules(RULES),[root],data_dir=Path(tmp)/'state',artifacts=True,progress=events.append)
-            early=next(e for e in events if e.get('new_findings'))
+            early=next(e for e in events if e.get('artifact_snapshot',{}).get('review_signals'))
             self.assertEqual(early['indexed'],0)
-            self.assertEqual(report['findings'][0]['rule'],'history-clear-command')
+            self.assertFalse(report['findings'])
+            self.assertEqual(report['artifacts']['review_signals'][0]['rule'],'history-clear-command')
+            self.assertEqual(report['verdict'],'context_review')
+            self.assertTrue(all(e['matches']==0 for e in events))
             self.assertEqual(report['artifacts']['commands'],records['commands'])
-            self.assertEqual(sum('artifact_snapshot' in e for e in events),1)
+            self.assertEqual(events[-1]['artifact_snapshot']['review_signals'],report['artifacts']['review_signals'])
 
     def test_native_windows_output_decodes_utf16_errors_and_utf8(self):
         from atlasac.commandtraces import decode_windows_text

@@ -1,4 +1,4 @@
-# AtlasAC 0.3.6
+# AtlasAC 0.3.7
 
 [Windows EXE indir](https://github.com/ZeninKaanX/AtlasAC/releases/latest/download/AtlasAC.exe) · [Linux x64 indir](https://github.com/ZeninKaanX/AtlasAC/releases/latest/download/AtlasAC-Linux-x64) · [Tüm sürümler](https://github.com/ZeninKaanX/AtlasAC/releases)
 
@@ -8,14 +8,14 @@ AtlasOyuncu temalı, Windows ve Linux için **yerel masaüstü dosya ve sistem k
 ## Kullanım
 
 1. Windows’ta `dist/AtlasAC.exe`, Linux’ta `dist/AtlasAC-Linux-x64` dosyasını aç. **Tek dosyadır; kurulum veya yanında `_internal` klasörü gerekmez.**
-2. **Taramayı başlat** düğmesine bas. Tüm yerel diskler otomatik seçilir.
+2. **Taramayı başlat** düğmesine bas. TrueFormTech iletişim bilgileri, kapsam ve saklama bilgilerini oku; cihazı incelemeye yetkiliysen ayrı teknik izin seçimini işaretle. Tüm yerel diskler otomatik seçilir.
 3. Dosyalar ve eşleşmeler tarama sırasında canlı görünür; **Sonuçlar** sayfasına hemen geçebilirsin. Bitişte sesli sonuç animasyonu açılır; **Sonuçlar** düğmesine basana kadar ekranda kalır. İstersen JSON raporu kaydet.
 
 İlk açılışta gömülü çalışma dosyaları geçici klasöre hazırlanırken kısa bir bekleme olabilir. Hazır uygulama Python veya pip kurulumu ve yönetici yetkisi istemez. Windows’ta korumalı Prefetch/USN/BAM kayıtları için isteğe bağlı “Yönetici olarak çalıştır” kullanılabilir; normal çalıştırmada erişim eksikleri gösterilir. Linux’ta indirilmiş dosyanın çalıştırma izni korunmamışsa dosya özelliklerinden çalıştırılabilir yap.
 
 ZIP/TAR.GZ arşivleri aynı tek dosyalık uygulamayı içerir. Linux derlemeleri glibc 2.44 üzerinde üretildi; eski dağıtımlarda doğrulanmadı. SHA-256 değerleri `dist/SHA256SUMS.txt` içindedir. Derlemeler imzasızdır.
 
-Son 50 tarama `~/.atlasac/reports` altında JSON olarak saklanır. Dosyalar yalnızca okunur; silinmez, taşınmaz veya çalıştırılmaz. Otomatik veri gönderimi ya da ban yoktur. Defender ayarları değiştirilmez. Dosya adları ve değişiklik doğrulamalı içerik önbelleği `~/.atlasac/file-index.sqlite3` içinde tutulur. Tarama verileri cihazda kalır; tarayıcı çerezleri ve şifreleri toplanmaz.
+Son 50 tarama, en fazla 7 gün `~/.atlasac/reports` altında maskelenmiş JSON olarak saklanır. Yaş kontrolü uygulama açılırken ve tarama başlarken yapılır; uygulama kapalıyken silme görevi çalışmaz. Dosya indeksi de 7 günlük son görülme süresiyle temizlenir. Sonuçlar sayfasındaki **Yerel verileri sil** rapor/indeks/işlem günlüğünü siler; dışa aktarılan kopyaları kapsamaz. Linux izinleri 700/600, Windows DACL mevcut kullanıcı ve SYSTEM ile sınırlandırılır; yöneticilere veya aynı kullanıcı altında çalışan zararlı yazılıma karşı şifreleme değildir. Dosyalar yalnızca okunur; silinmez, taşınmaz veya çalıştırılmaz. Otomatik veri gönderimi ya da ban yoktur. Defender ayarları değiştirilmez. Dosya adları ve değişiklik doğrulamalı içerik önbelleği `~/.atlasac/file-index.sqlite3` içinde tutulur. Tarama verileri cihazda kalır; tarayıcı çerez/parola kasaları okunmaz. Komutlarda bilinen sır biçimleri maskelenir; her sır biçimi tanınamaz. Genel gezinme geçmişi kaydedilmez. Ayrıntılar: [gizlilik ve saklama](docs/PRIVACY.md), [olay müdahale planı](docs/INCIDENT-RESPONSE.md).
 
 ## Gerçek kapsam
 
@@ -26,7 +26,7 @@ Son 50 tarama `~/.atlasac/reports` altında JSON olarak saklanır. Dosyalar yaln
 - Aday uzantılardaki adı değiştirilmiş arşivler ve farklı uzantıyla iç içe paketlenmiş JAR’lar. PNG/JPG, medya ve belgeler hızlı sistem taramasında atlanır; görüntü önekli arşivlere ait eski deneyler ayrı klasör okuyucusuyla yapılmıştır.
 - Seçilen aday dosyaların ad/boyut/zaman indeksi, ayrı işlemde tarama, durdurma ve JSON dışa aktarma.
 - İşlem envanteri, oyun/launcher süreçlerinin yüklenmiş dosya/modül yolları.
-- Chromium/Firefox geçmişi ve indirmeleri (profil başına son 3000 kayıt; canlı SQLite backup; özel kilitte değişiklik/SHA-256 denetimli yerel kopya, atomiklik sınırı raporlanır).
+- Yalnız mevcut kullanıcının Chromium/Firefox profillerindeki ilgili JAR/ZIP/EXE/DLL/SO/AHK/AU3/AppImage indirmeleri (profil başına en fazla 3000 aday). Genel gezinme geçmişi kaydedilmez; URL kullanıcı bilgisi, sorgu ve fragment kaldırılır. Veritabanının geçici yerel kopyası izinleri kısıtlı alanda tutulur ve normal çıkışta silinir.
 - Windows: Registry başlangıcı, servis/sürücü/görev envanteri, USB kayıtları, BAM, son 300 seçilmiş sistem olayı, Prefetch ve erişim varsa NTFS USN v2/v3.
 - Linux: autostart/systemd bağlantıları, bağlı USB ve erişilebilen son 500 journal olayı.
 - Mobile logosundan üretilmiş şeffaf logo, görünür hareketli arka plan; yalnızca Tarama/Sonuçlar ve sağ altta E.V.
@@ -111,3 +111,5 @@ Ghost istemci kapsamı: DoomsDay için resmi sitenin normal ve rastgele boyutlu 
 [Ghost istemci kapsamı ve gerçek testler](docs/GHOST-COVERAGE.md): yeni beş gerçek pozitif dosya, iki normal mod ve önceki iki DoomsDay örneği; yeniden adlandırma, metadata kaldırma, iç paket ve canlı/önbellek kontrolleri. **Vape, Whiteout, Entropy, Dream, Drip, Slinky, Raven ve bütün ghost client'lar için doğrulanmış kapsam iddia edilmez.** Yeni çalıştırılabilir örnekler kaynak/paket içine eklenmez, hiçbir hile çalıştırılmaz.
 
 0.3.6: Hydrogen, Nemui (Weave/Forge), VOX, Lumina, Zyklon, Fusion+ DLL ve Wraith Linux kuralları eklendi. Yeni 13 gerçek dosya toplam 7 adlandırılmış projeyi kapsar; türevler bağımsız mimari olarak sayılmaz. Beş Java projesi üç özgül sınıfın birlikte bulunmasıyla; Fusion+/Wraith yalnızca doğrulanan tam SHA-256 ve boyutla eşleşir. `.AppImage` aday uzantılarına eklendi. Zyklon paketinin içindeki gerçek payload ayrıca doğrulanır; ortak/generic injector tek başına hile diye etiketlenmez. Hydrogen'in bozuk JSON metadata kaydı hata olarak korunurken sınıf eşleşmesi yine canlı görünür. Nemui ve Lumina'nın gerçek ikonları eklendi (toplam 20). [Kapsam ve sınırlar](docs/GHOST-COVERAGE.md).
+
+0.3.7: Sır maskeleme, özel dosya izinleri ve Windows DACL, 7 günlük saklama, eski raporların temizlenmesi, yerel verileri silme ve TrueFormTech iletişimli tarama öncesi bilgilendirme eklendi. Gezinme geçmişi kaldırıldı; ilgili indirme kayıtları daraltıldı. Komut temizleme belirtileri artık hile eşleşmesine eklenmez; ayrı sarı “İnceleme” sonucudur. Rehberin 50 yöntemi için [kapsam tablosu](docs/METHOD-COVERAGE.md) bulunur; desteklenmeyen yöntemler uygulanmış gibi gösterilmez.

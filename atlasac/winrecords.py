@@ -113,8 +113,8 @@ def registry_records():
                         for serial in enum(dev):
                             try:
                                 with w.OpenKey(dev,serial) as key:
-                                    item={'device':device,'instance':serial,'source':path,'registry_modified':filetime(w.QueryInfoKey(key)[2])}
-                                    for field in ['FriendlyName','DeviceDesc','Mfg','ContainerID']:
+                                    item={'device':device,'source':path,'registry_modified':filetime(w.QueryInfoKey(key)[2])}
+                                    for field in ['FriendlyName','DeviceDesc','Mfg']:
                                         try:item[field]=w.QueryValueEx(key,field)[0]
                                         except OSError:pass
                                     usb.append(item)
@@ -142,7 +142,7 @@ try {$r.services = @(Get-CimInstance Win32_Service -ErrorAction Stop | Select-Ob
 try {$r.drivers = @(Get-CimInstance Win32_SystemDriver -ErrorAction Stop | Select-Object Name,PathName,StartMode,State)} catch {$errs += $_.Exception.Message}
 try {$r.tasks = @(Get-ScheduledTask -ErrorAction Stop | ForEach-Object { [pscustomobject]@{name=$_.TaskName;path=$_.TaskPath;state=[string]$_.State;actions=@($_.Actions | Select-Object Execute,Arguments,WorkingDirectory)}})} catch {$errs += $_.Exception.Message}
 try {$r.events = @(Get-WinEvent -FilterHashtable @{LogName='System';Id=12,13,6005,6006,1074,7001,7002} -MaxEvents 300 -ErrorAction Stop | Select-Object @{n='timestamp';e={$_.TimeCreated.ToUniversalTime().ToString('o')}},Id,ProviderName,Message)} catch {$errs += $_.Exception.Message}
-try {$r.connected_usb = @(Get-CimInstance Win32_PnPEntity -Filter "PNPDeviceID LIKE 'USB%'" -ErrorAction Stop | Select-Object Name,PNPDeviceID,Status)} catch {$errs += $_.Exception.Message}
+try {$r.connected_usb = @(Get-CimInstance Win32_PnPEntity -Filter "PNPDeviceID LIKE 'USB%'" -ErrorAction Stop | Select-Object Name,Status)} catch {$errs += $_.Exception.Message}
 $r.errors = $errs
 ConvertTo-Json -InputObject $r -Depth 6 -Compress
 '''

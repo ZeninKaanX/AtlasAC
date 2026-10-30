@@ -9,6 +9,7 @@ import subprocess
 import tempfile
 import time
 import xml.etree.ElementTree as ET
+from .privacy import redact_text
 
 MAX_COMMAND=4096
 MAX_RECORDS=1200
@@ -35,7 +36,8 @@ PATTERNS=(
 COMPILED=[(rule,name,re.compile(BOUNDARY+body,re.I)) for rule,name,body in PATTERNS]
 
 def redact(text):
-    return re.sub(r'(?i)((?:password|passwd|token|api[_-]?key|secret)\s*[=:]\s*)(?:"[^"\n]*"|\'[^\'\n]*\'|[^\s;]+)',r'\1[REDACTED]',str(text))[:MAX_COMMAND]
+    return redact_text(text)[:MAX_COMMAND]
+
 
 def command_body(text):
     text=str(text)[:65536].strip()
@@ -150,10 +152,6 @@ def event_query(channel,ids,timeout):
 
 def history_files():
     homes=[Path.home()]
-    if os.name=='nt':
-        users=Path(os.environ.get('SystemDrive','C:')+'/Users')
-        try:homes=list(users.iterdir())[:100]
-        except OSError:pass
     for home in homes:
         if os.name=='nt':
             root=home/'AppData/Roaming/Microsoft/Windows/PowerShell/PSReadLine'

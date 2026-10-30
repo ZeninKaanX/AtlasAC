@@ -1,6 +1,7 @@
 """Exercise the native start/results flow with an actual scanner worker."""
 import json,os,tempfile,time,unittest,zipfile
 from pathlib import Path
+from unittest.mock import patch
 os.environ.setdefault('QT_QPA_PLATFORM','offscreen')
 from PySide6.QtWidgets import QApplication,QLabel
 from PySide6.QtTest import QTest
@@ -20,6 +21,7 @@ class DesktopTests(unittest.TestCase):
     def setUpClass(cls):cls.app=QApplication.instance() or QApplication([])
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory();self.root=Path(self.temp.name);self.mods=self.root/'outside-minecraft';self.mods.mkdir()
+        confirmation=patch('atlasac.desktop.AtlasWindow.confirm_scan',return_value=True);confirmation.start();self.addCleanup(confirmation.stop)
         self.window=AtlasWindow(history_dir=self.root/'reports',scan_roots=[self.mods],data_dir=self.root/'cache',collect_artifacts=False);self.window.show()
     def tearDown(self):
         if self.window.worker and self.window.worker.isRunning():self.window.worker.cancel.set();self.window.worker.wait(10000)
@@ -100,3 +102,23 @@ class DesktopTests(unittest.TestCase):
         self.assertTrue(window.reveal.active);self.assertFalse(window.reveal.timer.isActive())
         window.showNormal();QTest.qWait(20)
         self.assertTrue(window.reveal.active);self.assertTrue(window.reveal.timer.isActive())
+
+    def test_notice_requires_explicit_permission_and_reject_starts_no_worker(self):
+        from atlasac.desktop import ScanNotice
+        dialog=ScanNotice(self.window)
+        self.assertFalse(dialog.permission.isChecked());self.assertFalse(dialog.start.isEnabled())
+        dialog.permission.setChecked(True);self.assertTrue(dialog.start.isEnabled());dialog.reject()
+        with patch.object(self.window,'confirm_scan',return_value=False):self.window.start_scan()
+        self.assertIsNone(self.window.worker);self.assertIsNone(self.window.report)
+        dialog.close()
+
+    def test_clear_data_removes_only_owned_storage(self):
+        from PySide6.QtWidgets import QMessageBox
+        from atlasac.index import FileIndex
+        index=FileIndex(self.root/'cache/file-index.sqlite3');index.close()
+        sample=self.mods/'keep.jar';sample.write_bytes(b'keep')
+        self.window.history.save(dict(started_at='2026-10-30T00:00:00Z',status='completed',roots=[],findings=[],files=[],issues=[]))
+        self.window.audit.record('scan-start')
+        with patch('atlasac.desktop.QMessageBox.question',return_value=QMessageBox.StandardButton.Yes):self.window.clear_local_data()
+        self.assertFalse(self.window.history.paths());self.assertFalse((self.root/'cache/file-index.sqlite3').exists())
+        self.assertFalse(self.window.audit.path.exists());self.assertEqual(sample.read_bytes(),b'keep')

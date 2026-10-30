@@ -4,6 +4,9 @@ import queue,time
 from .engine import now
 from .systemscan import system_scan
 from . import __version__
+from .assessment import report_verdict
+from .methodcoverage import coverage
+from .privacy import minimize_report,sanitize
 
 MAX_TOTAL_SECONDS=600
 MAX_SCAN_SECONDS=590  # Reserve ten seconds for process shutdown and the 5.84-second reveal.
@@ -44,13 +47,14 @@ def run_scan(rules,roots,data_dir,artifacts,cancel,progress,max_seconds=MAX_SCAN
             if kind=='error':report['status']='partial';report['issues'].append({'reason':data});break
             if kind=='progress':
                 report['artifacts'].update(data.get('artifact_snapshot',{}))
+                for key,rows in data.get('artifact_delta',{}).items():report['artifacts'].setdefault(key,[]).extend(rows)
                 if 'components' in data:report['components']=data['components']
                 report['findings'].extend(data.get('new_findings',[]))
                 report['files']=(report['files']+data.get('recent_files',[]))[-160:]
                 for key in ('indexed_files','content_files','ignored_files','cache_hits','archive_reuses','issues_total','index_path','scan_id','excluded_paths','exclusion_reasons','internal_exclusions','scope_note','limits','cpu_target_cores'):
                     source='indexed' if key=='indexed_files' else key
                     if source in data:report[key]=data[source]
-                progress(data)
+                progress(sanitize(data))
     finally:
         # Never wait for an unresponsive reader after the wall-clock deadline.
         if proc.pid:
@@ -62,6 +66,7 @@ def run_scan(rules,roots,data_dir,artifacts,cancel,progress,max_seconds=MAX_SCAN
     report.setdefault('finished_at',now());report.setdefault('duration_seconds',round(time.monotonic()-started,3))
     report['issues_total']=max(report.get('issues_total',0),len(report['issues']))
     report['time_budget_seconds']=limit
-    report['verdict']='review' if report['findings'] else 'no_match'
+    report['verdict']=report_verdict(report)
+    report['artifacts']['method_coverage']=coverage(report)
     if not finished:report['partial_snapshot']=True
-    return report
+    return minimize_report(report)
