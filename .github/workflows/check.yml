@@ -40,6 +40,7 @@ jobs:
         run: |
           import os, pathlib, subprocess, sys
           binary = pathlib.Path('dist/Standalone') / ('AtlasAC.exe' if os.name == 'nt' else 'AtlasAC')
+          subprocess.run([sys.executable, 'tools/verify_bundle.py', str(binary)], check=True)
           subprocess.run([sys.executable, 'tools/validate_report_receipt.py', str(binary)], check=True)
       - uses: actions/upload-artifact@v4
         with:
